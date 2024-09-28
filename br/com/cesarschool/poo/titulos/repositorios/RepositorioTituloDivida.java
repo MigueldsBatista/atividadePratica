@@ -2,7 +2,13 @@ package br.com.cesarschool.poo.titulos.repositorios;
 
 import br.com.cesarschool.poo.titulos.entidades.Acao;
 import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
-
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /*
  * Deve gravar em e ler de um arquivo texto chamado TituloDivida.txt os dados dos objetos do tipo
@@ -28,8 +34,29 @@ import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
  * objeto. Caso o identificador n�o seja encontrado no arquivo, retornar null.   
  */
 public class RepositorioTituloDivida {
+	private final String  fileName = "TituloDivida.txt";
 	public boolean incluir(TituloDivida tituloDivida) {
-		return false;
+		try(BufferedReader reader = new BufferedReader(new FileReader(fileName))){
+			String line;
+			while((line=reader.readLine())!=null){
+				String[] parts = line.split(";");
+				int id = Integer.parseInt(parts[0]);
+				if (id == tituloDivida.getIdentificador()){
+					return false;
+				}
+			}
+		}catch(IOException e){
+			e.printStackTrace();
+			return false;
+		}
+		try(BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))){
+            writer.write(tituloDivida.getIdentificador() + ";" + tituloDivida.getNome() + ";" + tituloDivida.getDataValidade() + ";" + tituloDivida.getTaxaJuros());
+			writer.newLine();
+		}catch(IOException e){
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 	public boolean alterar(TituloDivida tituloDivida) {
 		return false;

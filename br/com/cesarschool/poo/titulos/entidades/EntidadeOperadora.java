@@ -39,6 +39,10 @@ private double saldoTituloDivida;
         return saldoAcao;
     }
 
+    public double getAutorizadoAcao() {
+        return autorizadoAcao;
+    }
+    
     public double getSaldoTituloDivida() {
         return saldoTituloDivida;
     }
