@@ -1,6 +1,5 @@
 Entidades de repositório
 
-RepositorioAcao
 RepositorioEntidadeOperadora
 RepositorioTituloDivida
 RepositorioTranscao
