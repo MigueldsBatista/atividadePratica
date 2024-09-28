@@ -6,6 +6,8 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 /*
@@ -138,6 +140,24 @@ public class RepositorioAcao {
 
 	}
 	public Acao buscar(int identificador) {
+		String fileName = "Acao.txt";
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+		try(BufferedReader reader = new BufferedReader(new FileReader(fileName))){
+			String line;
+			while((line = reader.readLine()) != null){
+				String[] parts = line.split(";");
+				int id = Integer.parseInt(parts[0]);
+				if(id == identificador){
+					String nome = parts[1];
+					LocalDate dataValidade = LocalDate.parse(parts[2], formatter);
+					double valorUnitario = Double.parseDouble(parts[3]);
+					return new Acao(id, nome, dataValidade, valorUnitario);
+				}
+			}
+		}catch (IOException e){
+			e.printStackTrace();
+		}
 		return null;
 	}
 }
