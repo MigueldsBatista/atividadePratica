@@ -7,20 +7,20 @@ package br.com.cesarschool.poo.titulos.repositorios;
     2;BANCO DO BRASIL;2026-01-01;21.21
     3;CORREIOS;2027-11-11;6.12 
  * 
- * A inclusão deve adicionar uma nova linha ao arquivo. Não é permitido incluir 
- * identificador repetido. Neste caso, o método deve retornar false. Inclusão com 
+ * A inclusï¿½o deve adicionar uma nova linha ao arquivo. Nï¿½o ï¿½ permitido incluir 
+ * identificador repetido. Neste caso, o mï¿½todo deve retornar false. Inclusï¿½o com 
  * sucesso, retorno true.
  * 
- * A alteração deve substituir a linha atual por uma nova linha. A linha deve ser 
- * localizada por identificador que, quando não encontrado, enseja retorno false. 
- * Alteração com sucesso, retorno true.  
+ * A alteraï¿½ï¿½o deve substituir a linha atual por uma nova linha. A linha deve ser 
+ * localizada por identificador que, quando nï¿½o encontrado, enseja retorno false. 
+ * Alteraï¿½ï¿½o com sucesso, retorno true.  
  *   
- * A exclusão deve apagar a linha atual do arquivo. A linha deve ser 
- * localizada por identificador que, quando não encontrado, enseja retorno false. 
- * Exclusão com sucesso, retorno true.
+ * A exclusï¿½o deve apagar a linha atual do arquivo. A linha deve ser 
+ * localizada por identificador que, quando nï¿½o encontrado, enseja retorno false. 
+ * Exclusï¿½o com sucesso, retorno true.
  * 
  * A busca deve localizar uma linha por identificador, materializar e retornar um 
- * objeto. Caso o identificador não seja encontrado no arquivo, retornar null.   
+ * objeto. Caso o identificador nï¿½o seja encontrado no arquivo, retornar null.   
  */
 public class RepositorioEntidadeOperadora {
 

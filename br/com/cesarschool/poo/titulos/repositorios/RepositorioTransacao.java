@@ -5,7 +5,7 @@ import br.com.cesarschool.poo.titulos.entidades.Transacao;
  * Deve gravar em e ler de um arquivo texto chamado Transacao.txt os dados dos objetos do tipo
  * Transacao. Seguem abaixo exemplos de linhas 
  * De entidadeCredito: identificador, nome, autorizadoAcao, saldoAcao, saldoTituloDivida.
- * De entidadeDebito: identificador, nome, autorizadoAcao, saldoAcao, saldoTituloDivida.
+ * De entidade Debito: identificador, nome, autorizadoAcao, saldoAcao, saldoTituloDivida.
  * De acao: identificador, nome, dataValidade, valorUnitario OU null
  * De tituloDivida: identificador, nome, dataValidade, taxaJuros OU null. 
  * valorOperacao, dataHoraOperacao
