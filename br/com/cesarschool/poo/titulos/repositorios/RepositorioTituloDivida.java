@@ -59,7 +59,25 @@ public class RepositorioTituloDivida {
 		return true;
 	}
 	public boolean alterar(TituloDivida tituloDivida) {
+		List<String> lines = new ArrayList<>();
+		boolean found = false;
 		return false;
+		try(BufferedReader reader = new BufferedReader(new FileReader(fileName))){
+			String line;
+			while((line = reader.readLine())!=null){
+				String[] parts =line.split(";");
+				int id = Integer.parseInt(parts[0]);
+				if(id==tituloDivida.getIdentificador()){
+					line = tituloDivida.getIdentificador() +";"+tituloDivida.getNome()+";"+tituloDivida.getDataValidade()+";"+tituloDivida.getTaxaJuros();
+					found = true;
+				}
+				lines.add(line);
+			}
+		}catch(IOException e){
+			e.printStackTrace();
+			return false;
+		}
+
 	}
 	public boolean excluir(int identificador) {
 		return false;
