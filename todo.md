@@ -2,4 +2,4 @@ Entidades de repositório
 
 RepositorioEntidadeOperadora
 RepositorioTituloDivida
-RepositorioTranscao
+RepositorioTransacao
