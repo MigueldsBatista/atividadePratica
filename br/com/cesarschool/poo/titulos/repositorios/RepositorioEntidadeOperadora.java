@@ -33,9 +33,8 @@ import java.util.List;
  * objeto. Caso o identificador n�o seja encontrado no arquivo, retornar null.   
  */
 public class RepositorioEntidadeOperadora {
-
+	private final String fileName = "entidadeOperadora.txt";
    public boolean incluir(EntidadeOperadora entidadeOperadora) {
-      String fileName = "entidadeOperadora.txt";
       try (BufferedReader reader = new BufferedReader(new FileReader(fileName))){
           String line;
           while ((line = reader.readLine()) != null){
@@ -61,7 +60,6 @@ public class RepositorioEntidadeOperadora {
       return true;
   }
 	public boolean alterar(EntidadeOperadora entidadeOperadora) {
-		String fileName = "entidadeOperadora.txt";
 		List<String> lines = new ArrayList<>();
 		boolean found = false;
 
@@ -97,8 +95,6 @@ public class RepositorioEntidadeOperadora {
 			return true;
 	}
 	public boolean excluir(int identificador) {
-
-		String fileName = "entidadeOperadora.txt";
 		List<String> lines = new ArrayList<>();
 		boolean found = false;
 
@@ -137,7 +133,6 @@ public class RepositorioEntidadeOperadora {
 
 	}
 	public EntidadeOperadora buscar(int identificador) {
-		String fileName = "entidadeOperadora.txt";
 		try(BufferedReader reader = new BufferedReader(new FileReader(fileName))){
 			String line;
 			while((line = reader.readLine()) != null){

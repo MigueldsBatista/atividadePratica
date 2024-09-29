@@ -7,6 +7,8 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,7 +63,6 @@ public class RepositorioTituloDivida {
 	public boolean alterar(TituloDivida tituloDivida) {
 		List<String> lines = new ArrayList<>();
 		boolean found = false;
-		return false;
 		try(BufferedReader reader = new BufferedReader(new FileReader(fileName))){
 			String line;
 			while((line = reader.readLine())!=null){
@@ -76,13 +77,65 @@ public class RepositorioTituloDivida {
 		}catch(IOException e){
 			e.printStackTrace();
 			return false;
+		}if(found!=true){
+			return false;
 		}
-
+		try(BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))){
+			for(String line : lines){
+				writer.write(line);
+				writer.newLine();
+			}
+		}catch(IOException e){
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 	public boolean excluir(int identificador) {
-		return false;
+		List<String> lines=new ArrayList<>();
+		boolean found = false;
+		try(BufferedReader reader = new BufferedReader(new FileReader(fileName))){
+			String line;
+			while((line=reader.readLine())!=null){
+				String[] parts=line.split(";");
+				int id = Integer.parseInt(parts[0]);
+				if(id==identificador){
+					found=true;
+					continue;
+				}
+			}
+		}catch(IOException e){
+			e.printStackTrace();
+			return false;
+		}
+		try(BufferedWriter writer =new BufferedWriter(new FileWriter(fileName))){
+			for(String line : lines){
+				writer.write(line);
+				writer.newLine();
+			}
+		}catch(IOException e){
+			e.printStackTrace();
+			return false;
+		}
+		return true;	
 	}
-	public Acao buscar(int identificador) {
+	public TituloDivida buscar(int identificador) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		try(BufferedReader reader = new BufferedReader(new FileReader(fileName))){
+			String line;
+			while((line = reader.readLine())!=null){
+				String[] parts = line.split(";");
+				int id = Integer.parseInt(parts[0]);
+				if(id==identificador){
+					String nome = parts[1];
+					LocalDate dataValidade = LocalDate.parse(parts[2], formatter);
+					double taxaJuros = Double.parseDouble(parts[3]);
+					return new TituloDivida(identificador, nome, dataValidade, taxaJuros);
+				}
+			}
+		}catch(IOException e){
+			e.printStackTrace();
+		}
 		return null;
 	}
 }

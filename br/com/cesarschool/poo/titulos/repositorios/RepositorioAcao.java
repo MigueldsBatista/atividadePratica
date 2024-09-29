@@ -35,8 +35,8 @@ import java.util.List;
  */
 
 public class RepositorioAcao {
+	private final 	String fileName = "Acao.txt";
 	public boolean incluir(Acao acao) {
-		String fileName = "Acao.txt";
 		try (BufferedReader reader = new BufferedReader(new FileReader(fileName))){
 			String line;
 			while ((line = reader.readLine()) != null){
@@ -64,7 +64,6 @@ public class RepositorioAcao {
 		
 	}
 	public boolean alterar(Acao acao) {
-		String fileName = "Acao.txt";
 		List<String> lines = new ArrayList<>();
 		boolean found = false;
 
@@ -100,8 +99,6 @@ public class RepositorioAcao {
 			return true;
 	}
 	public boolean excluir(int identificador) {
-
-		String fileName = "Acao.txt";
 		List<String> lines = new ArrayList<>();
 		boolean found = false;
 
@@ -140,7 +137,6 @@ public class RepositorioAcao {
 
 	}
 	public Acao buscar(int identificador) {
-		String fileName = "Acao.txt";
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 		try(BufferedReader reader = new BufferedReader(new FileReader(fileName))){
