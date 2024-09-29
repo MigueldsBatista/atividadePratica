@@ -60,6 +60,7 @@ public class RepositorioTituloDivida {
 		}
 		return true;
 	}
+	
 	public boolean alterar(TituloDivida tituloDivida) {
 		List<String> lines = new ArrayList<>();
 		boolean found = false;

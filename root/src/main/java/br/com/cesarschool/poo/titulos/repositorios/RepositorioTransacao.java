@@ -7,7 +7,7 @@ import br.com.cesarschool.poo.titulos.entidades.Transacao;
  * De entidadeCredito: identificador, nome, autorizadoAcao, saldoAcao, saldoTituloDivida.
  * De entidade Debito: identificador, nome, autorizadoAcao, saldoAcao, saldoTituloDivida.
  * De acao: identificador, nome, dataValidade, valorUnitario OU null
- * De tituloDivida: identificador, nome, dataValidade, taxaJuros OU null. 
+ * De transacao: identificador, nome, dataValidade, taxaJuros OU null. 
  * valorOperacao, dataHoraOperacao
  * 
  *   002192;BCB;true;0.00;1890220034.0;001112;BOFA;true;12900000210.00;3564234127.0;1;PETROBRAS;2024-12-12;30.33;null;100000.0;2024-01-01 12:22:21 
@@ -18,11 +18,29 @@ import br.com.cesarschool.poo.titulos.entidades.Transacao;
  * A busca deve retornar um array de transações cuja entidadeCredito tenha identificador igual ao
  * recebido como parâmetro.  
  */
+
+ import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+
+
+
 public class RepositorioTransacao {
-	public void incluir(Transacao transacao) {
-		
+	
+	private final String fileName="Transacao.txt";
+
+	public void incluir(Transacao transacao) {;
 	}
+	
 	public Transacao[] buscarPorEntidadeCredora(int identificadorEntidadeCredito) {
 		return null;
 	}
+
+	
 }
