@@ -1,5 +1,4 @@
 package br.com.cesarschool.poo.titulos.entidades;
-//theme Dark dimmed
 
 import java.time.LocalDateTime;
 

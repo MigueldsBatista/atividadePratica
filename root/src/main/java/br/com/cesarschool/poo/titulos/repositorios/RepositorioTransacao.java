@@ -1,4 +1,16 @@
 package br.com.cesarschool.poo.titulos.repositorios;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import br.com.cesarschool.poo.titulos.entidades.Transacao;
+import br.com.cesarschool.poo.titulos.entidades.EntidadeOperadora;
+
 /*
  * Deve gravar em e ler de um arquivo texto chamado Transacao.txt os dados dos objetos do tipo
  * Transacao. Seguem abaixo exemplos de linhas 
@@ -16,17 +28,6 @@ package br.com.cesarschool.poo.titulos.repositorios;
  * A busca deve retornar um array de transações cuja entidadeCredito tenha identificador igual ao
  * recebido como parâmetro.  
  */
-
- import java.io.BufferedReader;
- import java.io.BufferedWriter;
- import java.io.FileReader;
- import java.io.FileWriter;
- import java.io.IOException;
- import java.time.LocalDateTime;
- import java.util.ArrayList;
- import java.util.List;
- import br.com.cesarschool.poo.titulos.entidades.Transacao;
- import br.com.cesarschool.poo.titulos.entidades.EntidadeOperadora;
  
  public class RepositorioTransacao {
  
@@ -43,8 +44,8 @@ package br.com.cesarschool.poo.titulos.repositorios;
 			 e.printStackTrace();
 		 }
 	 }
- 
-	 public Transacao[] buscarPorEntidadeCredora(int identificadorEntidadeCredito) {
+
+ 	 public Transacao[] buscarPorEntidadeCredora(int identificadorEntidadeCredito) {
 		 List<Transacao> transacoes = new ArrayList<>();
 		 try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
 			 String linha;
