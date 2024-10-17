@@ -1,4 +1,8 @@
 package br.com.cesarschool.poo.titulos.mediators;
+
+import br.com.cesarschool.poo.titulos.entidades.EntidadeOperadora;
+import br.com.cesarschool.poo.titulos.repositorios.RepositorioEntidadeOperadora;
+
 /*
  * Deve ser um singleton.
  * 
@@ -46,8 +50,19 @@ package br.com.cesarschool.poo.titulos.mediators;
  * 
  * public EntidadeOperadora buscar(int identificador): deve validar o identificador.
  * Se este for válido, deve chamar o buscar do repositório, retornando o 
- * que ele retornar. Se o identificador for inválido, retornar null. 
+ * que ele retornar. Se o identificadoar for inválido, retornar null. 
  */
-public class MediatorEntdadeOperadora {
+public class MediatorEntidadeOperadora  {
+    private static MediatorEntidadeOperadora  instance;
+    private RepositorioEntidadeOperadora repositorioEntidadeOperadora  = new RepositorioEntidadeOperadora();
+    private MediatorEntidadeOperadora (){
+    }
 
+    public static MediatorEntidadeOperadora getInstance(){
+        if(instance==null){
+            instance = new MediatorEntidadeOperadora();
+        }
+        return instance;
+    }
+    
 }
