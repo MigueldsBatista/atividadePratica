@@ -56,7 +56,7 @@ public class MediatorEntidadeOperadora  {
     private static MediatorEntidadeOperadora  instance;//tava pesquisando e issa aqui é o "Singleton"
     private RepositorioEntidadeOperadora repositorioEntidadeOperadora  = new RepositorioEntidadeOperadora();
     private MediatorEntidadeOperadora (){}//esse coisa aqui foi pra iniciar o singleton como privado
-    public static MediatorEntidadeOperadora getInstance(){
+    public static MediatorEntidadeOperadora getInstancia(){
         if(instance==null){
             instance = new MediatorEntidadeOperadora();
         }

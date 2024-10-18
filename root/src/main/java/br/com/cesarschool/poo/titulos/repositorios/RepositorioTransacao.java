@@ -92,4 +92,39 @@ public class RepositorioTransacao {
 
 		return transacoes.toArray(new Transacao[transacoes.size()]);
 	}
+
+	public Transacao[] buscarPorEntidadeDebito(long identificadorEntidadeDebito) {
+		List<Transacao> transacoes = new ArrayList<>();
+		try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+			String linha;
+			while ((linha = reader.readLine()) != null) {
+				String[] partes = linha.split(";");
+				if (partes.length < 13) {
+					continue; // Ignora linhas inválidas
+				}
+	
+				long idDebito = Long.parseLong(partes[5]);
+				if (idDebito == identificadorEntidadeDebito) {
+					EntidadeOperadora entidadeCredito = new EntidadeOperadora(Long.parseLong(partes[0]), partes[1], Double.parseDouble(partes[2]));
+					EntidadeOperadora entidadeDebito = new EntidadeOperadora(idDebito, partes[6], Double.parseDouble(partes[7]));
+	
+					Acao acao = null;
+					if (!partes[10].equals("null")) {
+						acao = new Acao(Long.parseLong(partes[10]), partes[11], LocalDateTime.parse(partes[12], formatter).toLocalDate(), Double.parseDouble(partes[13]));
+					}
+	
+					double valorOperacao = Double.parseDouble(partes[14]);
+					LocalDateTime dataHoraOperacao = LocalDateTime.parse(partes[15], formatter);
+	
+					Transacao transacao = new Transacao(entidadeCredito, entidadeDebito, acao, null, valorOperacao, dataHoraOperacao);
+					transacoes.add(transacao);
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	
+		return transacoes.toArray(new Transacao[transacoes.size()]);
+	}
+	
 }

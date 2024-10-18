@@ -2,8 +2,6 @@ package br.com.cesarschool.poo.titulos.mediators;
 
 import br.com.cesarschool.poo.titulos.entidades.Acao;
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioAcao;
-import javafx.scene.media.Media;
-
 import java.time.LocalDate;
 
 /*
@@ -63,7 +61,7 @@ public class MediatorAcao {
     private RepositorioAcao repositorioAcao = new RepositorioAcao();
     private MediatorAcao(){
     }
-    public static MediatorAcao getInstance(){
+    public static MediatorAcao getInstancia(){
         if(instance==null){
             instance = new MediatorAcao();
         }
