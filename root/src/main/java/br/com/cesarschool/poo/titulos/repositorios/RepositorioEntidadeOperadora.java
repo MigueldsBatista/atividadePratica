@@ -49,13 +49,14 @@ public class RepositorioEntidadeOperadora {
           return false;
       }
   
-      try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))){
-          writer.write(entidadeOperadora.getIdentificador() + ";" + entidadeOperadora.getAutorizacao() + ";" + entidadeOperadora.getSaldoAcao() + ";" + entidadeOperadora.getSaldoTituloDivida());
-          writer.newLine();
-      } catch(IOException e){
-          e.printStackTrace();
-          return false;
-      }
+      try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
+        writer.write(entidadeOperadora.getIdentificador() + ";" + entidadeOperadora.getNome() + ";" + entidadeOperadora.getAutorizacao() + ";" 
+                     + entidadeOperadora.getSaldoAcao() + ";" + entidadeOperadora.getSaldoTituloDivida());
+        writer.newLine();
+        } catch (IOException e) {
+        e.printStackTrace();
+        return false;
+        }
   
       return true;
   }
@@ -94,7 +95,7 @@ public class RepositorioEntidadeOperadora {
 			}
 			return true;
 	}
-	public boolean excluir(int identificador) {
+	public boolean excluir(long identificador) {
 		List<String> lines = new ArrayList<>();
 		boolean found = false;
 
@@ -143,13 +144,17 @@ public class RepositorioEntidadeOperadora {
                     double autorizadoAcao = Double.parseDouble(parts[2]);
                     double saldoAcao = Double.parseDouble(parts[3]);
                     double saldoTituloDivida = Double.parseDouble(parts[4]);
-                    return new EntidadeOperadora(identificador, nome, autorizadoAcao);
+                    
+                    EntidadeOperadora entidade = new EntidadeOperadora(identificador, nome, autorizadoAcao);
+                    entidade.creditarSaldoAcao(saldoAcao);
+                    entidade.creditarSaldoTituloDivida(saldoTituloDivida);
+                    
+                    return entidade;
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null; // Identificador não encontrado
-    }
-
+        return null; 
+    }    
 }
