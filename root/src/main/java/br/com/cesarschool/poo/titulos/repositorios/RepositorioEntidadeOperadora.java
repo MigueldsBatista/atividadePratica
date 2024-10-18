@@ -50,7 +50,7 @@ public class RepositorioEntidadeOperadora {
       }
   
       try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))){
-          writer.write(entidadeOperadora.getIdentificador() + ";" + entidadeOperadora.getAutorizadoAcao() + ";" + entidadeOperadora.getSaldoAcao() + ";" + entidadeOperadora.getSaldoTituloDivida());
+          writer.write(entidadeOperadora.getIdentificador() + ";" + entidadeOperadora.getAutorizacao() + ";" + entidadeOperadora.getSaldoAcao() + ";" + entidadeOperadora.getSaldoTituloDivida());
           writer.newLine();
       } catch(IOException e){
           e.printStackTrace();
@@ -69,7 +69,7 @@ public class RepositorioEntidadeOperadora {
 				String[] parts = line.split(";");
 				int id = Integer.parseInt(parts[0]);
 				if(id == entidadeOperadora.getIdentificador()){
-					line = entidadeOperadora.getIdentificador() + ";" + entidadeOperadora.getAutorizadoAcao() + ";" + entidadeOperadora.getSaldoAcao() + ";" + entidadeOperadora.getSaldoTituloDivida();
+					line = entidadeOperadora.getIdentificador() + ";" + entidadeOperadora.getAutorizacao() + ";" + entidadeOperadora.getSaldoAcao() + ";" + entidadeOperadora.getSaldoTituloDivida();
 					found = true;
 				}
 				lines.add(line);
@@ -132,23 +132,24 @@ public class RepositorioEntidadeOperadora {
         return true;
 
 	}
-	public EntidadeOperadora buscar(int identificador) {
-		try(BufferedReader reader = new BufferedReader(new FileReader(fileName))){
-			String line;
-			while((line = reader.readLine()) != null){
-				String[] parts = line.split(";");
-				int id = Integer.parseInt(parts[0]);
-				if(id == identificador){
-					double autorizadoAcao = Double.parseDouble(parts[1]);
-					double saldoAcao = Double.parseDouble(parts[2]);
-					double saldoTituloDivida = Double.parseDouble(parts[3]);
-					return new EntidadeOperadora(identificador, autorizadoAcao, saldoAcao, saldoTituloDivida);
-				}
-			}
-		}catch (IOException e){
-			e.printStackTrace();
-		}
-		return null;
-	}
+	public EntidadeOperadora buscar(long identificador) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(";");
+                long id = Long.parseLong(parts[0]);
+                if (id == identificador) {
+                    String nome = parts[1]; // Captura o nome
+                    double autorizadoAcao = Double.parseDouble(parts[2]);
+                    double saldoAcao = Double.parseDouble(parts[3]);
+                    double saldoTituloDivida = Double.parseDouble(parts[4]);
+                    return new EntidadeOperadora(identificador, nome, autorizadoAcao);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null; // Identificador não encontrado
+    }
 
 }

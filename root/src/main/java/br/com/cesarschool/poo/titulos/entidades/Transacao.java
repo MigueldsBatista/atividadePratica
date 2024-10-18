@@ -11,11 +11,10 @@ import java.time.LocalDateTime;
  * valorOperacao, do tipo double
  * dataHoraOperacao, do tipo LocalDateTime
  *  
- * Deve ter um construtor p�blico que inicializa os atributos.
- * Deve ter m�todos get/set p�blicos para todos os atributos, que 
- * s�o read-only fora da classe.
+ * Deve ter um construtor público que inicializa os atributos.
+ * Deve ter métodos get/set públicos para todos os atributos, que 
+ * são read-only fora da classe.
  * 
- *  
  */ 
 
 public class Transacao {
@@ -59,28 +58,27 @@ public class Transacao {
         return dataHoraOperacao;
     }
 
-    private void setEntidadeCredito(EntidadeOperadora entidadeCredito) {
+    public void setEntidadeCredito(EntidadeOperadora entidadeCredito) {
         this.entidadeCredito = entidadeCredito;
     }
 
-    private void setEntidadeDebito(EntidadeOperadora entidadeDebito) {
+    public void setEntidadeDebito(EntidadeOperadora entidadeDebito) {
         this.entidadeDebito = entidadeDebito;
     }
 
-    private void setAcao(Acao acao) {
+    public void setAcao(Acao acao) {
         this.acao = acao;
     }
 
-    private void setTituloDivida(TituloDivida tituloDivida) {
+    public void setTituloDivida(TituloDivida tituloDivida) {
         this.tituloDivida = tituloDivida;
     }
 
-    private void setValorOperacao(double valorOperacao) {
+    public void setValorOperacao(double valorOperacao) {
         this.valorOperacao = valorOperacao;
     }
 
-    private void setDataHoraOperacao(LocalDateTime dataHoraOperacao) {
+    public void setDataHoraOperacao(LocalDateTime dataHoraOperacao) {
         this.dataHoraOperacao = dataHoraOperacao;
     }
-
 }

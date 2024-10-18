@@ -35,7 +35,7 @@ public class EntidadeOperadora {
         this.autorizadoAcao=autorizadoAcao;
     }
 
-    public long getIndentificador(){
+    public long getIdentificador(){
         return identificador;
     }
 
