@@ -23,47 +23,65 @@ package br.com.cesarschool.poo.titulos.entidades;
  */
 
 public class EntidadeOperadora {
-private int identificador;
-private double autorizadoAcao;
-private double saldoAcao;
-private double saldoTituloDivida;
+    private long identificador;
+    public String nome;
+    private double autorizadoAcao;
+    private double saldoAcao=0.0;
+    private double saldoTituloDivida=0.0;
 
-    public EntidadeOperadora(int identificador, double autorizadoAcao, double saldoAcao, double saldoTituloDivida){
+    public EntidadeOperadora(long identificador,String nome, double autorizadoAcao){
         this.identificador=identificador;
+        this.nome=nome;
         this.autorizadoAcao=autorizadoAcao;
-        this.saldoAcao=saldoAcao;
-        this.saldoTituloDivida=saldoTituloDivida;
+    }
+
+    public long getIndentificador(){
+        return identificador;
+    }
+
+    public String getNome(){
+        return nome;
+    }
+    public void setNome(String nome){
+        this.nome=nome;
+    }
+
+    public double getAutorizacao(){
+        return autorizadoAcao;
+    }
+    public void setAutorizacao(double autorizadoAcao){
+        this.autorizadoAcao=autorizadoAcao;
     }
 
     public double getSaldoAcao() {
         return saldoAcao;
     }
 
-    public double getAutorizadoAcao() {
-        return autorizadoAcao;
-    }
-    
     public double getSaldoTituloDivida() {
         return saldoTituloDivida;
     }
 
-    public int getIdentificador() {
-        return identificador;
+    public void creditarSaldoAcao(double valor) {
+        saldoAcao += valor;
     }
 
-    public void creditarSaldoAcao(double valor){
-        saldoAcao=saldoAcao-valor;
+    public void debitarSaldoAcao(double valor) {
+        if (saldoAcao >= valor) {
+            saldoAcao -= valor;
+        } else {
+            System.out.println("Saldo de ação insuficiente.");
+        }
     }
 
-    public void debitarSaldoAcao(double valor){
-        saldoAcao=saldoAcao-valor;
-
-    }
-    public void creditarSaldoTituloDivida(double valor){
-        saldoTituloDivida=saldoTituloDivida-valor;
+    public void creditarSaldoTituloDivida(double valor) {
+        saldoTituloDivida += valor;
     }
 
-    public void debitarSaldoTituloDivida(double valor){
-        saldoTituloDivida=saldoTituloDivida-valor;
+    public void debitarSaldoTituloDivida(double valor) {
+        if (saldoTituloDivida >= valor) {
+            saldoTituloDivida -= valor;
+        } else {
+            System.out.println("Saldo de título de dívida insuficiente.");
+        }
     }
 }

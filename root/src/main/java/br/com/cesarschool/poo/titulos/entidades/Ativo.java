@@ -14,10 +14,11 @@ import java.time.LocalDate;
  */
 
 public class Ativo {
-private int identificador;
+private long identificador;
 private String nome;
 private LocalDate dataValidade;
-public Ativo(int identificador, String nome, LocalDate dataValidade) {
+
+public Ativo(long identificador, String nome, LocalDate dataValidade) {
     this.identificador = identificador;
     this.nome = nome;
     this.dataValidade = dataValidade;
@@ -39,7 +40,7 @@ public Ativo(int identificador, String nome, LocalDate dataValidade) {
         this.nome = nome;
     }
 
-    public int getIdentificador() {
+    public long getIdentificador() {
         return identificador;
     }
 

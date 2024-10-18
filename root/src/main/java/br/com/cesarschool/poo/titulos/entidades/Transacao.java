@@ -19,71 +19,68 @@ import java.time.LocalDateTime;
  */ 
 
 public class Transacao {
-EntidadeOperadora entidadeCredito;
-EntidadeOperadora entidadeDebito;
-Acao acao;
-TituloDivida tituloDivida;
-double valorOperacao;
-LocalDateTime dataHoraOperacao;
+    private EntidadeOperadora entidadeCredito;
+    private EntidadeOperadora entidadeDebito;
+    private Acao acao;
+    private TituloDivida tituloDivida;
+    private double valorOperacao;
+    private LocalDateTime dataHoraOperacao;
 
-public Transacao(EntidadeOperadora entidadeCredito, EntidadeOperadora entidadeDebito, Acao acao, TituloDivida tituloDivida, double valorOperacao, LocalDateTime dataHoraOperacao) {
-    this.entidadeCredito = entidadeCredito;
-    this.entidadeDebito = entidadeDebito;
-    this.acao = acao;
-    this.tituloDivida = tituloDivida;
-    this.valorOperacao = valorOperacao;
-    this.dataHoraOperacao = dataHoraOperacao;
-}
-
-    public Acao getAcao() {
-        return acao;
-    }
-
-    public LocalDateTime getDataHoraOperacao() {
-        return dataHoraOperacao;
-    }
-
-    public EntidadeOperadora getEntidadeCredito() {
-        return entidadeCredito;
-    }
-
-    public EntidadeOperadora getEntidadeDebito() {
-        return entidadeDebito;
-    }
-
-    public TituloDivida getTituloDivida() {
-        return tituloDivida;
-    }
-
-    public double getValorOperacao() {
-        return valorOperacao;
-    }
-
-
-    public void setAcao(Acao acao) {
+    public Transacao(EntidadeOperadora entidadeCredito, EntidadeOperadora entidadeDebito, Acao acao, TituloDivida tituloDivida, double valorOperacao, LocalDateTime dataHoraOperacao) {
+        this.entidadeCredito = entidadeCredito;
+        this.entidadeDebito = entidadeDebito;
         this.acao = acao;
-    }
-
-    public void setDataHoraOperacao(LocalDateTime dataHoraOperacao) {
+        this.tituloDivida = tituloDivida;
+        this.valorOperacao = valorOperacao;
         this.dataHoraOperacao = dataHoraOperacao;
     }
 
-    public void setEntidadeCredito(EntidadeOperadora entidadeCredito) {
+    public EntidadeOperadora getEntidadeDebito(){
+        return entidadeDebito;
+    }
+
+    public EntidadeOperadora getEntidadeCredito(){
+        return entidadeCredito;
+    }
+
+    public Acao getAcao(){
+        return acao;
+    }
+
+    public TituloDivida getTituloDivida(){
+        return tituloDivida;
+    }
+
+    public double getValorOperacao(){
+        return valorOperacao;
+    }
+
+    public LocalDateTime getDataHoraOperacao(){
+        return dataHoraOperacao;
+    }
+
+    private void setEntidadeCredito(EntidadeOperadora entidadeCredito) {
         this.entidadeCredito = entidadeCredito;
     }
 
-    public void setEntidadeDebito(EntidadeOperadora entidadeDebito) {
-        this.entidadeDebito = entidadeDebito;   
+    private void setEntidadeDebito(EntidadeOperadora entidadeDebito) {
+        this.entidadeDebito = entidadeDebito;
     }
 
-    public void setTituloDivida(TituloDivida tituloDivida) {
+    private void setAcao(Acao acao) {
+        this.acao = acao;
+    }
+
+    private void setTituloDivida(TituloDivida tituloDivida) {
         this.tituloDivida = tituloDivida;
     }
 
-    public void setValorOperacao(double valorOperacao) {
+    private void setValorOperacao(double valorOperacao) {
         this.valorOperacao = valorOperacao;
     }
 
-    
+    private void setDataHoraOperacao(LocalDateTime dataHoraOperacao) {
+        this.dataHoraOperacao = dataHoraOperacao;
+    }
 
 }
