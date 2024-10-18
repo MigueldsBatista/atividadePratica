@@ -41,7 +41,6 @@ public class RepositorioTransacao {
 					transacao.getEntidadeDebito().getSaldoAcao() + ";" +
 					transacao.getEntidadeDebito().getSaldoTituloDivida() + ";";
 
-			// Verificar se a transação tem uma ação associada e incluir as informações da ação
 			if (transacao.getAcao() != null) {
 				linha += transacao.getAcao().getIdentificador() + ";" +
 						transacao.getAcao().getNome() + ";" +

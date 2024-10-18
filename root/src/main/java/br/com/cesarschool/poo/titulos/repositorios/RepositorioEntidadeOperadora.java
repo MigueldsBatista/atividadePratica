@@ -139,7 +139,7 @@ public class RepositorioEntidadeOperadora {
                 String[] parts = line.split(";");
                 long id = Long.parseLong(parts[0]);
                 if (id == identificador) {
-                    String nome = parts[1]; // Captura o nome
+                    String nome = parts[1];
                     double autorizadoAcao = Double.parseDouble(parts[2]);
                     double saldoAcao = Double.parseDouble(parts[3]);
                     double saldoTituloDivida = Double.parseDouble(parts[4]);

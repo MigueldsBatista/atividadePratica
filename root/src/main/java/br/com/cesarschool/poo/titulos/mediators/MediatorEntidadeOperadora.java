@@ -1,5 +1,7 @@
 package br.com.cesarschool.poo.titulos.mediators;
 
+import java.time.LocalDate;
+
 import br.com.cesarschool.poo.titulos.entidades.EntidadeOperadora;
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioEntidadeOperadora;
 
@@ -65,4 +67,18 @@ public class MediatorEntidadeOperadora  {
         return instance;
     }
     
+    private String validar(EntidadeOperadora entidade){
+        if (entidade.getIdentificador() <= 100 || entidade.getIdentificador() >= 1000000) {
+            return "Identificador deve estar entre 100 e 1000000";
+        }if (entidade.getNome() == null || entidade.getNome().trim().isEmpty()) {
+            return "Nome deve ser preenchido.";
+        }if (entidade.getNome().length() < 10 || entidade.getNome().length() > 100) {
+            return "Nome deve ter entre 10 e 100 caracteres.";
+        }if (entidade.getDataValidade().isBefore(LocalDate.now().plusDays(180))) {
+            return "Data de validade deve ser maior que a data atual mais 180 dias.";
+        }if (entidade.getValorUnitario() <= 0) {
+            return "Valor unitário deve ser maior que zero.";
+        }
+        return null;
+    }
 }
