@@ -52,6 +52,7 @@ import br.com.cesarschool.poo.titulos.repositorios.RepositorioEntidadeOperadora;
  * Se este for válido, deve chamar o buscar do repositório, retornando o 
  * que ele retornar. Se o identificadoar for inválido, retornar null. 
  */
+
 public class MediatorEntidadeOperadora  {
     private static MediatorEntidadeOperadora  instance;//tava pesquisando e issa aqui é o "Singleton"
     private RepositorioEntidadeOperadora repositorioEntidadeOperadora  = new RepositorioEntidadeOperadora();

@@ -40,13 +40,16 @@ public class TelaAdicao {
      */
     private void initialize() {
         frame = new JFrame();
-        frame.setBounds(100, 100, 556, 330);
+        frame.setBounds(100, 100, 556, 370);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().setLayout(null);
+        frame.getContentPane().setLayout(null);//permite definir a posição dos componentes manualmente
+        //incluindo FlowLayout, BorderLayout, GridLayout, BoxLayout, GridBagLayout, GroupLayout
+
+        //getContentPane() retorna o painel de conteúdo do JFrame
 
         JLabel lblPrimeiroNumero = new JLabel("Primeiro número");
         lblPrimeiroNumero.setBounds(41, 40, 121, 20);
-        frame.getContentPane().add(lblPrimeiroNumero);
+        frame.getContentPane().add(lblPrimeiroNumero);//adiciona o componente ao painel de conteúdo
 
         JLabel lblSegundoNumero = new JLabel("Segundo número");
         lblSegundoNumero.setBounds(41, 102, 121, 20);
@@ -55,7 +58,7 @@ public class TelaAdicao {
         txtPrimeiroNumero = new JTextField();
         txtPrimeiroNumero.setBounds(183, 40, 78, 26);
         frame.getContentPane().add(txtPrimeiroNumero);
-        txtPrimeiroNumero.setColumns(10);
+        txtPrimeiroNumero.setColumns(10);//define o número de colunas no campo de texto
 
         txtSegundoNumero = new JTextField();
         txtSegundoNumero.setBounds(183, 102, 78, 26);
@@ -63,7 +66,7 @@ public class TelaAdicao {
         txtSegundoNumero.setColumns(10);
 
         JLabel lblResultado = new JLabel("Resultado");
-        lblResultado.setBounds(41, 163, 70, 20);
+        lblResultado.setBounds(41, 163, 90, 20);
         frame.getContentPane().add(lblResultado);
 
         txtResultado = new JTextField();
@@ -75,7 +78,7 @@ public class TelaAdicao {
         txtResultado.setColumns(10);
 
         JButton btnSomar = new JButton("Somar");
-        btnSomar.addActionListener(e -> {
+        btnSomar.addActionListener(e -> {//adiciona um ouvinte de ação ao botão
             double n1 = Double.parseDouble(txtPrimeiroNumero.getText());
             double n2 = Double.parseDouble(txtSegundoNumero.getText());
             double soma = n1 + n2;

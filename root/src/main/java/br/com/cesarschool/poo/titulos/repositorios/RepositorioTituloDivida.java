@@ -5,6 +5,9 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -37,11 +40,37 @@ import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
  * objeto. Caso o identificador n�o seja encontrado no arquivo, retornar null.   
  */
 	public class RepositorioTituloDivida {
-		private final String  fileName = "TituloDivida.txt";
+    private Path path;
+    private final Path BASE_PATH = Paths.get("").toAbsolutePath(); // Caminho para a pasta pai, em tese vai ser atividadePratica, parece que toda vez que o programa executa ele sai do caminho atual e vai pra atividadePratica
+
+    public RepositorioTituloDivida() {
+        // Inicializa o caminho do arquivo baseado no diretório de trabalho atual
+        this.path = BASE_PATH.resolve("root").resolve("database").resolve("TituloDivida.txt");
+        criarArquivoSeNaoExistir(); // Verifica e cria o arquivo se necessário
+    }
+
+    // Método para verificar e criar o arquivo, se não existir
+    private boolean criarArquivoSeNaoExistir() {
+        try {
+            // Verifica se o arquivo existe; se não, cria um novo
+            if (!Files.exists(path)) {
+                Files.createDirectories(path.getParent()); // Cria os diretórios pai, se necessário
+                Files.createFile(path); // Cria o arquivo
+                System.out.println("Arquivo criado em: " + path.toAbsolutePath()); // Imprime o caminho absoluto
+                return true; // Arquivo criado
+            }
+            System.out.println("Arquivo já existe em: " + path.toAbsolutePath()); // Imprime se o arquivo já existe
+            return false; // Arquivo já existe
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false; // Retorna false em caso de erro
+        }
+    }
+
 		private static final Logger LOGGER = Logger.getLogger(RepositorioTituloDivida.class.getName());
 	
 		public boolean incluir(TituloDivida tituloDivida) {
-			try(BufferedReader reader = new BufferedReader(new FileReader(fileName))){
+			try(BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))){
 				String line;
 				while((line=reader.readLine())!=null){
 					String[] parts = line.split(";");
@@ -54,7 +83,7 @@ import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
 				LOGGER.log(Level.SEVERE, "Error reading file", e);
 				return false;
 			}
-			try(BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))){
+			try(BufferedWriter writer = new BufferedWriter(new FileWriter(path.toFile(), true))){
 				writer.write(tituloDivida.getIdentificador() + ";" + tituloDivida.getNome() + ";" + tituloDivida.getDataValidade() + ";" + tituloDivida.getTaxaJuros());
 				writer.newLine();
 			}catch(IOException e){
@@ -67,7 +96,7 @@ import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
 	public boolean alterar(TituloDivida tituloDivida) {
 		List<String> lines = new ArrayList<>();
 		boolean found = false;
-		try(BufferedReader reader = new BufferedReader(new FileReader(fileName))){
+		try(BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))){
 			String line;
 			while((line = reader.readLine())!=null){
 				String[] parts =line.split(";");
@@ -85,7 +114,7 @@ import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
 		if(!found){
 			return false;
 		}
-		try(BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))){
+		try(BufferedWriter writer = new BufferedWriter(new FileWriter(path.toFile()))){
 			for(String line : lines){
 				writer.write(line);
 				writer.newLine();
@@ -98,7 +127,7 @@ import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
 	}
 	public boolean excluir(int identificador) {
 		List<String> lines = new ArrayList<>();
-		try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+		try (BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))) {
 			String line;
 			while ((line = reader.readLine()) != null) {
 				String[] parts = line.split(";");
@@ -111,7 +140,7 @@ import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
 			LOGGER.log(Level.SEVERE, "Error reading file", e);
 			return false;
 		}
-		try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.toFile()))) {
 			for (String line : lines) {
 				writer.write(line);
 				writer.newLine();
@@ -124,7 +153,7 @@ import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
 	}
 	public TituloDivida buscar(int identificador) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		try(BufferedReader reader = new BufferedReader(new FileReader(fileName))){
+		try(BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))){
 			String line;
 			while((line = reader.readLine())!=null){
 				String[] parts = line.split(";");

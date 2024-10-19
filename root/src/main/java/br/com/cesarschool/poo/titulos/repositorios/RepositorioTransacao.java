@@ -5,6 +5,9 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -25,11 +28,35 @@ import br.com.cesarschool.poo.titulos.entidades.Acao;
  */
 
 public class RepositorioTransacao {
-	private final String fileName = "Transacao.txt";
-	private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private Path path;
+    private final Path BASE_PATH = Paths.get("").toAbsolutePath(); // Caminho para a pasta pai
+
+    public RepositorioTransacao() {
+        // Inicializa o caminho do arquivo baseado no diretório de trabalho atual
+        this.path = BASE_PATH.resolve("root").resolve("database").resolve("Transacao.txt");
+        criarArquivoSeNaoExistir(); // Verifica e cria o arquivo se necessário
+    }
+
+    // Método para verificar e criar o arquivo, se não existir
+    private boolean criarArquivoSeNaoExistir() {
+        try {
+            // Verifica se o arquivo existe; se não, cria um novo
+            if (!Files.exists(path)) {
+                Files.createDirectories(path.getParent()); // Cria os diretórios pai, se necessário
+                Files.createFile(path); // Cria o arquivo
+                System.out.println("Arquivo criado em: " + path.toAbsolutePath()); // Imprime o caminho absoluto
+                return true; // Arquivo criado
+            }
+            System.out.println("Arquivo já existe em: " + path.toAbsolutePath()); // Imprime se o arquivo já existe
+            return false; // Arquivo já existe
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false; // Retorna false em caso de erro
+        }
+    }	private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
 	public void incluir(Transacao transacao) {
-		try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.toFile(), true))) {
 			String linha = transacao.getEntidadeCredito().getIdentificador() + ";" +
 					transacao.getEntidadeCredito().getNome() + ";" +
 					transacao.getEntidadeCredito().getAutorizacao() + ";" +
@@ -61,7 +88,7 @@ public class RepositorioTransacao {
 
 	public Transacao[] buscarPorEntidadeCredora(long identificadorEntidadeCredito) {
 		List<Transacao> transacoes = new ArrayList<>();
-		try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+		try (BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))) {
 			String linha;
 			while ((linha = reader.readLine()) != null) {
 				String[] partes = linha.split(";");
@@ -95,7 +122,7 @@ public class RepositorioTransacao {
 
 	public Transacao[] buscarPorEntidadeDebito(long identificadorEntidadeDebito) {
 		List<Transacao> transacoes = new ArrayList<>();
-		try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+		try (BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))) {
 			String linha;
 			while ((linha = reader.readLine()) != null) {
 				String[] partes = linha.split(";");

@@ -6,6 +6,9 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -34,25 +37,50 @@ import java.util.List;
  * objeto. Caso o identificador não seja encontrado no arquivo, retornar null.   
  */
 
-public class RepositorioAcao {
-	private final String fileName = "Acao.txt";
-	public boolean incluir(Acao acao) {
-		try (BufferedReader reader = new BufferedReader(new FileReader(fileName))){
-			String line;
-			while ((line = reader.readLine()) != null){
-				String[] parts = line.split(";");
-				int id = Integer.parseInt(parts[0]);
-				if(id == acao.getIdentificador()){
-					return false;
-				}
-			}
-			
-		}catch (IOException e){
-			e.printStackTrace();
-			return false;
-		}
+ public class RepositorioAcao {
+    private Path path;
+    private final Path BASE_PATH = Paths.get("").toAbsolutePath(); // Caminho para a pasta pai
 
-		try(BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))){
+    public RepositorioAcao() {
+        // Inicializa o caminho do arquivo baseado no diretório de trabalho atual
+        this.path = BASE_PATH.resolve("root").resolve("database").resolve("Acao.txt");
+        criarArquivoSeNaoExistir(); // Verifica e cria o arquivo se necessário
+    }
+
+    // Método para verificar e criar o arquivo, se não existir
+    private boolean criarArquivoSeNaoExistir() {
+        try {
+            // Verifica se o arquivo existe; se não, cria um novo
+            if (!Files.exists(path)) {
+                Files.createDirectories(path.getParent()); // Cria os diretórios pai, se necessário
+                Files.createFile(path); // Cria o arquivo
+                System.out.println("Arquivo criado em: " + path.toAbsolutePath()); // Imprime o caminho absoluto
+                return true; // Arquivo criado
+            }
+            System.out.println("Arquivo já existe em: " + path.toAbsolutePath()); // Imprime se o arquivo já existe
+            return false; // Arquivo já existe
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false; // Retorna false em caso de erro
+        }
+    }
+		public boolean incluir(Acao acao) {
+			// Verifica se a ação já existe
+			try (BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))) {
+				String line;
+				while ((line = reader.readLine()) != null) {
+					String[] parts = line.split(";");
+					int id = Integer.parseInt(parts[0]);
+					if (id == acao.getIdentificador()) {
+						return false; // Ação já existe, não incluir
+					}
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+				return false;
+			}
+
+		try(BufferedWriter writer = new BufferedWriter(new FileWriter(path.toFile(), true))){
 			writer.write(acao.getIdentificador() + ";" + acao.getNome() + ";" + acao.getDataValidade() + ";" + acao.getValorUnitario());
 			writer.newLine();
 
@@ -68,7 +96,7 @@ public class RepositorioAcao {
 		List<String> lines = new ArrayList<>();
 		boolean found = false;
 
-		try(BufferedReader reader = new BufferedReader(new FileReader(fileName))){
+		try(BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))){
 			String line;
 			while((line = reader.readLine()) != null){
 				String[] parts = line.split(";");
@@ -88,7 +116,7 @@ public class RepositorioAcao {
 				return false;
 			}
 
-			try(BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))){
+			try(BufferedWriter writer = new BufferedWriter(new FileWriter(path.toFile()))){
 				for(String line : lines){
 					writer.write(line);
 					writer.newLine();
@@ -103,7 +131,7 @@ public class RepositorioAcao {
 		List<String> lines = new ArrayList<>();
 		boolean found = false;
 
-		try(BufferedReader reader = new BufferedReader(new FileReader(fileName))){
+		try(BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))){
 			String line;
 			while((line = reader.readLine()) != null){
 				String[] parts = line.split(";");
@@ -124,7 +152,7 @@ public class RepositorioAcao {
 			return false;
 		}
 
-		try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.toFile()))) {
             for (String line : lines) {
                 writer.write(line);
                 writer.newLine();
@@ -140,7 +168,7 @@ public class RepositorioAcao {
 	public Acao buscar(int identificador) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-		try(BufferedReader reader = new BufferedReader(new FileReader(fileName))){
+		try(BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))){
 			String line;
 			while((line = reader.readLine()) != null){
 				String[] parts = line.split(";");

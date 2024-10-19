@@ -6,6 +6,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,10 +33,37 @@ import java.util.List;
  * A busca deve localizar uma linha por identificador, materializar e retornar um 
  * objeto. Caso o identificador n�o seja encontrado no arquivo, retornar null.   
  */
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 public class RepositorioEntidadeOperadora {
-	private final String fileName = "entidadeOperadora.txt";
-   public boolean incluir(EntidadeOperadora entidadeOperadora) {
-      try (BufferedReader reader = new BufferedReader(new FileReader(fileName))){
+    private Path path;
+    private final Path BASE_PATH = Paths.get("").toAbsolutePath(); // Caminho para a pasta pai
+
+    public RepositorioEntidadeOperadora() {
+        // Inicializa o caminho do arquivo baseado no diretório de trabalho atual
+        this.path = BASE_PATH.resolve("root").resolve("database").resolve("EntidadeOperadora.txt");
+        criarArquivoSeNaoExistir(); // Verifica e cria o arquivo se necessário
+    }
+
+    // Método para verificar e criar o arquivo, se não existir
+    private boolean criarArquivoSeNaoExistir() {
+        try {
+            // Verifica se o arquivo existe; se não, cria um novo
+            if (!Files.exists(path)) {
+                Files.createDirectories(path.getParent()); // Cria os diretórios pai, se necessário
+                Files.createFile(path); // Cria o arquivo
+                System.out.println("Arquivo criado em: " + path.toAbsolutePath()); // Imprime o caminho absoluto
+                return true; // Arquivo criado
+            }
+            System.out.println("Arquivo já existe em: " + path.toAbsolutePath()); // Imprime se o arquivo já existe
+            return false; // Arquivo já existe
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false; // Retorna false em caso de erro
+        }
+    }   public boolean incluir(EntidadeOperadora entidadeOperadora) {
+      try (BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))){
           String line;
           while ((line = reader.readLine()) != null){
               String[] parts = line.split(";");
@@ -49,7 +77,7 @@ public class RepositorioEntidadeOperadora {
           return false;
       }
   
-      try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
+      try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.toFile(), true))) {
         writer.write(entidadeOperadora.getIdentificador() + ";" + entidadeOperadora.getNome() + ";" + entidadeOperadora.getAutorizacao() + ";" 
                      + entidadeOperadora.getSaldoAcao() + ";" + entidadeOperadora.getSaldoTituloDivida());
         writer.newLine();
@@ -64,7 +92,7 @@ public class RepositorioEntidadeOperadora {
 		List<String> lines = new ArrayList<>();
 		boolean found = false;
 
-		try(BufferedReader reader = new BufferedReader(new FileReader(fileName))){
+		try(BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))){
 			String line;
 			while((line = reader.readLine()) != null){
 				String[] parts = line.split(";");
@@ -84,7 +112,7 @@ public class RepositorioEntidadeOperadora {
 				return false;
 			}
 
-			try(BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))){
+			try(BufferedWriter writer = new BufferedWriter(new FileWriter(path.toFile()))){
 				for(String line : lines){
 					writer.write(line);
 					writer.newLine();
@@ -99,7 +127,7 @@ public class RepositorioEntidadeOperadora {
 		List<String> lines = new ArrayList<>();
 		boolean found = false;
 
-		try(BufferedReader reader = new BufferedReader(new FileReader(fileName))){
+		try(BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))){
 			String line;
 			while((line = reader.readLine()) != null){
 				String[] parts = line.split(";");
@@ -120,7 +148,7 @@ public class RepositorioEntidadeOperadora {
 			return false;
 		}
 
-		try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.toFile()))) {
             for (String line : lines) {
                 writer.write(line);
                 writer.newLine();
@@ -134,7 +162,7 @@ public class RepositorioEntidadeOperadora {
 
 	}
 	public EntidadeOperadora buscar(long identificador) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(";");
