@@ -32,7 +32,8 @@ public class TelaEntidade {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             try {
-                new TelaEntidade();
+                TelaEntidade tela = new TelaEntidade();
+                tela.frame.setVisible(true);
             } catch (Exception e) {
                 Logger.getLogger(TelaEntidade.class.getName()).log(Level.SEVERE, null, e);
             }

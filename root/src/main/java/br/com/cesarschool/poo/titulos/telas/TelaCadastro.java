@@ -25,7 +25,8 @@ public class TelaCadastro {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             try {
-                new TelaCadastro();
+                TelaCadastro telaCadastro = new TelaCadastro();
+                telaCadastro.frame.setVisible(true);
             } catch (Exception e) {
                 Logger.getLogger(TelaCadastro.class.getName()).log(Level.SEVERE, null, e);
             }
