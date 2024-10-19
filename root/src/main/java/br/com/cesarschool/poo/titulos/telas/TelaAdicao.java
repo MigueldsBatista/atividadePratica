@@ -1,107 +1,96 @@
 package br.com.cesarschool.poo.titulos.telas;
 
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.wb.swt.SWTResourceManager;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.events.MouseAdapter;
-import org.eclipse.swt.events.MouseEvent;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 public class TelaAdicao {
 
-	protected Shell shlTelaAdio;
-	private Text txtPrimeiroNumero;
-	private Text txtSegundoNUmero;
-	private Text txtResultado;
+    private JFrame frame;
+    private JTextField txtPrimeiroNumero;
+    private JTextField txtSegundoNumero;
+    private JTextField txtResultado;
 
-	/**
-	 * Launch the application.
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		try {
-			TelaAdicao window = new TelaAdicao();
-			window.open();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+    /**
+     * Launch the application.
+     * @param args
+     */
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            try {
+                TelaAdicao window = new TelaAdicao();
+                window.frame.setVisible(true);
+            } catch (Exception e) {
+                java.util.logging.Logger.getLogger(TelaAdicao.class.getName()).log(java.util.logging.Level.SEVERE, null, e);
+            }
+        });
+    }
 
-	/**
-	 * Open the window.
-	 */
-	public void open() {
-		Display display = Display.getDefault();
-		createContents();
-		shlTelaAdio.open();
-		shlTelaAdio.layout();
-		while (!shlTelaAdio.isDisposed()) {
-			if (!display.readAndDispatch()) {
-				display.sleep();
-			}
-		}
-	}
+    /**
+     * Create the application.
+     */
+    public TelaAdicao() {
+        initialize();
+    }
 
-	/**
-	 * Create contents of the window.
-	 */
-	protected void createContents() {
-		shlTelaAdio = new Shell();
-		shlTelaAdio.setImage(SWTResourceManager.getImage("C:\\Users\\eduar\\OneDrive\\Imagens\\742328.jpg"));
-		shlTelaAdio.setSize(556, 330);
-		shlTelaAdio.setText("Tela adi\u00E7\u00E3o");
-		
-		Label lblPrimeiroNmero = new Label(shlTelaAdio, SWT.NONE);
-		lblPrimeiroNmero.setBounds(41, 40, 121, 20);
-		lblPrimeiroNmero.setText("Primeiro n\u00FAmero");
-		
-		Label lblNewLabel = new Label(shlTelaAdio, SWT.NONE);
-		lblNewLabel.setBounds(41, 102, 121, 20);
-		lblNewLabel.setText("Segundo n\u00FAmero");
-		
-		txtPrimeiroNumero = new Text(shlTelaAdio, SWT.BORDER);
-		txtPrimeiroNumero.setBounds(183, 40, 78, 26);
-		
-		txtSegundoNUmero = new Text(shlTelaAdio, SWT.BORDER);
-		txtSegundoNUmero.setBounds(183, 102, 78, 26);
-		
-		Label lblResultado = new Label(shlTelaAdio, SWT.NONE);
-		lblResultado.setBounds(41, 163, 70, 20);
-		lblResultado.setText("Resultado");
-		
-		txtResultado = new Text(shlTelaAdio, SWT.BORDER);
-		txtResultado.setFont(SWTResourceManager.getFont("Segoe UI", 14, SWT.NORMAL));
-		txtResultado.setEnabled(false);
-		txtResultado.setEditable(false);
-		txtResultado.setBounds(183, 163, 78, 37);
-		
-		Button btnSomar = new Button(shlTelaAdio, SWT.NONE);
-		btnSomar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseDown(MouseEvent e) {
-				double n1 = Double.parseDouble(txtPrimeiroNumero.getText());
-				double n2 = Double.parseDouble(txtSegundoNUmero.getText()); 
-				double soma = n1 + n2;
-				txtResultado.setText("" + soma);	
-			}
-		});
-		btnSomar.setBounds(130, 220, 90, 30);
-		btnSomar.setText("Somar");
-		
-		Button btnLimpar = new Button(shlTelaAdio, SWT.NONE);
-		btnLimpar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseDown(MouseEvent e) {
-				txtPrimeiroNumero.setText("");
-				txtSegundoNUmero.setText("");
-				txtResultado.setText("");
-			}
-		});
-		btnLimpar.setBounds(254, 220, 90, 30);
-		btnLimpar.setText("Limpar");
+    /**
+     * Initialize the contents of the frame.
+     */
+    private void initialize() {
+        frame = new JFrame();
+        frame.setBounds(100, 100, 556, 330);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().setLayout(null);
 
-	}
+        JLabel lblPrimeiroNumero = new JLabel("Primeiro número");
+        lblPrimeiroNumero.setBounds(41, 40, 121, 20);
+        frame.getContentPane().add(lblPrimeiroNumero);
+
+        JLabel lblSegundoNumero = new JLabel("Segundo número");
+        lblSegundoNumero.setBounds(41, 102, 121, 20);
+        frame.getContentPane().add(lblSegundoNumero);
+
+        txtPrimeiroNumero = new JTextField();
+        txtPrimeiroNumero.setBounds(183, 40, 78, 26);
+        frame.getContentPane().add(txtPrimeiroNumero);
+        txtPrimeiroNumero.setColumns(10);
+
+        txtSegundoNumero = new JTextField();
+        txtSegundoNumero.setBounds(183, 102, 78, 26);
+        frame.getContentPane().add(txtSegundoNumero);
+        txtSegundoNumero.setColumns(10);
+
+        JLabel lblResultado = new JLabel("Resultado");
+        lblResultado.setBounds(41, 163, 70, 20);
+        frame.getContentPane().add(lblResultado);
+
+        txtResultado = new JTextField();
+        txtResultado.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 14));
+        txtResultado.setEnabled(false);
+        txtResultado.setEditable(false);
+        txtResultado.setBounds(183, 163, 78, 37);
+        frame.getContentPane().add(txtResultado);
+        txtResultado.setColumns(10);
+
+        JButton btnSomar = new JButton("Somar");
+        btnSomar.addActionListener(e -> {
+            double n1 = Double.parseDouble(txtPrimeiroNumero.getText());
+            double n2 = Double.parseDouble(txtSegundoNumero.getText());
+            double soma = n1 + n2;
+            txtResultado.setText("" + soma);
+        });
+        btnSomar.setBounds(130, 220, 90, 30);
+        frame.getContentPane().add(btnSomar);
+
+        JButton btnLimpar = new JButton("Limpar");
+        btnLimpar.addActionListener(e -> {
+            txtPrimeiroNumero.setText("");
+            txtSegundoNumero.setText("");
+            txtResultado.setText("");
+        });
+        btnLimpar.setBounds(254, 220, 90, 30);
+        frame.getContentPane().add(btnLimpar);
+    }
 }

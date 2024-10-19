@@ -1,7 +1,5 @@
 package br.com.cesarschool.poo.titulos.repositorios;
 
-import br.com.cesarschool.poo.titulos.entidades.Acao;
-import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -11,7 +9,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
 /*
  * Deve gravar em e ler de um arquivo texto chamado TituloDivida.txt os dados dos objetos do tipo
  * TituloDivida. Seguem abaixo exemplos de linhas (identificador, nome, dataValidade, taxaJuros).
@@ -35,32 +36,33 @@ import java.util.List;
  * A busca deve localizar uma linha por identificador, materializar e retornar um 
  * objeto. Caso o identificador n�o seja encontrado no arquivo, retornar null.   
  */
-
-public class RepositorioTituloDivida {
-	private final String  fileName = "TituloDivida.txt";
-	public boolean incluir(TituloDivida tituloDivida) {
-		try(BufferedReader reader = new BufferedReader(new FileReader(fileName))){
-			String line;
-			while((line=reader.readLine())!=null){
-				String[] parts = line.split(";");
-				int id = Integer.parseInt(parts[0]);
-				if (id == tituloDivida.getIdentificador()){
-					return false;
+	public class RepositorioTituloDivida {
+		private final String  fileName = "TituloDivida.txt";
+		private static final Logger LOGGER = Logger.getLogger(RepositorioTituloDivida.class.getName());
+	
+		public boolean incluir(TituloDivida tituloDivida) {
+			try(BufferedReader reader = new BufferedReader(new FileReader(fileName))){
+				String line;
+				while((line=reader.readLine())!=null){
+					String[] parts = line.split(";");
+					int id = Integer.parseInt(parts[0]);
+					if (id == tituloDivida.getIdentificador()){
+						return false;
+					}
 				}
+			}catch(IOException e){
+				LOGGER.log(Level.SEVERE, "Error reading file", e);
+				return false;
 			}
-		}catch(IOException e){
-			e.printStackTrace();
-			return false;
+			try(BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))){
+				writer.write(tituloDivida.getIdentificador() + ";" + tituloDivida.getNome() + ";" + tituloDivida.getDataValidade() + ";" + tituloDivida.getTaxaJuros());
+				writer.newLine();
+			}catch(IOException e){
+				LOGGER.log(Level.SEVERE, "Error writing to file", e);
+				return false;
+			}
+			return true;
 		}
-		try(BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))){
-            writer.write(tituloDivida.getIdentificador() + ";" + tituloDivida.getNome() + ";" + tituloDivida.getDataValidade() + ";" + tituloDivida.getTaxaJuros());
-			writer.newLine();
-		}catch(IOException e){
-			e.printStackTrace();
-			return false;
-		}
-		return true;
-	}
 	
 	public boolean alterar(TituloDivida tituloDivida) {
 		List<String> lines = new ArrayList<>();
@@ -77,9 +79,10 @@ public class RepositorioTituloDivida {
 				lines.add(line);
 			}
 		}catch(IOException e){
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Error reading file", e);
 			return false;
-		}if(found!=true){
+		}
+		if(!found){
 			return false;
 		}
 		try(BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))){
@@ -88,38 +91,36 @@ public class RepositorioTituloDivida {
 				writer.newLine();
 			}
 		}catch(IOException e){
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Error writing to file", e);
 			return false;
 		}
 		return true;
 	}
 	public boolean excluir(int identificador) {
-		List<String> lines=new ArrayList<>();
-		boolean found = false;
-		try(BufferedReader reader = new BufferedReader(new FileReader(fileName))){
+		List<String> lines = new ArrayList<>();
+		try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
 			String line;
-			while((line=reader.readLine())!=null){
-				String[] parts=line.split(";");
+			while ((line = reader.readLine()) != null) {
+				String[] parts = line.split(";");
 				int id = Integer.parseInt(parts[0]);
-				if(id==identificador){
-					found=true;
-					continue;
+				if (id != identificador) {
+					lines.add(line);
 				}
 			}
-		}catch(IOException e){
-			e.printStackTrace();
+		} catch (IOException e) {
+			LOGGER.log(Level.SEVERE, "Error reading file", e);
 			return false;
 		}
-		try(BufferedWriter writer =new BufferedWriter(new FileWriter(fileName))){
-			for(String line : lines){
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+			for (String line : lines) {
 				writer.write(line);
 				writer.newLine();
 			}
-		}catch(IOException e){
-			e.printStackTrace();
+		} catch (IOException e) {
+			LOGGER.log(Level.SEVERE, "Error writing to file", e);
 			return false;
 		}
-		return true;	
+		return true;
 	}
 	public TituloDivida buscar(int identificador) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -136,7 +137,7 @@ public class RepositorioTituloDivida {
 				}
 			}
 		}catch(IOException e){
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Error reading file", e);
 		}
 		return null;
 	}

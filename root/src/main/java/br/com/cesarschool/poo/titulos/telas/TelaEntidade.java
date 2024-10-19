@@ -1,211 +1,189 @@
 package br.com.cesarschool.poo.titulos.telas;
 
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Label;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.events.MouseAdapter;
-import org.eclipse.swt.events.MouseEvent;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 public class TelaEntidade {
 
-	protected Shell shell;
-	private EntidadeMediator mediator = new EntidadeMediator(); 
-	private Text txtCodigo;
-	private Button btnNovo;
-	private Button btnBuscar;
-	private Label lblNome;
-	private Text txtNome;
-	private Label lblRenda;
-	private Text txtRenda;
-	private Button btnIncluirAlterar;
-	private Button btnCancelar;
-	private Button btnLimpar;
+    private JFrame frame;
+    private final EntidadeMediator mediator = new EntidadeMediator(); 
+    private JTextField txtCodigo;
+    private JButton btnNovo;
+    private JButton btnBuscar;
+    private JLabel lblNome;
+    private JTextField txtNome;
+    private JLabel lblRenda;
+    private JTextField txtRenda;
+    private JButton btnIncluirAlterar;
+    private JButton btnCancelar;
+    private JButton btnLimpar;
 
-	/**
-	 * Launch the application.
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		try {
-			TelaEntidade window = new TelaEntidade();
-			window.open();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+    /**
+     * Launch the application.
+     * @param args
+     */
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            try {
+                new TelaEntidade();
+            } catch (Exception e) {
+                Logger.getLogger(TelaEntidade.class.getName()).log(Level.SEVERE, null, e);
+            }
+        });
+    }
 
-	/**
-	 * Open the window.
-	 */
-	public void open() {
-		Display display = Display.getDefault();
-		createContents();
-		shell.open();
-		shell.layout();
-		while (!shell.isDisposed()) {
-			if (!display.readAndDispatch()) {
-				display.sleep();
-			}
-		}
-	}
+    /**
+     * Create the application.
+     */
+    public TelaEntidade() {
+        initialize();
+    }
 
-	/**
-	 * Create contents of the window.
-	 */
-	protected void createContents() {
-		shell = new Shell();
-		shell.setSize(607, 369);
-		shell.setText("SWT Application");
-		
-		Label lblCdigo = new Label(shell, SWT.NONE);
-		lblCdigo.setBounds(36, 46, 70, 20);
-		lblCdigo.setText("C\u00F3digo");
-		
-		txtCodigo = new Text(shell, SWT.BORDER);
-		txtCodigo.setBounds(129, 46, 113, 26);
-		
-		btnNovo = new Button(shell, SWT.NONE);
+    /**
+     * Initialize the contents of the frame.
+     */
+    private void initialize() {
+        frame = new JFrame();
+        frame.setBounds(100, 100, 607, 369);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().setLayout(null);
 
-		btnNovo.setBounds(264, 42, 90, 30);
-		btnNovo.setText("Novo");
-		
-		btnBuscar = new Button(shell, SWT.NONE);
+        JLabel lblCodigo = new JLabel("Código");
+        lblCodigo.setBounds(36, 46, 70, 20);
+        frame.getContentPane().add(lblCodigo);
 
-		btnBuscar.setBounds(360, 42, 90, 30);
-		btnBuscar.setText("Buscar");
-		
-		lblNome = new Label(shell, SWT.NONE);
-		lblNome.setBounds(36, 109, 70, 20);
-		lblNome.setText("Nome");
-		
-		txtNome = new Text(shell, SWT.BORDER);
-		txtNome.setEnabled(false);
-		txtNome.setBounds(129, 109, 225, 26);
-		
-		lblRenda = new Label(shell, SWT.NONE);
-		lblRenda.setBounds(36, 167, 70, 20);
-		lblRenda.setText("Renda");
-		
-		txtRenda = new Text(shell, SWT.BORDER);
-		txtRenda.setEnabled(false);
-		txtRenda.setBounds(129, 164, 113, 26);
-		
-		btnIncluirAlterar = new Button(shell, SWT.NONE);
+        txtCodigo = new JTextField();
+        txtCodigo.setBounds(129, 46, 113, 26);
+        frame.getContentPane().add(txtCodigo);
+        txtCodigo.setColumns(10);
 
-		btnIncluirAlterar.setEnabled(false);
-		btnIncluirAlterar.setBounds(131, 258, 90, 30);
-		btnIncluirAlterar.setText("Incluir");
-		
-		btnCancelar = new Button(shell, SWT.NONE);
+        btnNovo = new JButton("Novo");
+        btnNovo.setBounds(264, 42, 90, 30);
+        frame.getContentPane().add(btnNovo);
 
-		btnCancelar.setEnabled(false);
-		btnCancelar.setBounds(239, 258, 90, 30);
-		btnCancelar.setText("Cancelar");
-		
-		btnLimpar = new Button(shell, SWT.NONE);
+        btnBuscar = new JButton("Buscar");
+        btnBuscar.setBounds(360, 42, 90, 30);
+        frame.getContentPane().add(btnBuscar);
 
-		btnLimpar.setBounds(347, 258, 90, 30);
-		btnLimpar.setText("Limpar");
-		btnNovo.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseDown(MouseEvent e) {
-				Entidade ent = mediator.buscar(txtCodigo.getText());
-				if (ent != null) {
-					JOptionPane.showMessageDialog(null, 
-					"Entidade já existente!");
-				} else {
-					btnIncluirAlterar.setEnabled(true);
-					btnCancelar.setEnabled(true);
-					txtNome.setEnabled(true);
-					txtRenda.setEnabled(true);
-					btnNovo.setEnabled(false);
-					btnBuscar.setEnabled(false);
-					txtCodigo.setEnabled(false);
-				}
-			}
-		});
-		btnBuscar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseDown(MouseEvent e) {
-				Entidade ent = mediator.buscar(txtCodigo.getText());
-				if (ent == null) {
-					JOptionPane.showMessageDialog(null, 
-					"Entidade não existente!");
-				} else {
-					txtNome.setText(ent.getNome());
-					txtRenda.setText(ent.getRenda() + "");
-					btnIncluirAlterar.setText("Alterar");
-					btnIncluirAlterar.setEnabled(true);
-					btnCancelar.setEnabled(true);
-					txtNome.setEnabled(true);
-					txtRenda.setEnabled(true);
-					btnNovo.setEnabled(false);
-					btnBuscar.setEnabled(false);
-					txtCodigo.setEnabled(false);
-				}
-			}
-		});
-		btnIncluirAlterar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseDown(MouseEvent e) {
-				Entidade ent = new Entidade(txtCodigo.getText(), txtNome.getText(),
-						Double.parseDouble(txtRenda.getText()));
-				String msg = null;
-				if (btnIncluirAlterar.getText().equals("Incluir")) {
-					msg = mediator.incluir(ent);
-				} else {
-					msg = mediator.alterar(ent);
-				}
-				if (msg != null) {
-					JOptionPane.showMessageDialog(null, 
-					msg);					
-				} else {
-					btnIncluirAlterar.setEnabled(false);
-					btnCancelar.setEnabled(false);
-					txtNome.setEnabled(false);
-					txtRenda.setEnabled(false);
-					btnNovo.setEnabled(true);
-					btnBuscar.setEnabled(true);
-					txtCodigo.setEnabled(true);
-					txtCodigo.setText("");
-					txtRenda.setText("");
-					txtNome.setText("");
-					btnIncluirAlterar.setText("Incluir");
-				}
-			}
-		});		
-		btnCancelar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseDown(MouseEvent e) {
-				btnIncluirAlterar.setEnabled(false);
-				btnCancelar.setEnabled(false);
-				txtNome.setEnabled(false);
-				txtRenda.setEnabled(false);
-				btnNovo.setEnabled(true);
-				btnBuscar.setEnabled(true);
-				txtCodigo.setEnabled(true);
-				txtCodigo.setText("");
-				txtRenda.setText("");
-				txtNome.setText("");
-				btnIncluirAlterar.setText("Incluir");				
-			}
-		});
-		btnLimpar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseDown(MouseEvent e) {
-				if (txtCodigo.isEnabled()) {
-					txtCodigo.setText("");
-				}
-				txtRenda.setText("");
-				txtNome.setText("");				
-			}
-		});
-	}
+        lblNome = new JLabel("Nome");
+        lblNome.setBounds(36, 109, 70, 20);
+        frame.getContentPane().add(lblNome);
 
+        txtNome = new JTextField();
+        txtNome.setEnabled(false);
+        txtNome.setBounds(129, 109, 225, 26);
+        frame.getContentPane().add(txtNome);
+        txtNome.setColumns(10);
+
+        lblRenda = new JLabel("Renda");
+        lblRenda.setBounds(36, 167, 70, 20);
+        frame.getContentPane().add(lblRenda);
+
+        txtRenda = new JTextField();
+        txtRenda.setEnabled(false);
+        txtRenda.setBounds(129, 164, 113, 26);
+        frame.getContentPane().add(txtRenda);
+        txtRenda.setColumns(10);
+
+        btnIncluirAlterar = new JButton("Incluir");
+        btnIncluirAlterar.setEnabled(false);
+        btnIncluirAlterar.setBounds(131, 258, 90, 30);
+        frame.getContentPane().add(btnIncluirAlterar);
+
+        btnCancelar = new JButton("Cancelar");
+        btnCancelar.setEnabled(false);
+        btnCancelar.setBounds(239, 258, 90, 30);
+        frame.getContentPane().add(btnCancelar);
+
+        btnLimpar = new JButton("Limpar");
+        btnLimpar.setBounds(347, 258, 90, 30);
+        frame.getContentPane().add(btnLimpar);
+
+        btnNovo.addActionListener(e -> {
+            Entidade ent = mediator.buscar(txtCodigo.getText());
+            if (ent != null) {
+                JOptionPane.showMessageDialog(null, "Entidade já existente!");
+            } else {
+                btnIncluirAlterar.setEnabled(true);
+                btnCancelar.setEnabled(true);
+                txtNome.setEnabled(true);
+                txtRenda.setEnabled(true);
+                btnNovo.setEnabled(false);
+                btnBuscar.setEnabled(false);
+                txtCodigo.setEnabled(false);
+            }
+        });
+
+        btnBuscar.addActionListener(e -> {
+            Entidade ent = mediator.buscar(txtCodigo.getText());
+            if (ent == null) {
+                JOptionPane.showMessageDialog(null, "Entidade não existente!");
+            } else {
+                txtNome.setText(ent.getNome());
+                txtRenda.setText(ent.getRenda() + "");
+                btnIncluirAlterar.setText("Alterar");
+                btnIncluirAlterar.setEnabled(true);
+                btnCancelar.setEnabled(true);
+                txtNome.setEnabled(true);
+                txtRenda.setEnabled(true);
+                btnNovo.setEnabled(false);
+                btnBuscar.setEnabled(false);
+                txtCodigo.setEnabled(false);
+            }
+        });
+
+        btnIncluirAlterar.addActionListener(e -> {
+            Entidade ent = new Entidade(txtCodigo.getText(), txtNome.getText(), Double.parseDouble(txtRenda.getText()));
+            String msg;
+            if (btnIncluirAlterar.getText().equals("Incluir")) {
+                msg = mediator.incluir(ent);
+            } else {
+                msg = mediator.alterar(ent);
+            }
+            if (msg != null) {
+                JOptionPane.showMessageDialog(null, msg);                    
+            } else {
+                btnIncluirAlterar.setEnabled(false);
+                btnCancelar.setEnabled(false);
+                txtNome.setEnabled(false);
+                txtRenda.setEnabled(false);
+                btnNovo.setEnabled(true);
+                btnBuscar.setEnabled(true);
+                txtCodigo.setEnabled(true);
+                txtCodigo.setText("");
+                txtRenda.setText("");
+                txtNome.setText("");
+                btnIncluirAlterar.setText("Incluir");
+            }
+        });
+
+        btnCancelar.addActionListener(e -> {
+            btnIncluirAlterar.setEnabled(false);
+            btnCancelar.setEnabled(false);
+            txtNome.setEnabled(false);
+            txtRenda.setEnabled(false);
+            btnNovo.setEnabled(true);
+            btnBuscar.setEnabled(true);
+            txtCodigo.setEnabled(true);
+            txtCodigo.setText("");
+            txtRenda.setText("");
+            txtNome.setText("");
+            btnIncluirAlterar.setText("Incluir");
+        });
+
+        btnLimpar.addActionListener(e -> {
+            if (txtCodigo.isEnabled()) {
+                txtCodigo.setText("");
+            }
+            txtRenda.setText("");
+            txtNome.setText("");                
+        });
+    }
 }
