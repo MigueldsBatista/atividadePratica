@@ -44,11 +44,7 @@ public Ativo(int identificador, String nome, LocalDate dataValidade) {
         return identificador;
     }
 
-    @Override
-    public String toString() {
-        // TODO Auto-generated method stub
-        return this.getNome();
-    }
+
 }
 
 

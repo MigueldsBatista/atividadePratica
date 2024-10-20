@@ -8,14 +8,11 @@ import br.com.cesarschool.poo.titulos.mediators.MediatorOperacao;
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioAcao; // Supondo que tenha esse repositório
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioTituloDivida; // Supondo que tenha esse repositório
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioEntidadeOperadora; // Supondo que tenha esse repositório
+import br.com.cesarschool.poo.titulos.telas.TelaInicio;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-
-import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,8 +25,8 @@ public class TelaOperacao {
     private JComboBox<Acao> cmbAcoes; 
     private JComboBox<TituloDivida> cmbTitulos; 
     private JTextField txtValor;
-
     private JButton btnOperar;
+    private static final int ALTURA_BOTAO = 30;
 
     private MediatorOperacao mediatorOperacao = MediatorOperacao.getInstancia();
 
@@ -48,6 +45,10 @@ public class TelaOperacao {
         initialize();
     }
 
+    public void setVisible(boolean visibilidade) {
+        frame.setVisible(visibilidade);
+    }
+
     private void initialize() {
         createFrame();
 
@@ -58,37 +59,37 @@ public class TelaOperacao {
 
         // COMPONENTE 1: Entidade Credora
         JLabel labelEntidadeCredora = new JLabel("Entidade Credora");
-        labelEntidadeCredora.setBounds(xLabel, yPos, 121, 20);
+        labelEntidadeCredora.setBounds(xLabel, yPos, 200, 20);
         frame.getContentPane().add(labelEntidadeCredora);
-        
+
         cmbEntidadeCredora = new JComboBox<>(carregarEntidadesOperadoras());
-        cmbEntidadeCredora.setBounds(xComboBox, yPos, 150, 26);
+        cmbEntidadeCredora.setBounds(xComboBox, yPos, 300, 26);
         frame.getContentPane().add(cmbEntidadeCredora);
         yPos += spacing;
 
         // COMPONENTE 2: Entidades de Débito
         JLabel labelEntidadesDebito = new JLabel("Entidades Debitada");
-        labelEntidadesDebito.setBounds(xLabel, yPos, 121, 20);
+        labelEntidadesDebito.setBounds(xLabel, yPos, 200, 20);
         frame.getContentPane().add(labelEntidadesDebito);
-        
+
         cmbEntidadesDebito = new JComboBox<>(carregarEntidadesOperadoras());
-        cmbEntidadesDebito.setBounds(xComboBox, yPos, 150, 26);
+        cmbEntidadesDebito.setBounds(xComboBox, yPos, 300, 26);
         frame.getContentPane().add(cmbEntidadesDebito);
         yPos += spacing;
 
         // COMPONENTE 3: Toggle "Operar com Ação"
         toggleOperarAcao = new JToggleButton("Usar Ação");
-        toggleOperarAcao.setBounds(xLabel, yPos, 150, 30);
+        toggleOperarAcao.setBounds(xLabel, yPos, 120, 30);
         frame.getContentPane().add(toggleOperarAcao);
         yPos += spacing;
 
         // COMPONENTE 4: Dropdown de Ações
         JLabel labelAcoes = new JLabel("Ação");
-        labelAcoes.setBounds(xLabel, yPos, 121, 20);
+        labelAcoes.setBounds(xLabel, yPos, 200, 20);
         frame.getContentPane().add(labelAcoes);
-        
+
         cmbAcoes = new JComboBox<>(carregarAcoes());
-        cmbAcoes.setBounds(xComboBox, yPos, 150, 26);
+        cmbAcoes.setBounds(xComboBox, yPos, 300, 26);
         cmbAcoes.setVisible(false); // Inicialmente invisível
         frame.getContentPane().add(cmbAcoes);
         yPos += spacing;
@@ -103,56 +104,65 @@ public class TelaOperacao {
                 frame.repaint();
             }
         });
+
         // COMPONENTE 5: Dropdown de Títulos
-        JLabel labelTitulos = new JLabel("Título");
-        labelTitulos.setBounds(xLabel, yPos, 121, 20);
+        JLabel labelTitulos = new JLabel("Título Dívida");
+        labelTitulos.setBounds(xLabel, yPos, 200, 20);
         frame.getContentPane().add(labelTitulos);
-        
+
         cmbTitulos = new JComboBox<>(carregarTitulosDivida());
-        cmbTitulos.setBounds(xComboBox, yPos, 150, 26);
+        cmbTitulos.setBounds(xComboBox, yPos, 300, 26);
         cmbTitulos.setVisible(true); // Inicialmente visível
         frame.getContentPane().add(cmbTitulos);
         yPos += spacing;
 
         // COMPONENTE 6: Campo para valor da operação
         JLabel labelValor = new JLabel("Valor da Operação");
-        labelValor.setBounds(xLabel, yPos, 121, 20);
+        labelValor.setBounds(xLabel, yPos, 200, 20);
         frame.getContentPane().add(labelValor);
-        
+
         txtValor = new JTextField();
-        txtValor.setBounds(xComboBox, yPos, 150, 26);
+        txtValor.setBounds(xComboBox, yPos, 300, 26);
         frame.getContentPane().add(txtValor);
         yPos += spacing;
 
-
         // COMPONENTE 7: Botão "Operar"
         btnOperar = new JButton("Operar");
-        btnOperar.setBounds(xLabel, yPos, 90, 30);
+        btnOperar.setBounds(xLabel, yPos, 120, ALTURA_BOTAO);
         frame.getContentPane().add(btnOperar);
+        yPos += spacing; // Atualiza yPos para o próximo componente
 
-        // Adicionando a ação do botão
+        // COMPONENTE 8: Botão "Voltar"
+        JButton btnVoltar = new JButton("Voltar");
+        btnVoltar.setBounds(xLabel, yPos, 100, ALTURA_BOTAO);
+        btnVoltar.addActionListener(e -> {
+            TelaInicio telaInicio = new TelaInicio();
+            telaInicio.setVisible(true);
+            frame.dispose(); // Fecha a tela atual
+        });
+        frame.getContentPane().add(btnVoltar);
+
+        // Adicionando a ação do botão "Operar"
         btnOperar.addActionListener(e -> {
             try {
                 double valor = Double.parseDouble(txtValor.getText());
-                
 
                 // Obtendo a entidade selecionada
                 EntidadeOperadora entidadeCredora = (EntidadeOperadora) cmbEntidadeCredora.getSelectedItem();
                 EntidadeOperadora entidadeDebito = (EntidadeOperadora) cmbEntidadesDebito.getSelectedItem();
-                
+
                 // Exemplo de operação
                 boolean isAcao = toggleOperarAcao.isSelected();
-                int idAcaoOuTitulo = toggleOperarAcao.isSelected() ? ((Acao) cmbAcoes.getSelectedItem()).getIdentificador() : ((TituloDivida) cmbTitulos.getSelectedItem()).getIdentificador();
+                int idAcaoOuTitulo = isAcao ? ((Acao) cmbAcoes.getSelectedItem()).getIdentificador() : ((TituloDivida) cmbTitulos.getSelectedItem()).getIdentificador();
 
                 String msg = mediatorOperacao.realizarOperacao(isAcao, entidadeCredora.getIdentificador(), entidadeDebito.getIdentificador(), idAcaoOuTitulo, valor);
                 if (msg == null) {
-                JOptionPane.showMessageDialog(null, "Operação realizada com sucesso: " + isAcao + 
-                        " - Valor: " + valor + 
-                        " - Data-Hora: " + LocalDateTime.now() +
-                        " - Entidade Credora: " + entidadeCredora.getNome() +
-                        " - Entidade Débito: " + entidadeDebito.getNome());                    
-                }
-                else {
+                    JOptionPane.showMessageDialog(null, "Operação realizada com sucesso: " + isAcao + 
+                            " - Valor: " + valor + 
+                            " - Data-Hora: " + LocalDateTime.now() +
+                            " - Entidade Credora: " + entidadeCredora.getNome() +
+                            " - Entidade Débito: " + entidadeDebito.getNome());
+                } else {
                     JOptionPane.showMessageDialog(null, "Erro ao operar: " + msg);
                 }
 

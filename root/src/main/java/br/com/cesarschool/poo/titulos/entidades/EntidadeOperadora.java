@@ -89,6 +89,6 @@ public class EntidadeOperadora {
     }
     @Override
     public String toString() {
-        return this.getNome();
+        return this.getNome() + " - "+ "R$" + this.getSaldoAcao() + " - "+ "R$"+this.getSaldoTituloDivida();
     }
 }

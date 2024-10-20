@@ -107,6 +107,7 @@ public class RepositorioEntidadeOperadora {
 				if(id == entidadeOperadora.getIdentificador()){
 					line =
                      entidadeOperadora.getIdentificador() + ";" + 
+                     entidadeOperadora.getNome() + ";" +
                      entidadeOperadora.getAutorizacao() + ";" + 
                      entidadeOperadora.getSaldoAcao() + ";" + 
                      entidadeOperadora.getSaldoTituloDivida();
@@ -198,9 +199,8 @@ public class RepositorioEntidadeOperadora {
                     double saldoTituloDivida = Double.parseDouble(parts[4]);
                     
                     EntidadeOperadora entidade = new EntidadeOperadora(identificador, nome, autorizadoAcao, saldoTituloDivida, saldoAcao);
-                    entidade.creditarSaldoAcao(saldoAcao);
-                    entidade.creditarSaldoTituloDivida(saldoTituloDivida);
-                    
+
+                
                     return entidade;
                 }
             }
@@ -224,8 +224,6 @@ public class RepositorioEntidadeOperadora {
                 double saldoTituloDivida = Double.parseDouble(parts[4]);
                 
                 EntidadeOperadora entidade = new EntidadeOperadora(id, nome, autorizadoAcao, saldoTituloDivida, saldoAcao);
-                entidade.creditarSaldoAcao(saldoAcao);
-                entidade.creditarSaldoTituloDivida(saldoTituloDivida);
                 
                 entidades.add(entidade);
             }

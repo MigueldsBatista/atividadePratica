@@ -35,5 +35,9 @@ public double calcularPrecoTransacao(double montante){
         this.valorUnitario = valorUnitario;
     }
 
-    
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return this.getNome()+ " - "+"R$"+this.getValorUnitario();
+    }
 }
