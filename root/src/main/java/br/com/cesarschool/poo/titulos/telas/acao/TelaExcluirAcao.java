@@ -1,13 +1,15 @@
 package br.com.cesarschool.poo.titulos.telas.acao;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
-import java.util.logging.Logger;
-import java.util.logging.Level;
+
 import br.com.cesarschool.poo.titulos.mediators.MediatorAcao;
 
 public class TelaExcluirAcao {
@@ -63,10 +65,9 @@ public class TelaExcluirAcao {
         btnExcluir = new JButton("Excluir");
         btnExcluir.setBounds(xLabel, yPos, 90, 30);
         frame.getContentPane().add(btnExcluir);
-        xLabel+= 110;
 
         JButton btnVoltar = new JButton("Voltar");
-        btnVoltar.setBounds(xLabel, yPos, 90, 30);
+        btnVoltar.setBounds(xLabel + 100, yPos, 90, 30);
         btnVoltar.addActionListener(e -> {
             NavegacaoAcao navegacaoAcao = new NavegacaoAcao();
             navegacaoAcao.setVisible(true);
@@ -74,6 +75,14 @@ public class TelaExcluirAcao {
         });
         frame.getContentPane().add(btnVoltar);
         
+        JButton btnLimpar = new JButton("Limpar");
+        btnLimpar.setBounds(xLabel + 200, yPos, 90, 30);
+        btnLimpar.addActionListener(e -> {
+            textoId.setText("");
+
+        });
+        frame.getContentPane().add(btnLimpar);
+
         btnExcluir.addActionListener(e -> {
             try {
                 int id = Integer.parseInt(textoId.getText());            

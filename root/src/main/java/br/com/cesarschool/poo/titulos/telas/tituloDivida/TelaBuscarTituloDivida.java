@@ -109,6 +109,17 @@ public class TelaBuscarTituloDivida {
         });
         frame.getContentPane().add(btnVoltar);
 
+        frame.getContentPane().add(btnVoltar);
+        JButton btnLimpar = new JButton("Limpar");
+        btnLimpar.setBounds(xLabel + 220, yPos, 100, 30); // Ajuste da altura do botão
+        btnLimpar.addActionListener(e -> {
+            textoId.setText("");
+            textoNome.setText("");
+            textoTaxaJuros.setText("");
+            textoDataValidade.setText("");
+        });
+        frame.getContentPane().add(btnLimpar);
+
         // Adicionando a ação do botão Buscar
         btnBuscar.addActionListener(e -> {
             try {

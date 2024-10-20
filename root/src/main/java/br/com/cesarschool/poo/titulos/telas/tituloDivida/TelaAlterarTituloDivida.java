@@ -123,7 +123,7 @@ public class TelaAlterarTituloDivida {
         frame.getContentPane().add(btnIncluir);
 
         JButton btnVoltar = new JButton("Voltar");
-        btnVoltar.setBounds(150, yPos, 90, 30); // Ajusta a posição de 'Voltar'
+        btnVoltar.setBounds(xLabel+100, yPos, 90, 30); // Ajusta a posição de 'Voltar'
         btnVoltar.addActionListener(e -> {
             NavegacaoTituloDivida navegacaoTituloDivida = new NavegacaoTituloDivida();
             navegacaoTituloDivida.setVisible(true);
@@ -131,6 +131,16 @@ public class TelaAlterarTituloDivida {
         });
         frame.getContentPane().add(btnVoltar);
 
+        frame.getContentPane().add(btnVoltar);
+        JButton btnLimpar = new JButton("Limpar");
+        btnLimpar.setBounds(xLabel + 200, yPos, 100, 30); // Ajusta a posição e tamanho do botão 'Limpar'
+        btnLimpar.addActionListener(e -> {
+            textoId.setText("");
+            textoNome.setText("");
+            textoTaxaJuros.setText("");
+            textoDataValidade.setText("");
+        });
+        frame.getContentPane().add(btnLimpar);
         // Adicionando a ação do botão
         btnIncluir.addActionListener(e -> {
             try {

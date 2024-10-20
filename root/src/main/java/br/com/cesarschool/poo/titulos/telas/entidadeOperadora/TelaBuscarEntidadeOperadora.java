@@ -6,13 +6,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
-<<<<<<< HEAD
 import java.util.logging.Logger;
 
-=======
->>>>>>> b6a42c1 (TRABALHO FINALIZADO VAMOOO)
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import br.com.cesarschool.poo.titulos.entidades.EntidadeOperadora;
 import br.com.cesarschool.poo.titulos.mediators.MediatorEntidadeOperadora;
@@ -129,8 +125,15 @@ public class TelaBuscarEntidadeOperadora {
             navegacaoEntidadeOperadora.setVisible(true);
             frame.dispose(); // Fecha a Tela Buscar
         });
+
         frame.getContentPane().add(btnVoltar);
-        
+        JButton btnLimpar = new JButton("Limpar");
+        btnLimpar.setBounds(xLabel + 220, yPos, 100, 30);
+        btnLimpar.addActionListener(e -> {
+            textoId.setText("");
+            textoNome.setText("");
+        });
+        frame.getContentPane().add(btnLimpar);
         // Ação do botão Buscar
         btnBuscar.addActionListener(e -> {
             try {

@@ -1,13 +1,15 @@
 package br.com.cesarschool.poo.titulos.telas.entidadeOperadora;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
-import java.util.logging.Logger;
-import java.util.logging.Level;
+
 import br.com.cesarschool.poo.titulos.mediators.MediatorEntidadeOperadora;
 
 public class TelaExcluirEntidadeOperadora {
@@ -76,7 +78,12 @@ public class TelaExcluirEntidadeOperadora {
             frame.dispose(); 
         });
         frame.getContentPane().add(btnVoltar);
-        
+        JButton btnLimpar = new JButton("Limpar");
+        btnLimpar.setBounds(xLabel + 230, yPos, 100, 30);
+        btnLimpar.addActionListener(e -> {
+            textoId.setText("");
+        });
+        frame.getContentPane().add(btnLimpar);
         // Ação do botão Excluir
         btnExcluir.addActionListener(e -> {
             try {

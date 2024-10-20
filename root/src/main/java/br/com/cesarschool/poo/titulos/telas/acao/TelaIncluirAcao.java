@@ -1,25 +1,26 @@
 package br.com.cesarschool.poo.titulos.telas.acao;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
-import java.util.logging.Logger;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.logging.Level;
 
 import br.com.cesarschool.poo.titulos.entidades.Acao;
 import br.com.cesarschool.poo.titulos.mediators.MediatorAcao;
 
 public class TelaIncluirAcao {
     private JFrame frame;
-    private JTextField txtId;
-    private JTextField txtNome;
-    private JTextField txtValor;
-    private JTextField txtDataValidade;
+    private JTextField textoId;
+    private JTextField textoNome;
+    private JTextField textoValor;
+    private JTextField textoDataValidade;
     private JButton btnIncluir;   
     private MediatorAcao mediatorAcao = MediatorAcao.getInstancia();
 
@@ -66,36 +67,36 @@ public class TelaIncluirAcao {
         JLabel labelId = new JLabel("Id");
         labelId.setBounds(xLabel, yPos, 121, labelHeight);
         frame.getContentPane().add(labelId);
-        txtId = new JTextField();
-        txtId.setBounds(xTextField, yPos, textFieldWidth, textFieldHeight);
-        frame.getContentPane().add(txtId);
+        textoId = new JTextField();
+        textoId.setBounds(xTextField, yPos, textFieldWidth, textFieldHeight);
+        frame.getContentPane().add(textoId);
         yPos += verticalSpacing; // Atualiza a posição y
 
         // COMPONENTE 2 - NOME
         JLabel labelNome = new JLabel("Nome");
         labelNome.setBounds(xLabel, yPos, 121, labelHeight);
         frame.getContentPane().add(labelNome);
-        txtNome = new JTextField();
-        txtNome.setBounds(xTextField, yPos, textFieldWidth, textFieldHeight);
-        frame.getContentPane().add(txtNome);
+        textoNome = new JTextField();
+        textoNome.setBounds(xTextField, yPos, textFieldWidth, textFieldHeight);
+        frame.getContentPane().add(textoNome);
         yPos += verticalSpacing;
 
         // COMPONENTE 3 - VALOR
         JLabel labelValor = new JLabel("Valor");
         labelValor.setBounds(xLabel, yPos, 121, labelHeight);
         frame.getContentPane().add(labelValor);
-        txtValor = new JTextField();
-        txtValor.setBounds(xTextField, yPos, textFieldWidth, textFieldHeight);
-        frame.getContentPane().add(txtValor);
+        textoValor = new JTextField();
+        textoValor.setBounds(xTextField, yPos, textFieldWidth, textFieldHeight);
+        frame.getContentPane().add(textoValor);
         yPos += verticalSpacing;
 
         // COMPONENTE 4 - DATA DE VALIDADE
         JLabel labelDataValidade = new JLabel("Data de Validade");
         labelDataValidade.setBounds(xLabel, yPos, 121, labelHeight);
         frame.getContentPane().add(labelDataValidade);
-        txtDataValidade = new JTextField();
-        txtDataValidade.setBounds(xTextField, yPos, textFieldWidth, textFieldHeight);
-        frame.getContentPane().add(txtDataValidade);
+        textoDataValidade = new JTextField();
+        textoDataValidade.setBounds(xTextField, yPos, textFieldWidth, textFieldHeight);
+        frame.getContentPane().add(textoDataValidade);
         yPos += verticalSpacing;
 
         // COMPONENTE 5 - BOTÃO INCLUIR
@@ -113,13 +114,23 @@ public class TelaIncluirAcao {
         });
         frame.getContentPane().add(btnVoltar);
         
+        JButton btnLimpar = new JButton("Limpar");
+        btnLimpar.setBounds(xLabel + 230, yPos, 90, 30);
+        btnLimpar.addActionListener(e -> {
+            textoId.setText("");
+            textoNome.setText("");
+            textoValor.setText("");
+            textoDataValidade.setText("");
+        });
+
+        frame.getContentPane().add(btnLimpar);
         // Adicionando a ação do botão Incluir
         btnIncluir.addActionListener(e -> {
             try {
-                int id = Integer.parseInt(txtId.getText());
-                String nome = txtNome.getText();
-                LocalDate dataValidade = LocalDate.parse(txtDataValidade.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                double valor = Double.parseDouble(txtValor.getText());
+                int id = Integer.parseInt(textoId.getText());
+                String nome = textoNome.getText();
+                LocalDate dataValidade = LocalDate.parse(textoDataValidade.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                double valor = Double.parseDouble(textoValor.getText());
                 
                 // Cria o objeto Acao
                 Acao acao = new Acao(id, nome, dataValidade, valor);

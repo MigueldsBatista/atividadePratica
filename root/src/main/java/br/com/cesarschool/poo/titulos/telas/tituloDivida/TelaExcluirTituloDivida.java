@@ -77,6 +77,14 @@ public class TelaExcluirTituloDivida {
             frame.dispose(); // Fecha a tela de exclusão
         });
         frame.getContentPane().add(btnVoltar);
+
+        frame.getContentPane().add(btnVoltar);
+        JButton btnLimpar = new JButton("Limpar");
+        btnLimpar.setBounds(xLabel + 220, yPos, 100, 30); // Assuming ALTURA_BOTAO is 30
+        btnLimpar.addActionListener(e -> {
+            texoId.setText("");
+        });
+        frame.getContentPane().add(btnLimpar);
         
         // Adicionando a ação do botão Excluir
         btnExcluir.addActionListener(e -> {

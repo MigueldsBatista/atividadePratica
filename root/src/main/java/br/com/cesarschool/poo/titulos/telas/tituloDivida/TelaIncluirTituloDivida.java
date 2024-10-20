@@ -68,13 +68,23 @@ public class TelaIncluirTituloDivida {
         frame.getContentPane().add(btnIncluir);
 
         JButton btnVoltar = new JButton("Voltar");
-        btnVoltar.setBounds(150, 100, 100, 30);
+        btnVoltar.setBounds(xLabel+100, yPos, 100, 30);
         btnVoltar.addActionListener(e -> {
             new NavegacaoTituloDivida().setVisible(true);
             frame.dispose(); // Fecha a tela atual
         });
         frame.getContentPane().add(btnVoltar);
 
+        frame.getContentPane().add(btnVoltar);
+        JButton btnLimpar = new JButton("Limpar");
+        btnLimpar.setBounds(xLabel + 210, yPos, 100, 30);
+        btnLimpar.addActionListener(e -> {
+            textoId.setText("");
+            textoNome.setText("");
+            textoTaxaJuros.setText("");
+            textoDataValidade.setText("");
+        });
+        frame.getContentPane().add(btnLimpar);
         // Adicionando a ação do botão
         btnIncluir.addActionListener(e -> incluirTitulo());
     }

@@ -126,7 +126,18 @@ public class TelaIncluirEntidadeOperadora {
             navegacaoEntidadeOperadora.setVisible(true);
             frame.dispose(); // Fecha a tela atual
         });
+
         frame.getContentPane().add(btnVoltar);
+        JButton btnLimpar = new JButton("Limpar");
+        btnLimpar.setBounds(xLabel + 220, yPos, 100, 30);
+        btnLimpar.addActionListener(e -> {
+            textoId.setText("");
+            textoNome.setText("");
+            comboAutorizadoAcao.setSelectedIndex(0);
+            textoSaldoAcao.setText("");
+            textoSaldoTituloDivida.setText("");
+        });
+        frame.getContentPane().add(btnLimpar);
 
         // Adicionando a ação do botão Incluir
         btnIncluir.addActionListener(e -> {

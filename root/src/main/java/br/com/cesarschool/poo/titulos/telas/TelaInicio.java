@@ -37,7 +37,7 @@ public class TelaInicio {
         frame.setLayout(null);
 
         // Botão para Tela de Adição
-        JButton btnAdicao = new JButton("Naivegação Ação");
+        JButton btnAdicao = new JButton("Navegação Ação");
         btnAdicao.setBounds(100, 30, 200, 30);
         btnAdicao.addActionListener(e -> abrirNavegacaoAcao());
         frame.getContentPane().add(btnAdicao);

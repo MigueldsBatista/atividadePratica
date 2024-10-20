@@ -115,13 +115,23 @@ public class TelaAlterarEntidadeOperadora {
         frame.getContentPane().add(btnAlterar);
         
         JButton btnVoltar = new JButton("Voltar");
-        btnVoltar.setBounds(150, yPos, 90, alturaBotao);
+        btnVoltar.setBounds(xLabel+100, yPos, 90, alturaBotao);
         btnVoltar.addActionListener(e -> {
             NavegacaoEntidadeOperadora navegacaoEntidadeOperadora = new NavegacaoEntidadeOperadora();
             navegacaoEntidadeOperadora.setVisible(true);
             frame.dispose(); // Fecha a Tela Alterar
         });
         frame.getContentPane().add(btnVoltar);
+
+        JButton btnLimpar = new JButton("Limpar");
+        btnLimpar.setBounds(xLabel + 200, yPos, 100, 30);
+        btnLimpar.addActionListener(e -> {
+            textoId.setText("");
+            textoNome.setText("");
+            textoSaldoAcao.setText("");
+            textoSaldoTituloDivida.setText("");
+        });
+        frame.getContentPane().add(btnLimpar);
 
         // Adicionando a ação do botão
         btnAlterar.addActionListener(e -> {

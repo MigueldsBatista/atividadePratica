@@ -86,7 +86,15 @@ public class TelaAlterarAcao {
             frame.dispose(); // Fecha a Tela Alterar
         });
         frame.getContentPane().add(btnVoltar);
-
+        JButton btnLimpar = new JButton("Limpar");
+        btnLimpar.setBounds(xLabel + 250, yPos, 100, ALTURA_BOTAO);
+        btnLimpar.addActionListener(e -> {
+            txtId.setText("");
+            txtNome.setText("");
+            txtValor.setText("");
+            txtDataValidade.setText("");
+        });
+        frame.getContentPane().add(btnLimpar);
         // Ação do botão para alterar
         btnIncluir.addActionListener(e -> alterarAcao());
     }

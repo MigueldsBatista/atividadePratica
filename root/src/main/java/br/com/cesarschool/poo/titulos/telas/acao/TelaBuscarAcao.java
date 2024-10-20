@@ -111,6 +111,15 @@ public class TelaBuscarAcao {
         });
         frame.getContentPane().add(btnVoltar);
 
+        JButton btnLimpar = new JButton("Limpar");
+        btnLimpar.setBounds(xLabel + 200, yPos, 100, 30);
+        btnLimpar.addActionListener(e -> {
+            textoId.setText("");
+            textoNome.setText("");
+            textoValor.setText("");
+            textoDataValidade.setText("");
+        });
+        frame.getContentPane().add(btnLimpar);
         // Adicionando a ação do botão
         btnBuscar.addActionListener(e -> {
             try {
