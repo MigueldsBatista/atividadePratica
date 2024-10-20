@@ -28,7 +28,7 @@ public class TelaCadastro {
                 TelaCadastro telaCadastro = new TelaCadastro();
                 telaCadastro.frame.setVisible(true);
             } catch (Exception e) {
-                Logger.getLogger(TelaCadastro.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(TelaCadastro.class.getName()).log(Level.SEVERE, null, e);git lo
             }
         });
     }

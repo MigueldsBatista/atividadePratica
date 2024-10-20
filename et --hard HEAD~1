@@ -1,0 +1,79 @@
+[33mcommit b6a42c1d0c7b76f31156cb3cdb0337920916655c[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: Miguel Batista <msb2@cesar.school>
+Date:   Sun Oct 20 03:25:19 2024 -0300
+
+    TRABALHO FINALIZADO VAMOOO
+    Co-authored-by: ticogafa <ticogafa@users.noreply.github.com>
+    Co-authored-by: xTvini <xTvini@users.noreply.github.com>
+
+[33mcommit 8458f08244ec94cd96faf9a8143e91d40ed7adc8[m
+Author: Miguel Batista <msb2@cesar.school>
+Date:   Sun Oct 20 01:43:23 2024 -0300
+
+    falta corrigir um pequeno bug no nome da entidade que ta sumindo
+
+[33mcommit bd2b4a0b943b12716390946ca554aad4474166ad[m
+Author: Miguel Batista <msb2@cesar.school>
+Date:   Sat Oct 19 22:51:50 2024 -0300
+
+    telas de crud concluidas
+
+[33mcommit 894f1d0f05ea2a566d4887011b3871ee438ffdcc[m
+Author: Miguel Batista <msb2@cesar.school>
+Date:   Sat Oct 19 21:59:01 2024 -0300
+
+    versão estável pra garantir q n vai dar merda, telas de ação implementadas, titulo dívida no meio do processo
+
+[33mcommit e6fa97cb37ed1f2bef712f152deacb6d4073b476[m
+Author: Miguel Batista <msb2@cesar.school>
+Date:   Sat Oct 19 18:40:02 2024 -0300
+
+    agora os repositórios de fato existem e gravam num arquivo real, porém faltam as verificações
+
+[33mcommit 31104f2ed7bf642c452f889703c313f85945485e[m
+Author: ticolinux <tiago.gurgel2006@gmail.com>
+Date:   Fri Oct 18 21:45:12 2024 -0300
+
+    Refactor TelaCadastro and TelaEntidade classes to set frame visibility
+
+[33mcommit 72d2b4d137beb58ef312d8fc1ec8287ad47973a3[m
+Author: ticolinux <tiago.gurgel2006@gmail.com>
+Date:   Fri Oct 18 21:43:04 2024 -0300
+
+    Refactor RepositorioTituloDivida class to handle file reading and writing errors
+
+[33mcommit f26ecf1343a3b44e32abb357b36efe373b5c11a4[m
+Author: ticolinux <tiago.gurgel2006@gmail.com>
+Date:   Fri Oct 18 19:05:58 2024 -0300
+
+    Refactor Entidade and EntidadeMediator classes
+
+[33mcommit b84a7a422b6183e538b4875ef85c2bd5a3ad06c0[m
+Author: ticolinux <tiago.gurgel2006@gmail.com>
+Date:   Fri Oct 18 18:20:08 2024 -0300
+
+    remoção do teste RepositorioTituloDivida
+
+[33mcommit c890a254f99fcdc50b20e05ee5402ff105ebea35[m
+Author: ticolinux <tiago.gurgel2006@gmail.com>
+Date:   Fri Oct 18 18:17:23 2024 -0300
+
+    atualização da to do list
+
+[33mcommit 773aa41ac4655f59f333af74ae07d87c77f0266c[m
+Author: xTvini <142419660+xTvini@users.noreply.github.com>
+Date:   Fri Oct 18 18:03:47 2024 -0300
+
+    mediadores Finalizzados 4/4 falta agora somente a parte 3 :)
+
+[33mcommit 0505de4d4d2c3fa72e5efd4c06190ea11725e3dd[m
+Author: xTvini <142419660+xTvini@users.noreply.github.com>
+Date:   Fri Oct 18 12:59:24 2024 -0300
+
+    parte 2 mediadorTitulo divida concluida 3/4
+
+[33mcommit 94d77529bd02c0f3d486a1956eca5b67049ccdf2[m
+Author: xTvini <142419660+xTvini@users.noreply.github.com>
+Date:   Fri Oct 18 12:17:46 2024 -0300
+
+    parte 2 MediadorEntidadeOperadora concluir 2/4
