@@ -1,6 +1,8 @@
 package br.com.cesarschool.poo.titulos.telas.transacao;
 
 import javax.swing.*;
+
+import br.com.cesarschool.poo.titulos.MainApplicationScreen;
 import br.com.cesarschool.poo.titulos.entidades.Acao;
 import br.com.cesarschool.poo.titulos.entidades.EntidadeOperadora;
 import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
@@ -8,7 +10,6 @@ import br.com.cesarschool.poo.titulos.mediators.MediatorOperacao;
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioAcao; // Supondo que tenha esse repositório
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioTituloDivida; // Supondo que tenha esse repositório
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioEntidadeOperadora; // Supondo que tenha esse repositório
-import br.com.cesarschool.poo.titulos.telas.TelaInicio;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -133,7 +134,7 @@ public class TelaOperacao {
         btnVoltar = new JButton("Voltar");
         btnVoltar.setBounds(xLabel + 140, yPos, LARGURA_COMPONENTE, ALTURA_COMPONENTE);
         btnVoltar.addActionListener(e -> {
-            TelaInicio telaInicio = new TelaInicio();
+            MainApplicationScreen telaInicio = new MainApplicationScreen();
             telaInicio.setVisible(true);
             frame.dispose(); // Fecha a tela atual
         });

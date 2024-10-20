@@ -16,4 +16,5 @@
 7;entidadefantasiosa;true;3200.0;2304.0;4;ENTIDADEFANTSIOSA;0.0;896.0;3;FAZ O L LULAA;2025-12-21;300.0;null;null;null;null;400.0;2024-10-20 02:04:31
 7;entidadefantasiosa;true;800.0;2304.0;4;ENTIDADEFANTSIOSA;0.0;896.0;3;FAZ O L LULAA;2025-12-21;300.0;null;null;null;null;400.0;2024-10-20 02:05:01
 7;entidadefantasiosa;true;1200.0;2304.0;4;ENTIDADEFANTSIOSA;200.0;896.0;3;FAZ O L LULAA;2025-12-21;300.0;null;null;null;null;400.0;2024-10-20 02:05:15
+
 4;ENTIDADEFANTSIOSA;true;200.0;1248.0;7;entidadefantasiosa;1200.0;1952.0;null;null;null;null;2;novo titulo;2025-12-12;12.0;400.0;2024-10-20 03:23:50

@@ -3,7 +3,8 @@ package br.com.cesarschool.poo.titulos.telas.acao;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-import br.com.cesarschool.poo.titulos.telas.TelaInicio;
+
+import br.com.cesarschool.poo.titulos.MainApplicationScreen;
 
 public class NavegacaoAcao {
     private JFrame frame;
@@ -67,7 +68,7 @@ public class NavegacaoAcao {
         JButton btnVoltar = new JButton("Voltar");
         btnVoltar.setBounds(150, 230, 100, ALTURA_BOTAO);
         btnVoltar.addActionListener(e -> {
-            TelaInicio telaInicio = new TelaInicio();
+            MainApplicationScreen telaInicio = new MainApplicationScreen();
             telaInicio.setVisible(true);
             frame.dispose(); // Fecha a tela atual
         });

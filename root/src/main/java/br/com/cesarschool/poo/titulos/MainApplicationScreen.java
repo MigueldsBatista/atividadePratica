@@ -1,4 +1,4 @@
-package br.com.cesarschool.poo.titulos.telas;
+package br.com.cesarschool.poo.titulos;
 
 import javax.swing.*;
 
@@ -7,16 +7,15 @@ import br.com.cesarschool.poo.titulos.telas.entidadeOperadora.NavegacaoEntidadeO
 import br.com.cesarschool.poo.titulos.telas.tituloDivida.NavegacaoTituloDivida;
 import br.com.cesarschool.poo.titulos.telas.transacao.TelaOperacao;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class TelaInicio {
+
+public class MainApplicationScreen {
     private JFrame frame;
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             try {
-                TelaInicio window = new TelaInicio();
+                MainApplicationScreen window = new MainApplicationScreen();
                 window.frame.setVisible(true);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -24,7 +23,7 @@ public class TelaInicio {
         });
     }
 
-    public TelaInicio() {
+    public MainApplicationScreen() {
         initialize();
     }
     public void setVisible(boolean visibilidade){
@@ -66,26 +65,26 @@ public class TelaInicio {
         // Implementação da lógica para abrir NavegacaoAcao
         NavegacaoAcao navegacaoAcao = new NavegacaoAcao();
         navegacaoAcao.setVisible(true);
-        frame.setVisible(false); // Esconde TelaInicio
+        frame.setVisible(false); // Esconde MainApplicationScreen
     }
 
     private void abrirNavegacaoTituloDivida() {
         // Implementação da lógica para abrir NavegacaoTituloDivida
         NavegacaoTituloDivida navegacaoTituloDivida = new NavegacaoTituloDivida();
         navegacaoTituloDivida.setVisible(true);
-        frame.setVisible(false); // Esconde TelaInicio
+        frame.setVisible(false); // Esconde MainApplicationScreen
     }
 
     private void abrirNavegacaoEntidadeOperadora() {
         // Implementação da lógica para abrir NavegacaoEntidadeOperadora
         NavegacaoEntidadeOperadora navegacaoEntidadeOperadora = new NavegacaoEntidadeOperadora();
         navegacaoEntidadeOperadora.setVisible(true);
-        frame.setVisible(false); // Esconde TelaInicio
+        frame.setVisible(false); // Esconde MainApplicationScreen
     }
     private void abrirOperacao(){
         // Implementação da lógica para abrir Operacao
         TelaOperacao operacao = new TelaOperacao();
         operacao.setVisible(true);
-        frame.setVisible(false); // Esconde TelaInicio
+        frame.setVisible(false); // Esconde MainApplicationScreen
     }
 }

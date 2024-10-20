@@ -1,7 +1,6 @@
 package br.com.cesarschool.poo.titulos.repositorios;
 
 import br.com.cesarschool.poo.titulos.entidades.EntidadeOperadora;
-import br.com.cesarschool.poo.titulos.telas.Entidade;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
