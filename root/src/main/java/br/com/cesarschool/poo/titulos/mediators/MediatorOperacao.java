@@ -67,7 +67,9 @@ public class MediatorOperacao {
     private final MediatorTituloDivida mediatorTituloDivida = MediatorTituloDivida.getInstancia();
     private final MediatorEntidadeOperadora mediatorEntidadeOperadora = MediatorEntidadeOperadora.getInstancia();
     private final RepositorioTransacao repositorioTransacao = new RepositorioTransacao();
+
     private MediatorOperacao() {}
+
     public static MediatorOperacao getInstancia() {
         if (instancia == null) {
             instancia = new MediatorOperacao();
@@ -75,73 +77,127 @@ public class MediatorOperacao {
         return instancia;
     }
 
-    public String realizarOperacao(boolean ehAcao, int idEntidadeCredito, int idEntidadeDebito, int idAcaoOuTitulo, double valor) {
+    public String realizarOperacao(boolean isAcao, int idEntidadeCredito, int idEntidadeDebito, int idAcaoOuTitulo, double valor) {
+    
+        // Validação inicial do valor da operação
         if (valor <= 0) {
             return "Valor inválido";
         }
+        
+        // Busca da entidade de crédito pelo identificador
         EntidadeOperadora entidadeCredito = mediatorEntidadeOperadora.buscar(idEntidadeCredito);
         if (entidadeCredito == null) {
             return "Entidade crédito inexistente";
         }
+        
+        // Busca da entidade de débito pelo identificador
         EntidadeOperadora entidadeDebito = mediatorEntidadeOperadora.buscar(idEntidadeDebito);
         if (entidadeDebito == null) {
             return "Entidade débito inexistente";
         }
-
-        if (ehAcao) {
-            if (entidadeCredito.getAutorizacao() <= 0) {
-                return "Entidade de crédito não autorizada para ação";
-            }if (entidadeDebito.getAutorizacao() <= 0) {
-                return "Entidade de débito não autorizada para ação";
+        
+        // Verifica se a operação é de uma ação ou um título de dívida
+        if (isAcao == true) {
+            // Operação com ação
+            String resultadoAcao = realizarOperacaoAcao(entidadeCredito, entidadeDebito, idAcaoOuTitulo, valor);
+            if (resultadoAcao != null) {
+                return resultadoAcao; // Retorna a mensagem de erro, se houver
             }
-            Acao acao = mediatorAcao.buscar(idAcaoOuTitulo);
-            if (acao == null) {
-                return "Ação inexistente";
-            }if (entidadeDebito.getSaldoAcao() < valor) {
-                return "Saldo da entidade débito insuficiente";
-            }if (acao.getValorUnitario() > valor) {
-                return "Valor da operação é menor do que o valor unitário da ação";
-            }
-            entidadeCredito.creditarSaldoAcao(valor);
-            entidadeDebito.debitarSaldoAcao(valor);
         } else {
-            TituloDivida titulo = mediatorTituloDivida.buscar(idAcaoOuTitulo);
-            if (titulo == null) {
-                return "Título inexistente";
-            }if (entidadeDebito.getSaldoTituloDivida() < valor) {
-                return "Saldo da entidade débito insuficiente";
+            // Operação com título de dívida
+            String resultadoTitulo = realizarOperacaoTitulo(entidadeCredito, entidadeDebito, idAcaoOuTitulo, valor);
+            if (resultadoTitulo != null) {
+                return resultadoTitulo; // Retorna a mensagem de erro, se houver
             }
-            double valorOperacao = titulo.calcularPrecoTransacao(valor);
-
-            entidadeCredito.creditarSaldoTituloDivida(valorOperacao);
-            entidadeDebito.debitarSaldoTituloDivida(valorOperacao);
         }
+        
+        // Atualiza a entidade de crédito
         String mensagemAlterarCredito = mediatorEntidadeOperadora.alterar(entidadeCredito);
         if (mensagemAlterarCredito != null) {
-            return mensagemAlterarCredito;
+            return mensagemAlterarCredito; // Retorna a mensagem de erro, se houver
         }
+    
+        // Atualiza a entidade de débito
         String mensagemAlterarDebito = mediatorEntidadeOperadora.alterar(entidadeDebito);
         if (mensagemAlterarDebito != null) {
-            return mensagemAlterarDebito;
+            return mensagemAlterarDebito; // Retorna a mensagem de erro, se houver
         }
+    
+        // Criação e inclusão da transação no repositório
         Transacao transacao = new Transacao(
                 entidadeCredito,
-                entidadeDebito,
-                ehAcao ? mediatorAcao.buscar(idAcaoOuTitulo) : null,
-                ehAcao ? null : mediatorTituloDivida.buscar(idAcaoOuTitulo),
+                entidadeDebito,  //se for então busca, se não for então é nulo
+/* Campo Ação*/ isAcao == true ? mediatorAcao.buscar(idAcaoOuTitulo) : null,     // Se for ação, buscar a ação
+/* Campo Titu*/ isAcao == true ? null : mediatorTituloDivida.buscar(idAcaoOuTitulo), // Se for título, buscar o título
                 valor,
                 LocalDateTime.now()
         );
+        
         repositorioTransacao.incluir(transacao);
-        return null;
+        return null; // Se tudo ocorrer sem erros, retorna null
     }
+
+    private String realizarOperacaoAcao(EntidadeOperadora entidadeCredito, EntidadeOperadora entidadeDebito, int idAcao, double valor) {
+    
+        // Verifica se as entidades estão autorizadas para operar com ações
+        if (!entidadeCredito.getAutorizacao()) {
+            return "Entidade de crédito não autorizada para ação";
+        }
+
+        if (!entidadeDebito.getAutorizacao()) {
+            return "Entidade de débito não autorizada para ação";
+        }
+    
+        // Busca da ação pelo identificador
+        Acao acao = mediatorAcao.buscar(idAcao);
+        if (acao == null) {
+            return "Ação inexistente";
+        }
+    
+        // Verifica se o saldo de ações da entidade de débito é suficiente
+        if (entidadeDebito.getSaldoAcao() < valor) {
+            return "Saldo da entidade débito insuficiente";
+        }
+    
+        // Verifica se o valor da operação é suficiente para a unidade da ação
+        if (acao.getValorUnitario() > valor) {
+            return "Valor da operação é menor do que o valor unitário da ação";
+        }
+    
+        // Executa a operação de débito e crédito
+        entidadeCredito.creditarSaldoAcao(valor);
+        entidadeDebito.debitarSaldoAcao(valor);
+    
+        return null; // Se tudo correr bem, retorna null
+    }
+
+private String realizarOperacaoTitulo(EntidadeOperadora entidadeCredito, EntidadeOperadora entidadeDebito, int idTitulo, double valor) {
+    
+    // Busca do título de dívida pelo identificador
+    TituloDivida titulo = mediatorTituloDivida.buscar(idTitulo);
+    if (titulo == null) {
+        return "Título inexistente";
+    }
+
+    // Verifica se o saldo de títulos da entidade de débito é suficiente
+    if (entidadeDebito.getSaldoTituloDivida() < valor) {
+        return "Saldo da entidade débito insuficiente";
+    }
+
+    // Calcula o valor da operação com base na taxa de juros ou valor do título
+    double valorOperacao = titulo.calcularPrecoTransacao(valor);
+
+    // Executa a operação de débito e crédito
+    entidadeCredito.creditarSaldoTituloDivida(valorOperacao);
+    entidadeDebito.debitarSaldoTituloDivida(valorOperacao);
+
+    return null; // Se tudo correr bem, retorna null
+}
 
     public Transacao[] gerarExtrato(int idEntidade) {
         Transacao[] transacoesCredito = repositorioTransacao.buscarPorEntidadeCredora(idEntidade);
-        Transacao[] transacoesDebito = repositorioTransacao.buscarPorEntidadeDebito(idEntidade);
         List<Transacao> todasTransacoes = new ArrayList<>();
         todasTransacoes.addAll(Arrays.asList(transacoesCredito));
-        todasTransacoes.addAll(Arrays.asList(transacoesDebito));
         todasTransacoes.sort(Comparator.comparing(Transacao::getDataHoraOperacao).reversed());
         return todasTransacoes.toArray(new Transacao[todasTransacoes.size()]);
     }

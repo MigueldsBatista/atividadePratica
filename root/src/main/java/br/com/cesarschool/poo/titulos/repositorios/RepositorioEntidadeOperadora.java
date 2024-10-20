@@ -1,6 +1,8 @@
 package br.com.cesarschool.poo.titulos.repositorios;
 
 import br.com.cesarschool.poo.titulos.entidades.EntidadeOperadora;
+import br.com.cesarschool.poo.titulos.telas.Entidade;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -78,8 +80,13 @@ public class RepositorioEntidadeOperadora {
       }
   
       try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.toFile(), true))) {
-        writer.write(entidadeOperadora.getIdentificador() + ";" + entidadeOperadora.getNome() + ";" + entidadeOperadora.getAutorizacao() + ";" 
-                     + entidadeOperadora.getSaldoAcao() + ";" + entidadeOperadora.getSaldoTituloDivida());
+        writer.write(
+            entidadeOperadora.getIdentificador() + ";" + 
+            entidadeOperadora.getNome() + ";" + 
+            entidadeOperadora.getAutorizacao() + ";" + 
+            entidadeOperadora.getSaldoAcao() + ";" + 
+            entidadeOperadora.getSaldoTituloDivida()
+            );
         writer.newLine();
         } catch (IOException e) {
         e.printStackTrace();
@@ -98,7 +105,11 @@ public class RepositorioEntidadeOperadora {
 				String[] parts = line.split(";");
 				int id = Integer.parseInt(parts[0]);
 				if(id == entidadeOperadora.getIdentificador()){
-					line = entidadeOperadora.getIdentificador() + ";" + entidadeOperadora.getAutorizacao() + ";" + entidadeOperadora.getSaldoAcao() + ";" + entidadeOperadora.getSaldoTituloDivida();
+					line =
+                     entidadeOperadora.getIdentificador() + ";" + 
+                     entidadeOperadora.getAutorizacao() + ";" + 
+                     entidadeOperadora.getSaldoAcao() + ";" + 
+                     entidadeOperadora.getSaldoTituloDivida();
 					found = true;
 				}
 				lines.add(line);
@@ -123,6 +134,19 @@ public class RepositorioEntidadeOperadora {
 			}
 			return true;
 	}
+    /**
+     * Excludes an entry from a file based on the given identifier.
+     *
+     * @param identificador the identifier of the entry to be excluded
+     * @return true if the entry was found and successfully excluded, false otherwise
+     *
+     * This method reads the file line by line, checks if the identifier matches the given one,
+     * and if so, excludes that line from the list of lines to be written back to the file.
+     * If the identifier is not found, the method returns false.
+     * If the identifier is found, the method writes the remaining lines back to the file.
+     *
+     * @throws IOException if an I/O error occurs during reading or writing the file
+     */
 	public boolean excluir(int identificador) {
 		List<String> lines = new ArrayList<>();
 		boolean found = false;
@@ -134,9 +158,9 @@ public class RepositorioEntidadeOperadora {
 				int id = Integer.parseInt(parts[0]);
 				if(id == identificador){
 					found = true;
-					continue;
+					continue; //ignora a linha que vai ser excluida
 				}
-				lines.add(line);
+				lines.add(line);//adiciona a linha ao array de linhas que vai ser reescrito no arquivo
 			}
 
 		} catch (IOException e) {
@@ -150,8 +174,8 @@ public class RepositorioEntidadeOperadora {
 
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.toFile()))) {
             for (String line : lines) {
-                writer.write(line);
-                writer.newLine();
+                writer.write(line);//reescreve as linhas que não foram excluidas
+                writer.newLine(); //adiciona uma nova linha
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -169,11 +193,11 @@ public class RepositorioEntidadeOperadora {
                 int id = Integer.parseInt(parts[0]);
                 if (id == identificador) {
                     String nome = parts[1];
-                    double autorizadoAcao = Double.parseDouble(parts[2]);
+                    boolean autorizadoAcao = Boolean.parseBoolean(parts[2]);
                     double saldoAcao = Double.parseDouble(parts[3]);
                     double saldoTituloDivida = Double.parseDouble(parts[4]);
                     
-                    EntidadeOperadora entidade = new EntidadeOperadora(identificador, nome, saldoTituloDivida, saldoAcao);
+                    EntidadeOperadora entidade = new EntidadeOperadora(identificador, nome, autorizadoAcao, saldoTituloDivida, saldoAcao);
                     entidade.creditarSaldoAcao(saldoAcao);
                     entidade.creditarSaldoTituloDivida(saldoTituloDivida);
                     
@@ -185,4 +209,29 @@ public class RepositorioEntidadeOperadora {
         }
         return null; 
     }    
+
+    public List<EntidadeOperadora> listar() {
+        List<EntidadeOperadora> entidades = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))){
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(";");
+                int id = Integer.parseInt(parts[0]);
+                String nome = parts[1];
+                boolean autorizadoAcao = Boolean.parseBoolean(parts[2]);
+                double saldoAcao = Double.parseDouble(parts[3]);
+                double saldoTituloDivida = Double.parseDouble(parts[4]);
+                
+                EntidadeOperadora entidade = new EntidadeOperadora(id, nome, autorizadoAcao, saldoTituloDivida, saldoAcao);
+                entidade.creditarSaldoAcao(saldoAcao);
+                entidade.creditarSaldoTituloDivida(saldoTituloDivida);
+                
+                entidades.add(entidade);
+            }
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+        return entidades;
+    }
 }

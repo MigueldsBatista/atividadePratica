@@ -186,4 +186,25 @@ import java.util.List;
 		}
 		return null;
 	}
+	
+	public List<Acao> listar() {
+		List<Acao> acoes = new ArrayList<>();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+		try(BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))){
+			String line;
+			while((line = reader.readLine()) != null){
+				String[] parts = line.split(";");
+				int id = Integer.parseInt(parts[0]);
+				String nome = parts[1];
+				LocalDate dataValidade = LocalDate.parse(parts[2], formatter);
+				double valorUnitario = Double.parseDouble(parts[3]);
+				acoes.add(new Acao(id, nome, dataValidade, valorUnitario));
+			}
+	} 
+catch(IOException e){
+	e.printStackTrace();
+}
+return acoes;
+	}
 }

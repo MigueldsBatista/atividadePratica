@@ -25,13 +25,14 @@ package br.com.cesarschool.poo.titulos.entidades;
 public class EntidadeOperadora {
     private int identificador;
     public String nome;
-    private double autorizadoAcao;
+    private boolean autorizadoAcao;
     private double saldoAcao=0.0;
     private double saldoTituloDivida=0.0;
 
-    public EntidadeOperadora(int identificador,String nome, double saldoTituloDivida, double saldoAcao){
+    public EntidadeOperadora(int identificador,String nome, boolean autorizadoAcao, double saldoTituloDivida, double saldoAcao){
         this.identificador=identificador;
         this.nome=nome;
+        this.autorizadoAcao=true;
         this.saldoAcao=saldoAcao;
         this.saldoTituloDivida=saldoTituloDivida;
 
@@ -48,10 +49,10 @@ public class EntidadeOperadora {
         this.nome=nome;
     }
 
-    public double getAutorizacao(){
+    public boolean getAutorizacao(){
         return autorizadoAcao;
     }
-    public void setAutorizacao(double autorizadoAcao){
+    public void setAutorizacao(boolean autorizadoAcao){
         this.autorizadoAcao=autorizadoAcao;
     }
 
@@ -85,5 +86,9 @@ public class EntidadeOperadora {
         } else {
             System.out.println("Saldo de título de dívida insuficiente.");
         }
+    }
+    @Override
+    public String toString() {
+        return this.getNome();
     }
 }

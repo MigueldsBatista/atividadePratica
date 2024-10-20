@@ -1,14 +1,13 @@
 package br.com.cesarschool.poo.titulos.telas.entidadeOperadora;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import java.util.logging.Logger;
-import java.time.Integer;
-import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 
 import br.com.cesarschool.poo.titulos.entidades.EntidadeOperadora;
@@ -25,6 +24,7 @@ public class TelaAlterarEntidadeOperadora {
 private JFrame frame;
 private JTextField textoId;
 private JTextField textoNome;
+private JTextField textoAutorizacoAcao;
 private JTextField textoSaldoAcao;
 private JTextField textoSaldoTituloDivida;
 private JButton btnIncluir;   
@@ -102,6 +102,21 @@ private void initialize() {
     frame.getContentPane().add(textoNome);
     yPos += 36;
 
+    // COMPONENTE 2
+    JLabel labelAutorizadoAcao = new JLabel("Nova autorizado ação");
+    labelAutorizadoAcao.setBounds(xLabel, yPos, 121, 20);
+    frame.getContentPane().add(labelAutorizadoAcao);
+
+    // Criação do JComboBox com as opções true e false
+    String[] options = {"true", "false"};
+    JComboBox<String> comboAutorizadoAcao = new JComboBox<>(options);
+    comboAutorizadoAcao.setBounds(xTextField, yPos, 78, 26);
+    frame.getContentPane().add(comboAutorizadoAcao);
+
+    // Atualiza a posição vertical para o próximo componente
+    yPos += 36;
+
+
     // COMPONENTE 3
     JLabel labelSaldoAcao = new JLabel("Novo Saldo ação");
     labelSaldoAcao.setBounds(xLabel, yPos, 121, 20);
@@ -130,11 +145,12 @@ private void initialize() {
         try {
             int id = Integer.parseInt(textoId.getText());
             String nome = textoNome.getText();
+            boolean autorizadoAcao = Boolean.parseBoolean(textoAutorizacoAcao.getText());
             double saldoTituloDivida = Double.parseDouble(textoSaldoTituloDivida.getText());
             double saldoAcao = Double.parseDouble(textoSaldoAcao.getText());
             
             // Cria o objeto EntidadeOperadora aqui
-            EntidadeOperadora entidadeOperadora = new EntidadeOperadora(id, nome, saldoTituloDivida, saldoAcao);
+            EntidadeOperadora entidadeOperadora = new EntidadeOperadora(id, nome, autorizadoAcao, saldoTituloDivida, saldoAcao);
 
             // Tenta incluir a ação usando o mediador
             String msg = mediatorEntidadeOperadora.alterar(entidadeOperadora);

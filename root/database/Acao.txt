@@ -1,2 +1,2 @@
-3;petrobras do lulinha;2025-11-12;399.0
+3;petrobras do marcelo;2025-11-12;399.0
 4;petrobras limitada;2024-11-30;32.0

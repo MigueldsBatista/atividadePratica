@@ -19,6 +19,7 @@ public class TelaBuscarEntidadeOperadora {
 private JFrame frame;
 private JTextField textoId;
 private JTextField textoNome;
+private JTextField textoAutorizacoAcao;
 private JTextField textoSaldoAcao;
 private JTextField textoSaldoTituloDivida;
 
@@ -99,6 +100,15 @@ private void initialize() {
     textoNome.setEnabled(false);
     textoNome.setEditable(false);
     frame.getContentPane().add(textoNome);
+    yPos += 36;
+
+    // COMPONENTE 3.5
+    JLabel labelAutorizadoAcao = new JLabel("Autorização ação");
+    labelAutorizadoAcao.setBounds(xLabel, yPos, 121, 20);
+    frame.getContentPane().add(labelAutorizadoAcao);
+    textoAutorizacoAcao = new JTextField();
+    textoAutorizacoAcao.setBounds(xTextField, yPos, 78, 26);
+    frame.getContentPane().add(textoAutorizacoAcao);
     yPos += 36;
 
     // COMPONENTE 3

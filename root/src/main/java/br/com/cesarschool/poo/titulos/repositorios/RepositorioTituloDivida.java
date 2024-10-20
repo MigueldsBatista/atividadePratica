@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
+import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
 /*
  * Deve gravar em e ler de um arquivo texto chamado TituloDivida.txt os dados dos objetos do tipo
  * TituloDivida. Seguem abaixo exemplos de linhas (identificador, nome, dataValidade, taxaJuros).
@@ -170,4 +171,26 @@ import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
 		}
 		return null;
 	}
+
+	public List<TituloDivida> listar() {
+		List<TituloDivida> titulos = new ArrayList<>();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+		try(BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))){
+			String line;
+			while((line = reader.readLine()) != null){
+				String[] parts = line.split(";");
+				int id = Integer.parseInt(parts[0]);
+				String nome = parts[1];
+				LocalDate dataValidade = LocalDate.parse(parts[2], formatter);
+				double taxaJuros = Double.parseDouble(parts[3]);
+				titulos.add(new TituloDivida(id, nome, dataValidade, taxaJuros));
+			}
+	} 
+catch(IOException e){
+	e.printStackTrace();
 }
+return titulos;
+	}
+}
+
