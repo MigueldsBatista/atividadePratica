@@ -43,7 +43,7 @@ public class TelaIncluirEntidadeOperadora {
     }
 
     private void createFrame() {
-        frame = new JFrame();
+        frame = new JFrame("Incluir Entidade Operadora");
         frame.setBounds(100, 100, 556, 370);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);

@@ -43,7 +43,7 @@ public class TelaAlterarEntidadeOperadora {
     }
 
     private void createFrame() {
-        frame = new JFrame();
+        frame = new JFrame("Alterar Entidade Operadora");
         frame.setBounds(100, 100, 556, 370);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
@@ -148,7 +148,7 @@ public class TelaAlterarEntidadeOperadora {
                 // Tenta incluir a ação usando o mediador
                 String msg = mediatorEntidadeOperadora.alterar(entidadeOperadora);
                 if (msg == null) {
-                    JOptionPane.showMessageDialog(null, "Ação alterada com sucesso");
+                    JOptionPane.showMessageDialog(null, "Entidade alterada com sucesso");
                 } else {
                     JOptionPane.showMessageDialog(null, msg);
                 }

@@ -41,7 +41,7 @@ public class TelaBuscarTituloDivida {
     }
 
     private void createFrame() {
-        frame = new JFrame();
+        frame = new JFrame("Buscar Título Dívida");
         frame.setBounds(100, 100, 556, 370);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
@@ -126,7 +126,7 @@ public class TelaBuscarTituloDivida {
                 int id = Integer.parseInt(textoId.getText());
                 TituloDivida tituloDivida = mediatorTituloDivida.buscar(id);
                 if (tituloDivida == null) {
-                    JOptionPane.showMessageDialog(null, "Erro ao buscar ação");
+                    JOptionPane.showMessageDialog(null, "Erro ao buscar título");
                 } else {
                     textoNome.setText(tituloDivida.getNome());
                     textoTaxaJuros.setText(String.valueOf(tituloDivida.getTaxaJuros()));
