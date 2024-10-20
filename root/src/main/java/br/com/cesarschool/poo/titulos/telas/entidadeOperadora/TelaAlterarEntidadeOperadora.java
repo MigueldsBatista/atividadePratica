@@ -7,21 +7,28 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import java.util.logging.Logger;
-import java.time.LocalDate;
+import java.time.Integer;
 import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 
 import br.com.cesarschool.poo.titulos.entidades.EntidadeOperadora;
 import br.com.cesarschool.poo.titulos.mediators.MediatorEntidadeOperadora;
-
+/*
+ * atributos de entidade operadora
+ *     private int identificador;
+    public String nome;
+    private double autorizadoAcao;
+    private double saldoAcao=0.0;
+    private double saldoTituloDivida=0.0;
+ */
 public class TelaAlterarEntidadeOperadora {
 private JFrame frame;
-private JTextField txtId;
-private JTextField txtNome;
-private JTextField txtValor;
-private JTextField txtDataValidade;
+private JTextField textoId;
+private JTextField textoNome;
+private JTextField textoSaldoAcao;
+private JTextField textoSaldoTituloDivida;
 private JButton btnIncluir;   
-private MediatorEntidadeOperadora mediatorAcao = MediatorEntidadeOperadora.getInstancia();
+private MediatorEntidadeOperadora mediatorEntidadeOperadora = MediatorEntidadeOperadora.getInstancia();
 
 /*
  * Launch the application.
@@ -81,36 +88,36 @@ private void initialize() {
     JLabel labelId = new JLabel("ID atual");
     labelId.setBounds(xLabel, yPos, 121, 20);
     frame.getContentPane().add(labelId);
-    txtId = new JTextField();
-    txtId.setBounds(xTextField, yPos, 78, 26);
-    frame.getContentPane().add(txtId);
+    textoId = new JTextField();
+    textoId.setBounds(xTextField, yPos, 78, 26);
+    frame.getContentPane().add(textoId);
     yPos += 36; // Atualiza a posição y
 
     // COMPONENTE 2
     JLabel labelNome = new JLabel("Novo Nome");
     labelNome.setBounds(xLabel, yPos, 121, 20);
     frame.getContentPane().add(labelNome);
-    txtNome = new JTextField();
-    txtNome.setBounds(xTextField, yPos, 78, 26);
-    frame.getContentPane().add(txtNome);
+    textoNome = new JTextField();
+    textoNome.setBounds(xTextField, yPos, 78, 26);
+    frame.getContentPane().add(textoNome);
     yPos += 36;
 
     // COMPONENTE 3
-    JLabel labelValor = new JLabel("Novo Valor");
-    labelValor.setBounds(xLabel, yPos, 121, 20);
-    frame.getContentPane().add(labelValor);
-    txtValor = new JTextField();
-    txtValor.setBounds(xTextField, yPos, 78, 26);
-    frame.getContentPane().add(txtValor);
+    JLabel labelSaldoAcao = new JLabel("Novo Saldo ação");
+    labelSaldoAcao.setBounds(xLabel, yPos, 121, 20);
+    frame.getContentPane().add(labelSaldoAcao);
+    textoSaldoAcao = new JTextField();
+    textoSaldoAcao.setBounds(xTextField, yPos, 78, 26);
+    frame.getContentPane().add(textoSaldoAcao);
     yPos += 36;
 
     // COMPONENTE 4
-    JLabel labelDataValidade = new JLabel("Data de Validade");
-    labelDataValidade.setBounds(xLabel, yPos, 121, 20);
-    frame.getContentPane().add(labelDataValidade);
-    txtDataValidade = new JTextField();
-    txtDataValidade.setBounds(xTextField, yPos, 78, 26);
-    frame.getContentPane().add(txtDataValidade);
+    JLabel labelSaldoTituloDivida = new JLabel("Novo saldo título dívida");
+    labelSaldoTituloDivida.setBounds(xLabel, yPos, 121, 20);
+    frame.getContentPane().add(labelSaldoTituloDivida);
+    textoSaldoTituloDivida = new JTextField();
+    textoSaldoTituloDivida.setBounds(xTextField, yPos, 78, 26);
+    frame.getContentPane().add(textoSaldoTituloDivida);
     yPos += 36;
 
     // COMPONENTE 5
@@ -121,16 +128,16 @@ private void initialize() {
     // Adicionando a ação do botão
     btnIncluir.addActionListener(e -> {
         try {
-            int id = Integer.parseInt(txtId.getText());
-            String nome = txtNome.getText();
-            LocalDate dataValidade = LocalDate.parse(txtDataValidade.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            double valor = Double.parseDouble(txtValor.getText());
+            int id = Integer.parseInt(textoId.getText());
+            String nome = textoNome.getText();
+            double saldoTituloDivida = Double.parseDouble(textoSaldoTituloDivida.getText());
+            double saldoAcao = Double.parseDouble(textoSaldoAcao.getText());
             
             // Cria o objeto EntidadeOperadora aqui
-            EntidadeOperadora acao = new EntidadeOperadora(id, nome, dataValidade, valor);
+            EntidadeOperadora entidadeOperadora = new EntidadeOperadora(id, nome, saldoTituloDivida, saldoAcao);
 
             // Tenta incluir a ação usando o mediador
-            String msg = mediatorAcao.alterar(acao, id);
+            String msg = mediatorEntidadeOperadora.alterar(entidadeOperadora);
             if (msg == null) {
                 JOptionPane.showMessageDialog(null, "Ação alterada com sucesso");
             } else {

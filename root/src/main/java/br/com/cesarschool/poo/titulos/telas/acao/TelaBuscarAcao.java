@@ -14,10 +14,10 @@ import br.com.cesarschool.poo.titulos.mediators.MediatorAcao;
 
 public class TelaBuscarAcao {
 private JFrame frame;
-private JTextField txtId;
-private JTextField txtNome;
-private JTextField txtValor;
-private JTextField txtDataValidade;
+private JTextField textoId;
+private JTextField textoNome;
+private JTextField textoValor;
+private JTextField textoDataValidade;
 private JButton btnIncluir;   
 private MediatorAcao mediatorAcao = MediatorAcao.getInstancia();
 
@@ -80,42 +80,42 @@ private void initialize() {
     JLabel labelId = new JLabel("ID atual");
     labelId.setBounds(xLabel, yPos, 121, 20);
     frame.getContentPane().add(labelId);
-    txtId = new JTextField();
-    txtId.setBounds(xTextField, yPos, 122, 26);
-    frame.getContentPane().add(txtId);
+    textoId = new JTextField();
+    textoId.setBounds(xTextField, yPos, 122, 26);
+    frame.getContentPane().add(textoId);
     yPos += 36; // Atualiza a posição y
 
     // COMPONENTE 2
     JLabel labelNome = new JLabel("Novo Nome");
     labelNome.setBounds(xLabel, yPos, 121, 20);
     frame.getContentPane().add(labelNome);
-    txtNome = new JTextField();
-    txtNome.setBounds(xTextField, yPos, 122, 26);
-    txtNome.setEnabled(false);
-    txtNome.setEditable(false);
-    frame.getContentPane().add(txtNome);
+    textoNome = new JTextField();
+    textoNome.setBounds(xTextField, yPos, 122, 26);
+    textoNome.setEnabled(false);
+    textoNome.setEditable(false);
+    frame.getContentPane().add(textoNome);
     yPos += 36;
 
     // COMPONENTE 3
     JLabel labelValor = new JLabel("Novo Valor");
     labelValor.setBounds(xLabel, yPos, 121, 20);
     frame.getContentPane().add(labelValor);
-    txtValor = new JTextField();
-    txtValor.setBounds(xTextField, yPos, 122, 26);
-    txtValor.setEnabled(false);
-    txtValor.setEditable(false);
-    frame.getContentPane().add(txtValor);
+    textoValor = new JTextField();
+    textoValor.setBounds(xTextField, yPos, 122, 26);
+    textoValor.setEnabled(false);
+    textoValor.setEditable(false);
+    frame.getContentPane().add(textoValor);
     yPos += 36;
 
     // COMPONENTE 4
     JLabel labelDataValidade = new JLabel("Data de Validade");
     labelDataValidade.setBounds(xLabel, yPos, 121, 20);
     frame.getContentPane().add(labelDataValidade);
-    txtDataValidade = new JTextField();
-    txtDataValidade.setBounds(xTextField, yPos, 122, 26);
-    txtDataValidade.setEnabled(false);
-    txtDataValidade.setEditable(false);
-    frame.getContentPane().add(txtDataValidade);
+    textoDataValidade = new JTextField();
+    textoDataValidade.setBounds(xTextField, yPos, 122, 26);
+    textoDataValidade.setEnabled(false);
+    textoDataValidade.setEditable(false);
+    frame.getContentPane().add(textoDataValidade);
     yPos += 36;
 
     // COMPONENTE 5
@@ -126,7 +126,7 @@ private void initialize() {
     // Adicionando a ação do botão
     btnIncluir.addActionListener(e -> {
         try {
-            int id = Integer.parseInt(txtId.getText());            
+            int id = Integer.parseInt(textoId.getText());            
             // Cria o objeto Acao aqui
 
             // Tenta buacar a ação usando o mediador
@@ -134,9 +134,9 @@ private void initialize() {
             if (acao == null) {
                 JOptionPane.showMessageDialog(null, "Erro ao buscar ação");
             } else {
-                txtNome.setText(acao.getNome());
-                txtValor.setText(String.valueOf(acao.getValorUnitario()));
-                txtDataValidade.setText(acao.getDataValidade().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                textoNome.setText(acao.getNome());
+                textoValor.setText(String.valueOf(acao.getValorUnitario()));
+                textoDataValidade.setText(acao.getDataValidade().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
                 JOptionPane.showMessageDialog(null, "Ação encontrada com sucesso!");
             }
         } catch (Exception ex) {

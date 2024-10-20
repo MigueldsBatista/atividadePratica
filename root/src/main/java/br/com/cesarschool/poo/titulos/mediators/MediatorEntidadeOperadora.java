@@ -65,7 +65,7 @@ public class MediatorEntidadeOperadora  {
     }//pegar a instancia do singleton não entendi mto bem mas a internet explica
     
     private String validar(EntidadeOperadora entidade){
-        if (entidade.getIdentificador() <= 100 || entidade.getIdentificador() >= 1000000) {
+        if (entidade.getIdentificador() <= 0 || entidade.getIdentificador() >= 1000000) {
             return "Identificador deve estar entre 100 e 1000000";
         }
         if (entidade.getNome() == null || entidade.getNome().trim().isEmpty()) {
@@ -104,7 +104,7 @@ public class MediatorEntidadeOperadora  {
     }
 
     public String excluir(int identificador) {
-        if (identificador <= 100 || identificador >= 1000000) {
+        if (identificador <= 0 || identificador >= 1000000) {
             return "Identificador inválido";
         }
         boolean excluido = repositorioEntidadeOperadora.excluir(identificador);
@@ -116,7 +116,7 @@ public class MediatorEntidadeOperadora  {
     }
 
     public EntidadeOperadora buscar(int identificador) {
-        if (identificador <= 100 || identificador >= 1000000) {
+        if (identificador <= 0 || identificador >= 1000000) {
             return null;
         }
         return repositorioEntidadeOperadora.buscar(identificador);

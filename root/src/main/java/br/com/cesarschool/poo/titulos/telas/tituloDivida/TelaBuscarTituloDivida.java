@@ -12,7 +12,7 @@ import java.util.logging.Level;
 import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
 import br.com.cesarschool.poo.titulos.mediators.MediatorTituloDivida;
 
-public class TelaBuscarTituloDivida {
+public class TelaBuscarTituloDivida{
 private JFrame frame;
 private JTextField textoId;
 private JTextField textoNome;
@@ -97,7 +97,7 @@ private void initialize() {
     yPos += 36;
 
     // COMPONENTE 3
-    JLabel labelValor = new JLabel("Nova Taxa de juros");
+    JLabel labelValor = new JLabel("Novo Valor");
     labelValor.setBounds(xLabel, yPos, 121, 20);
     frame.getContentPane().add(labelValor);
     textoTaxaJuros = new JTextField();
@@ -137,10 +137,10 @@ private void initialize() {
                 textoNome.setText(tituloDivida.getNome());
                 textoTaxaJuros.setText(String.valueOf(tituloDivida.getTaxaJuros()));
                 textoDataValidade.setText(tituloDivida.getDataValidade().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-                JOptionPane.showMessageDialog(null, "Ação encontrada com sucesso!");
+                JOptionPane.showMessageDialog(null, "Título encontrado com sucesso!");
             }
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao buscar ação: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao buscar título: " + ex.getMessage());
         }
     });
 

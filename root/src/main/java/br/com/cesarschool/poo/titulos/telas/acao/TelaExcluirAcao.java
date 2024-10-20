@@ -13,7 +13,7 @@ import br.com.cesarschool.poo.titulos.mediators.MediatorAcao;
 
 public class TelaExcluirAcao {
 private JFrame frame;
-private JTextField txtId;
+private JTextField textoId;
 private JButton btnIncluir;   
 private MediatorAcao mediatorAcao = MediatorAcao.getInstancia();
 
@@ -76,9 +76,9 @@ private void initialize() {
     JLabel labelId = new JLabel("ID da ação");
     labelId.setBounds(xLabel, yPos, 121, 20);
     frame.getContentPane().add(labelId);
-    txtId = new JTextField();
-    txtId.setBounds(xTextField, yPos, 122, 26);
-    frame.getContentPane().add(txtId);
+    textoId = new JTextField();
+    textoId.setBounds(xTextField, yPos, 122, 26);
+    frame.getContentPane().add(textoId);
     yPos += 36; // Atualiza a posição y
 
     // COMPONENTE 5
@@ -89,7 +89,7 @@ private void initialize() {
     // Adicionando a ação do botão
     btnIncluir.addActionListener(e -> {
         try {
-            int id = Integer.parseInt(txtId.getText());            
+            int id = Integer.parseInt(textoId.getText());            
             // Cria o objeto Acao aqui
 
             // Tenta buacar a ação usando o mediador

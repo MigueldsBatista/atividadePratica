@@ -40,27 +40,7 @@ public static void main(String[] args) {
 public TelaAlterarAcao() {
     initialize();
 }
-/*
- * Convenções de espaçamento e indentação
- * 
- * Os elementos alinhados um do lado do outro devem ter um espaçamento de 21 pixels entre si.
- * ou seja se um elemento tem width de 100px e está na coordenada x = 41
- * o proximo deve ser algo com novo_x = x do elemento anterior(41) + width do elemento novo + 21(espaçamento)
- * isso se aplica a labels e caixas de texto principalmente
- * 
- * 
- * Pra altura a convenção vai ser 36 de espaçamento entre os elementos
- * ou seja se um elemento tem height de 20px e está na coordenada y = 40
- * o proximo deve ser algo com novo_y = y do elemento anterior(40) + height do elemento novo + 36(espaçamento)
- * 
- * 
- *  botoes devem estar embaixo de todas as caixas de texto e labels
- * 
- * labels textos sempre vão ter altura 20
- * caixas de texto sempre vão ter altura 26
- * 
- * pra botoes a altura vai ser 30 e largura 90
- */
+
 
 private void createFrame() {
     frame = new JFrame();

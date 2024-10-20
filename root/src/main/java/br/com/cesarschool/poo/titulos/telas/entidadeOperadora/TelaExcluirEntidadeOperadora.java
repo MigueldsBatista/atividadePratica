@@ -7,19 +7,17 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import java.util.logging.Logger;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+
 import java.util.logging.Level;
 
-import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
-import br.com.cesarschool.poo.titulos.mediators.MediatorTituloDivida;
+import br.com.cesarschool.poo.titulos.mediators.MediatorEntidadeOperadora;
 
 public class TelaExcluirEntidadeOperadora {
 private JFrame frame;
 private JTextField textoId;
 
 private JButton btnIncluir;   
-private MediatorTituloDivida mediatorTituloDivida = MediatorTituloDivida.getInstancia();
+private MediatorEntidadeOperadora mediatorEntidadeOperadora = MediatorEntidadeOperadora.getInstancia();
 
 /*
  * Launch the application.
@@ -28,10 +26,10 @@ private MediatorTituloDivida mediatorTituloDivida = MediatorTituloDivida.getInst
 public static void main(String[] args) {
     SwingUtilities.invokeLater(() -> {
         try {
-            TelaIncluirEntidadeOperadora window = new TelaIncluirEntidadeOperadora();
+            TelaExcluirEntidadeOperadora window = new TelaExcluirEntidadeOperadora();
             window.frame.setVisible(true);
         } catch (Exception e) {
-            Logger.getLogger(TelaIncluirEntidadeOperadora.class.getName()).log(Level.SEVERE, null, e);//loga a exceção
+            Logger.getLogger(TelaExcluirEntidadeOperadora.class.getName()).log(Level.SEVERE, null, e);//loga a exceção
         }
     });
 }
@@ -77,7 +75,7 @@ private void initialize() {
     int xTextField = 183; // Posição x para TextFields
 
     // COMPONENTE 1
-    JLabel labelId = new JLabel("ID da ação");
+    JLabel labelId = new JLabel("ID da Entidade Operadora");
     labelId.setBounds(xLabel, yPos, 121, 20);
     frame.getContentPane().add(labelId);
     textoId = new JTextField();
@@ -93,18 +91,18 @@ private void initialize() {
     // Adicionando a ação do botão
     btnIncluir.addActionListener(e -> {
         try {
-            int id = Integer.parseInt(textoId.getText());            
+            int id = Integer.parseInt(textoId.getText());
             // Cria o objeto TituloDivida aqui
 
             // Tenta buacar a ação usando o mediador
-            String msg = mediatorTituloDivida.excluir(id);
+            String msg = mediatorEntidadeOperadora.excluir(id);
             if (msg == null) {
-                JOptionPane.showMessageDialog(null, "Ação excluída com sucesso!");
+                JOptionPane.showMessageDialog(null, "Entidade Operadora excluída com sucesso!");
             } else {
-                JOptionPane.showMessageDialog(null, "Erro ao excluir ação!: "+msg);
+                JOptionPane.showMessageDialog(null, "Erro ao excluir Entidade Operadora!: "+msg);
             }
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao excluir ação: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao excluir Entidade Operadora: " + ex.getMessage());
         }
     });
 

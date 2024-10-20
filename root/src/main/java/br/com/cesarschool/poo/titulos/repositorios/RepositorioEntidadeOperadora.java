@@ -173,7 +173,7 @@ public class RepositorioEntidadeOperadora {
                     double saldoAcao = Double.parseDouble(parts[3]);
                     double saldoTituloDivida = Double.parseDouble(parts[4]);
                     
-                    EntidadeOperadora entidade = new EntidadeOperadora(identificador, nome, autorizadoAcao);
+                    EntidadeOperadora entidade = new EntidadeOperadora(identificador, nome, saldoTituloDivida, saldoAcao);
                     entidade.creditarSaldoAcao(saldoAcao);
                     entidade.creditarSaldoTituloDivida(saldoTituloDivida);
                     
