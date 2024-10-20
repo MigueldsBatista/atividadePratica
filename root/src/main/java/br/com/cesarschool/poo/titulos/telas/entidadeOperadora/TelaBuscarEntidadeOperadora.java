@@ -8,8 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import java.util.logging.Logger;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+
 import java.util.logging.Level;
 
 import br.com.cesarschool.poo.titulos.entidades.EntidadeOperadora;
