@@ -50,15 +50,16 @@ public class TelaAdicao {
         JLabel lblPrimeiroNumero = new JLabel("Primeiro número");
         lblPrimeiroNumero.setBounds(41, 40, 121, 20);
         frame.getContentPane().add(lblPrimeiroNumero);//adiciona o componente ao painel de conteúdo
+        txtPrimeiroNumero = new JTextField();
+        txtPrimeiroNumero.setBounds(183, 40, 78, 26);
+        frame.getContentPane().add(txtPrimeiroNumero);
+        txtPrimeiroNumero.setColumns(10);//define o número de colunas no campo de texto
 
         JLabel lblSegundoNumero = new JLabel("Segundo número");
         lblSegundoNumero.setBounds(41, 102, 121, 20);
         frame.getContentPane().add(lblSegundoNumero);
 
-        txtPrimeiroNumero = new JTextField();
-        txtPrimeiroNumero.setBounds(183, 40, 78, 26);
-        frame.getContentPane().add(txtPrimeiroNumero);
-        txtPrimeiroNumero.setColumns(10);//define o número de colunas no campo de texto
+
 
         txtSegundoNumero = new JTextField();
         txtSegundoNumero.setBounds(183, 102, 78, 26);
@@ -66,7 +67,7 @@ public class TelaAdicao {
         txtSegundoNumero.setColumns(10);
 
         JLabel lblResultado = new JLabel("Resultado");
-        lblResultado.setBounds(41, 163, 90, 20);
+        lblResultado.setBounds(41, 163, 70, 20);
         frame.getContentPane().add(lblResultado);
 
         txtResultado = new JTextField();
@@ -78,7 +79,7 @@ public class TelaAdicao {
         txtResultado.setColumns(10);
 
         JButton btnSomar = new JButton("Somar");
-        btnSomar.addActionListener(e -> {//adiciona um ouvinte de ação ao botão
+        btnSomar.addActionListener(e -> {
             double n1 = Double.parseDouble(txtPrimeiroNumero.getText());
             double n2 = Double.parseDouble(txtSegundoNumero.getText());
             double soma = n1 + n2;

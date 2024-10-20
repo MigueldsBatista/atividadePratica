@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 import br.com.cesarschool.poo.titulos.entidades.Transacao;
 import br.com.cesarschool.poo.titulos.entidades.EntidadeOperadora;
@@ -27,9 +28,22 @@ import br.com.cesarschool.poo.titulos.entidades.Acao;
  * valorOperacao, dataHoraOperacao
  */
 
+
+ /*
+  *Pra criar uma transação eu preciso de 
+
+  uma entidade credito, 
+  uma entidade debito,
+   uma ação, <Opcional>
+   um titulo de divida, <Opcional>
+   um valor de operação 
+   e uma data e hora de operação 
+
+  */
 public class RepositorioTransacao {
     private Path path;
     private final Path BASE_PATH = Paths.get("").toAbsolutePath(); // Caminho para a pasta pai
+	private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     public RepositorioTransacao() {
         // Inicializa o caminho do arquivo baseado no diretório de trabalho atual
@@ -53,9 +67,9 @@ public class RepositorioTransacao {
             e.printStackTrace();
             return false; // Retorna false em caso de erro
         }
-    }	private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+	}
 
-	public void incluir(Transacao transacao) {
+	public boolean incluir(Transacao transacao) {
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.toFile(), true))) {
 			String linha = transacao.getEntidadeCredito().getIdentificador() + ";" +
 					transacao.getEntidadeCredito().getNome() + ";" +
@@ -81,12 +95,14 @@ public class RepositorioTransacao {
 					transacao.getDataHoraOperacao().format(formatter) + "\n";
 
 			writer.write(linha);
+			return true; // Retorna true se a escrita foi bem-sucedida
 		} catch (IOException e) {
 			e.printStackTrace();
+			return false; // Retorna false em caso de erro
 		}
 	}
 
-	public Transacao[] buscarPorEntidadeCredora(long identificadorEntidadeCredito) {
+	public Transacao[] buscarPorEntidadeCredora(int identificadorEntidadeCredito) {
 		List<Transacao> transacoes = new ArrayList<>();
 		try (BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))) {
 			String linha;
@@ -96,14 +112,14 @@ public class RepositorioTransacao {
 					continue; // Ignora linhas inválidas
 				}
 
-				long idCredito = Long.parseLong(partes[0]);
+				int idCredito = Integer.parseInt(partes[0]);
 				if (idCredito == identificadorEntidadeCredito) {
 					EntidadeOperadora entidadeCredito = new EntidadeOperadora(idCredito, partes[1], Double.parseDouble(partes[2]));
-					EntidadeOperadora entidadeDebito = new EntidadeOperadora(Long.parseLong(partes[5]), partes[6], Double.parseDouble(partes[7]));
+					EntidadeOperadora entidadeDebito = new EntidadeOperadora(Integer.parseInt(partes[5]), partes[6], Double.parseDouble(partes[7]));
 
 					Acao acao = null;
 					if (!partes[10].equals("null")) {
-						acao = new Acao(Long.parseLong(partes[10]), partes[11], LocalDateTime.parse(partes[12], formatter).toLocalDate(), Double.parseDouble(partes[13]));
+						acao = new Acao(Integer.parseInt(partes[10]), partes[11], LocalDateTime.parse(partes[12], formatter).toLocalDate(), Double.parseDouble(partes[13]));
 					}
 
 					double valorOperacao = Double.parseDouble(partes[14]);
@@ -120,7 +136,7 @@ public class RepositorioTransacao {
 		return transacoes.toArray(new Transacao[transacoes.size()]);
 	}
 
-	public Transacao[] buscarPorEntidadeDebito(long identificadorEntidadeDebito) {
+	public Transacao[] buscarPorEntidadeDebito(int identificadorEntidadeDebito) {
 		List<Transacao> transacoes = new ArrayList<>();
 		try (BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))) {
 			String linha;
@@ -130,14 +146,14 @@ public class RepositorioTransacao {
 					continue; // Ignora linhas inválidas
 				}
 	
-				long idDebito = Long.parseLong(partes[5]);
+				int idDebito = Integer.parseInt(partes[5]);
 				if (idDebito == identificadorEntidadeDebito) {
-					EntidadeOperadora entidadeCredito = new EntidadeOperadora(Long.parseLong(partes[0]), partes[1], Double.parseDouble(partes[2]));
+					EntidadeOperadora entidadeCredito = new EntidadeOperadora(Integer.parseInt(partes[0]), partes[1], Double.parseDouble(partes[2]));
 					EntidadeOperadora entidadeDebito = new EntidadeOperadora(idDebito, partes[6], Double.parseDouble(partes[7]));
 	
 					Acao acao = null;
 					if (!partes[10].equals("null")) {
-						acao = new Acao(Long.parseLong(partes[10]), partes[11], LocalDateTime.parse(partes[12], formatter).toLocalDate(), Double.parseDouble(partes[13]));
+						acao = new Acao(Integer.parseInt(partes[10]), partes[11], LocalDateTime.parse(partes[12], formatter).toLocalDate(), Double.parseDouble(partes[13]));
 					}
 	
 					double valorOperacao = Double.parseDouble(partes[14]);

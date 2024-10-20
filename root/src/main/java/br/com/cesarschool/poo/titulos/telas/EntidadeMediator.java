@@ -23,6 +23,7 @@ public class EntidadeMediator {
 			return null;
 		}
 	}
+	
 	public Entidade buscar(String codigo) {
 		if (codigo == null || !codigo.equals("001")) {
 			return null;

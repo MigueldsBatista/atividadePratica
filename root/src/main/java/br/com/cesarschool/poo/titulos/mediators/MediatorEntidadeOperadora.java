@@ -103,7 +103,7 @@ public class MediatorEntidadeOperadora  {
         }
     }
 
-    public String excluir(long identificador) {
+    public String excluir(int identificador) {
         if (identificador <= 100 || identificador >= 1000000) {
             return "Identificador inválido";
         }
@@ -115,7 +115,7 @@ public class MediatorEntidadeOperadora  {
         }
     }
 
-    public EntidadeOperadora buscar(long identificador) {
+    public EntidadeOperadora buscar(int identificador) {
         if (identificador <= 100 || identificador >= 1000000) {
             return null;
         }

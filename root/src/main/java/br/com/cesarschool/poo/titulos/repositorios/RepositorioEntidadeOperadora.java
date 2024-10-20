@@ -123,7 +123,7 @@ public class RepositorioEntidadeOperadora {
 			}
 			return true;
 	}
-	public boolean excluir(long identificador) {
+	public boolean excluir(int identificador) {
 		List<String> lines = new ArrayList<>();
 		boolean found = false;
 
@@ -161,12 +161,12 @@ public class RepositorioEntidadeOperadora {
         return true;
 
 	}
-	public EntidadeOperadora buscar(long identificador) {
+	public EntidadeOperadora buscar(int identificador) {
         try (BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(";");
-                long id = Long.parseLong(parts[0]);
+                int id = Integer.parseInt(parts[0]);
                 if (id == identificador) {
                     String nome = parts[1];
                     double autorizadoAcao = Double.parseDouble(parts[2]);

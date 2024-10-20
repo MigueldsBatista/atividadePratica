@@ -2,7 +2,7 @@ package br.com.cesarschool.poo.titulos.entidades;
 
 /*
  * Esta classe deve ter os seguintes atributos:
- * identificador, do tipo long
+ * identificador, do tipo int
  * nome, do tipo String
  * autorizadoAcao, do tipo double
  * saldoAcao, do tipo double
@@ -23,19 +23,19 @@ package br.com.cesarschool.poo.titulos.entidades;
  */
 
 public class EntidadeOperadora {
-    private long identificador;
+    private int identificador;
     public String nome;
     private double autorizadoAcao;
     private double saldoAcao=0.0;
     private double saldoTituloDivida=0.0;
 
-    public EntidadeOperadora(long identificador,String nome, double autorizadoAcao){
+    public EntidadeOperadora(int identificador,String nome, double autorizadoAcao){
         this.identificador=identificador;
         this.nome=nome;
         this.autorizadoAcao=autorizadoAcao;
     }
 
-    public long getIdentificador(){
+    public int getIdentificador(){
         return identificador;
     }
 
@@ -66,7 +66,7 @@ public class EntidadeOperadora {
     }
 
     public void debitarSaldoAcao(double valor) {
-        if (saldoAcao >= valor) {
+        if (saldoAcao >= valor ) {
             saldoAcao -= valor;
         } else {
             System.out.println("Saldo de ação insuficiente.");

@@ -17,7 +17,7 @@ import java.time.LocalDate;
 public class TituloDivida extends Ativo{
     private double taxaJuros;
 
-    public TituloDivida(long identificador, String nome, LocalDate dataValidade, double taxaJuros){
+    public TituloDivida(int identificador, String nome, LocalDate dataValidade, double taxaJuros){
         super(identificador, nome, dataValidade);
         this.taxaJuros=taxaJuros;
     }
