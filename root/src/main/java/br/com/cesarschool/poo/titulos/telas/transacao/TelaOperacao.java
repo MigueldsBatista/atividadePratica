@@ -11,8 +11,6 @@ import br.com.cesarschool.poo.titulos.repositorios.RepositorioAcao; // Supondo q
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioTituloDivida; // Supondo que tenha esse repositório
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioEntidadeOperadora; // Supondo que tenha esse repositório
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.logging.Level;

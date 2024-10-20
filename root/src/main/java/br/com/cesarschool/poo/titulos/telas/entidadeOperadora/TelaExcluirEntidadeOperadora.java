@@ -19,7 +19,6 @@ public class TelaExcluirEntidadeOperadora {
     private MediatorEntidadeOperadora mediatorEntidadeOperadora = MediatorEntidadeOperadora.getInstancia();
     
     private static final int ESPACO_VERTICAL = 36;
-    private static final int ESPACO_HORIZONTAL = 21;
     private static final int LARGURA_TEXTFIELD = 122;
 
     public static void main(String[] args) {

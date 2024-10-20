@@ -16,7 +16,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
-import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
 /*
  * Deve gravar em e ler de um arquivo texto chamado TituloDivida.txt os dados dos objetos do tipo
  * TituloDivida. Seguem abaixo exemplos de linhas (identificador, nome, dataValidade, taxaJuros).
