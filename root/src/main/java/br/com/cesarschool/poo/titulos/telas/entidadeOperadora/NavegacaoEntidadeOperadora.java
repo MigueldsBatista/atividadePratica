@@ -41,13 +41,13 @@ public class NavegacaoEntidadeOperadora {
 
         // Botão para incluir
         JButton btnIncluir = new JButton("Incluir");
-        btnIncluir.setBounds(100, 80, LARGURA_BOTAO, ALTURA_BOTAO);
+        btnIncluir.setBounds(100, 30, LARGURA_BOTAO, ALTURA_BOTAO);
         btnIncluir.addActionListener(e -> abrirTelaIncluirEntidadeOperadora());
         frame.getContentPane().add(btnIncluir);
 
         // Botão para alterar
         JButton btnAlterar = new JButton("Alterar");
-        btnAlterar.setBounds(100, 30, LARGURA_BOTAO, ALTURA_BOTAO);
+        btnAlterar.setBounds(100, 80, LARGURA_BOTAO, ALTURA_BOTAO);
         btnAlterar.addActionListener(e -> abrirTelaAlterarEntidadeOperadora());
         frame.getContentPane().add(btnAlterar);
 
