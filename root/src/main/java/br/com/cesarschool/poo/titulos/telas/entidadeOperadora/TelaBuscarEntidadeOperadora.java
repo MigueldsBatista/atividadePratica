@@ -125,15 +125,19 @@ public class TelaBuscarEntidadeOperadora {
             navegacaoEntidadeOperadora.setVisible(true);
             frame.dispose(); // Fecha a Tela Buscar
         });
-
         frame.getContentPane().add(btnVoltar);
+
+        //BOTÃO DE LIMPAR
         JButton btnLimpar = new JButton("Limpar");
         btnLimpar.setBounds(xLabel + 220, yPos, 100, 30);
         btnLimpar.addActionListener(e -> {
             textoId.setText("");
             textoNome.setText("");
+            textoSaldoTituloDivida.setText("");
+            textoSaldoAcao.setText("");
         });
         frame.getContentPane().add(btnLimpar);
+        
         // Ação do botão Buscar
         btnBuscar.addActionListener(e -> {
             try {
