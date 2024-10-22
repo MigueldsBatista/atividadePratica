@@ -133,6 +133,7 @@ public class TelaBuscarEntidadeOperadora {
         btnLimpar.addActionListener(e -> {
             textoId.setText("");
             textoNome.setText("");
+            textoAutorizacaoAcao.setText("");   
             textoSaldoTituloDivida.setText("");
             textoSaldoAcao.setText("");
         });
@@ -150,6 +151,7 @@ public class TelaBuscarEntidadeOperadora {
                 } else {
                     textoNome.setText(entidadeOperadora.getNome());
                     textoSaldoAcao.setText(String.valueOf(entidadeOperadora.getSaldoAcao()));
+                    textoAutorizacaoAcao.setText(String.valueOf(entidadeOperadora.getAutorizacao()));
                     textoSaldoTituloDivida.setText(String.valueOf(entidadeOperadora.getSaldoTituloDivida()));
                     JOptionPane.showMessageDialog(null, "Entidade Operadora encontrada com sucesso!");
                 }
