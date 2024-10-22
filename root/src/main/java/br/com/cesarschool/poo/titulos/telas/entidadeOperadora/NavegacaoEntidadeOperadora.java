@@ -75,27 +75,23 @@ public class NavegacaoEntidadeOperadora {
     }
 
     private void abrirTelaIncluirEntidadeOperadora() {
-        frame = new JFrame("Incluir Entidade Operadora");
         TelaIncluirEntidadeOperadora tela = new TelaIncluirEntidadeOperadora();
         tela.setVisible(true);
         frame.setVisible(false);
     }
 
     private void abrirTelaAlterarEntidadeOperadora() {
-        frame = new JFrame("Alterar Entidade Operadora");
         TelaAlterarEntidadeOperadora tela = new TelaAlterarEntidadeOperadora();
         tela.setVisible(true);
         frame.setVisible(false);
     }
 
     private void abrirTelaBuscarEntidadeOperadora() {
-        frame = new JFrame("Buscar Entidade Operadora");
         TelaBuscarEntidadeOperadora tela = new TelaBuscarEntidadeOperadora();
         tela.setVisible(true);
         frame.setVisible(false);
     }
     private void abrirTelaExcluirEntidadeOperadora() {
-        frame = new JFrame("Excluir Entidade Operadora");
         TelaExcluirEntidadeOperadora tela = new TelaExcluirEntidadeOperadora();
         tela.setVisible(true);
         frame.setVisible(false);
