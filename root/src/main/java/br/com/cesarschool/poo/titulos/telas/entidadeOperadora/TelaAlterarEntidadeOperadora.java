@@ -73,7 +73,6 @@ public class TelaAlterarEntidadeOperadora {
         JLabel labelNome = new JLabel("Novo Nome");
         labelNome.setBounds(xLabel, yPos, 121, alturaLabel);
         frame.getContentPane().add(labelNome);
-        
         textoNome = new JTextField();
         textoNome.setBounds(xTextField, yPos, 78, alturaTextField);
         frame.getContentPane().add(textoNome);
@@ -83,7 +82,6 @@ public class TelaAlterarEntidadeOperadora {
         JLabel labelAutorizadoAcao = new JLabel("Nova autorização ação");
         labelAutorizadoAcao.setBounds(xLabel, yPos, 121, alturaLabel);
         frame.getContentPane().add(labelAutorizadoAcao);
-        
         JComboBox<String> comboAutorizadoAcao = new JComboBox<>(new String[]{"true", "false"});
         comboAutorizadoAcao.setBounds(xTextField, yPos, 78, alturaTextField);
         frame.getContentPane().add(comboAutorizadoAcao);
@@ -93,7 +91,6 @@ public class TelaAlterarEntidadeOperadora {
         JLabel labelSaldoAcao = new JLabel("Novo Saldo ação");
         labelSaldoAcao.setBounds(xLabel, yPos, 121, alturaLabel);
         frame.getContentPane().add(labelSaldoAcao);
-        
         textoSaldoAcao = new JTextField();
         textoSaldoAcao.setBounds(xTextField, yPos, 78, alturaTextField);
         frame.getContentPane().add(textoSaldoAcao);
@@ -103,7 +100,6 @@ public class TelaAlterarEntidadeOperadora {
         JLabel labelSaldoTituloDivida = new JLabel("Novo saldo título dívida");
         labelSaldoTituloDivida.setBounds(xLabel, yPos, 121, alturaLabel);
         frame.getContentPane().add(labelSaldoTituloDivida);
-        
         textoSaldoTituloDivida = new JTextField();
         textoSaldoTituloDivida.setBounds(xTextField, yPos, 78, alturaTextField);
         frame.getContentPane().add(textoSaldoTituloDivida);
