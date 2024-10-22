@@ -18,6 +18,7 @@ public class TelaAlterarEntidadeOperadora {
     private JFrame frame;
     private JTextField textoId;
     private JTextField textoNome;
+    private JComboBox<String> comboAutorizadoAcao;
     private JTextField textoSaldoAcao;
     private JTextField textoSaldoTituloDivida;
     private JButton btnAlterar;   
@@ -82,7 +83,9 @@ public class TelaAlterarEntidadeOperadora {
         JLabel labelAutorizadoAcao = new JLabel("Nova autorização ação");
         labelAutorizadoAcao.setBounds(xLabel, yPos, 121, alturaLabel);
         frame.getContentPane().add(labelAutorizadoAcao);
-        JComboBox<String> comboAutorizadoAcao = new JComboBox<>(new String[]{"true", "false"});
+
+        String[] options = {"true", "false"};
+        comboAutorizadoAcao = new JComboBox<>(options);
         comboAutorizadoAcao.setBounds(xTextField, yPos, 78, alturaTextField);
         frame.getContentPane().add(comboAutorizadoAcao);
         yPos += espacoY;

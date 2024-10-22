@@ -145,7 +145,6 @@ public class TelaIncluirEntidadeOperadora {
                 int id = Integer.parseInt(textoId.getText());
                 String nome = textoNome.getText();
                 boolean autorizadoAcao = Boolean.parseBoolean(comboAutorizadoAcao.getSelectedItem().toString());
-
                 double saldoTituloDivida = Double.parseDouble(textoSaldoTituloDivida.getText());
                 double saldoAcao = Double.parseDouble(textoSaldoAcao.getText());
                 
