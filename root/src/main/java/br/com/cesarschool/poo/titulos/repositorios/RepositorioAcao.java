@@ -64,7 +64,8 @@ import java.util.List;
             return false; // Retorna false em caso de erro
         }
     }
-		public boolean incluir(Acao acao) {
+
+	/*public boolean incluir(Acao acao) {
 			// Verifica se a ação já existe
 			try (BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))) {
 				String line;
@@ -92,8 +93,9 @@ import java.util.List;
 		return true;
 		
 	}
+	*/
 
-	public boolean alterar(Acao acao) {
+	/*public boolean alterar(Acao acao) {
 		List<String> lines = new ArrayList<>();
 		boolean found = false;
 
@@ -186,7 +188,7 @@ import java.util.List;
 		}
 		return null;
 	}
-	
+	*/
 	public List<Acao> listar() {
 		List<Acao> acoes = new ArrayList<>();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -201,10 +203,9 @@ import java.util.List;
 				double valorUnitario = Double.parseDouble(parts[3]);
 				acoes.add(new Acao(id, nome, dataValidade, valorUnitario));
 			}
-	} 
-catch(IOException e){
-	e.printStackTrace();
-}
-return acoes;
+		} catch(IOException e){
+			e.printStackTrace();
+		}
+		return acoes;
 	}
 }

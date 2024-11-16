@@ -43,7 +43,7 @@ public class RepositorioTransacao {
         }
     }
 
-    public boolean incluir(Transacao transacao) {
+    /*public boolean incluir(Transacao transacao) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.toFile(), true))) {
             String linha = transacao.getEntidadeCredito().getIdentificador() + ";" +
                            transacao.getEntidadeCredito().getNome() + ";" +
@@ -84,7 +84,7 @@ public class RepositorioTransacao {
             return false;
         }
     }
-
+    */
     public Transacao[] buscarPorEntidadeCredora(int identificadorEntidadeCredito) {
         List<Transacao> transacoes = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))) {

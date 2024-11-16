@@ -69,7 +69,7 @@ import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
 
 		private static final Logger LOGGER = Logger.getLogger(RepositorioTituloDivida.class.getName());
 	
-		public boolean incluir(TituloDivida tituloDivida) {
+		/*public boolean incluir(TituloDivida tituloDivida) {
 			try(BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))){
 				String line;
 				while((line=reader.readLine())!=null){
@@ -170,7 +170,7 @@ import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
 		}
 		return null;
 	}
-
+	*/
 	public List<TituloDivida> listar() {
 		List<TituloDivida> titulos = new ArrayList<>();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
