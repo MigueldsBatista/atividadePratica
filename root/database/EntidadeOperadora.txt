@@ -1,2 +1,2 @@
-4;ENTIDADEFANTSIOSA;true;200.0;1248.0
-7;entidadefantasiosa;true;1200.0;1952.0
+4;ENTIDADEFANTSIOSA;true;200.0;1234.8
+7;entidadefantasiosa;true;1200.0;1965.2

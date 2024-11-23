@@ -1,6 +1,18 @@
 package br.com.cesarschool.poo.titulos.telas.transacao;
 
-import javax.swing.*;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.JToggleButton;
+import javax.swing.SwingUtilities;
 
 import br.com.cesarschool.poo.titulos.MainApplicationScreen;
 import br.com.cesarschool.poo.titulos.entidades.Acao;
@@ -8,15 +20,8 @@ import br.com.cesarschool.poo.titulos.entidades.EntidadeOperadora;
 import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
 import br.com.cesarschool.poo.titulos.mediators.MediatorOperacao;
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioAcao; // Supondo que tenha esse repositório
-import br.com.cesarschool.poo.titulos.repositorios.RepositorioTituloDivida; // Supondo que tenha esse repositório
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioEntidadeOperadora; // Supondo que tenha esse repositório
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import br.com.cesarschool.poo.titulos.repositorios.RepositorioTituloDivida; // Supondo que tenha esse repositório
 
 public class TelaOperacao {
     private JFrame frame;
@@ -79,10 +84,17 @@ public class TelaOperacao {
         frame.getContentPane().add(cmbEntidadesDebito);
         yPos += ESPACAMENTO_HORIZONTAL;
 
-        // COMPONENTE 3: Toggle "Operar com Ação"
         toggleOperarAcao = new JToggleButton("Usar Ação");
         toggleOperarAcao.setBounds(xLabel, yPos, LARGURA_COMPONENTE, ALTURA_COMPONENTE);
         frame.getContentPane().add(toggleOperarAcao);
+
+
+        // COMPONENTE 3: Toggle "Operar com Ação"
+
+
+        JLabel labelAcao = new JLabel("Saldo: (Ação - Título) da entidade");
+        labelAcao.setBounds(xLabel+150, yPos, 250, ALTURA_COMPONENTE);
+        frame.getContentPane().add(labelAcao);
         yPos += ESPACAMENTO_HORIZONTAL;
 
         // COMPONENTE 4: Dropdown de Ações
