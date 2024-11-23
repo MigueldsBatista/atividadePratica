@@ -25,6 +25,7 @@ public class TesteRelatorios extends TesteGeral {
 	private static final String NOME_DIR_TRANSACAO = PONTO + SEP_ARQUIVO + Transacao.class.getSimpleName();
 	@Test
 	public void t000() {
+		//Testa se ComparadorTransacaoPorNomeCredora implementa Comparador e ComparadorPadrao
 		ComparadorTransacaoPorNomeCredora c = new ComparadorTransacaoPorNomeCredora();
 		Assertions.assertTrue(c instanceof Comparador);
 		Assertions.assertTrue(c instanceof ComparadorPadrao); 

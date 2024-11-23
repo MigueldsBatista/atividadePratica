@@ -1,0 +1,27 @@
+Caro,
+
+Seguem as funcionalidades extras:
+
+Complemento da 1a unidade: generalização do esquema de
+GRAVAÇÃO em arquivos que vocês fizeram na 1a unidade usando
+reflection. A ideia é vocês terem uma classe a mais, chamada
+RepositorioLinhaObjeto, que seja capaz de gravar os atributos de
+qualquer tipo.
+
+
+Complemento da 2a unidade: vocês vao implementar um
+esquema de cache para buscas no repositório serailizador de
+objetos que eu especifiquei. Como o cache funcionará:
+
+1- A 'memória" do cache será um objeto de um tipo que
+implementa a interface Map.//TODO
+
+2- Quando um objeto for alterado ou excluido, se ele estiver no
+cache, este deve ser atualizado.//TODO
+
+4- Quando um objeto for buscado por identificador único, a busca
+deve ser preferencialmente no cache. Se o objeto não estiver no
+cache, ir buscar no disco e, antes de retornar, atualizar o cache.//TODO
+
+
+Divirtam-se!

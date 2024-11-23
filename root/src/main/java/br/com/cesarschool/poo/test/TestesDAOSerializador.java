@@ -39,6 +39,7 @@ public class TestesDAOSerializador {
 	private static final String NOME_DIR = PONTO + SEP_ARQUIVO + EntidadeTeste.class.getSimpleName();  
 	private static final DAOSerializadorObjetos DAO = new DAOSerializadorObjetos(EntidadeTeste.class);
 	private void excluirArquivosDiretorio() {
+		//Exclui todos os arquivos do diretório
 		File dir = new File(NOME_DIR);
 		File[] arqs = dir.listFiles();
 		if (arqs != null && arqs.length > 0) {
@@ -58,7 +59,7 @@ public class TestesDAOSerializador {
 	private String obterNomeArquivo(EntidadeTeste ent) {
 		return NOME_DIR + SEP_ARQUIVO + ent.getIdUnico();
 	}
-	
+
 	@Test
 	public void testEntidade() {
 		Class<Entidade> classe = Entidade.class;

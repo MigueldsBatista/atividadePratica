@@ -2,7 +2,6 @@ package br.com.cesarschool.poo.titulos.mediators;
 
 import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioLinhaObjeto;
-import br.com.cesarschool.poo.titulos.repositorios.RepositorioTituloDivida;
 import java.time.LocalDate;
 
 /*
@@ -59,7 +58,6 @@ import java.time.LocalDate;
 
 public class MediatorTituloDivida {
     private static MediatorTituloDivida instancia;
-    private final RepositorioTituloDivida repositorioTituloDivida = new RepositorioTituloDivida();
     private RepositorioLinhaObjeto<TituloDivida> repositorioLinhaObjeto = new RepositorioLinhaObjeto<>("TituloDivida.txt");
 
     private MediatorTituloDivida() { }

@@ -10,7 +10,7 @@ class EntidadeModelo extends Entidade implements Comparavel {
 		this.id = id;
 		this.nome = nome; 
 	}
-    
+
 	int getId() {
 		return id;
 	}
@@ -21,9 +21,12 @@ class EntidadeModelo extends Entidade implements Comparavel {
 		EntidadeModelo em = (EntidadeModelo)c1;			
 		return nome.compareTo(em.nome);
 	}
-	public String getIdUnico() {
-		return "" + id;
-	}		
+    
+    @Override
+	public int getIdUnico() {
+		return this.id;
+	}
+
 	public String toString() {
 		return nome;
 	}

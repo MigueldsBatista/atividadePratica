@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Assertions;
 import br.gov.cesarschool.poo.daogenerico.DAOSerializadorObjetos;
 import br.gov.cesarschool.poo.daogenerico.Entidade;
 
+
 public class TestesDAOSerializador {
 	private static final String NOME_2 = "ENT NEW";
 	private static final String ID_2 = "2";

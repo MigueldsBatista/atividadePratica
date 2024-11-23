@@ -21,7 +21,9 @@ import java.time.LocalDateTime;
  */
 
 public abstract class Entidade implements java.io.Serializable {
-    
+    //o serializable é uma interface que não possui métodos, é usada para marcar classes que podem ser serializadas
+    //serialização é o processo de converter um objeto em um fluxo de bytes para armazená-lo ou transmiti-lo para a memória, banco de dados ou arquivo
+    //deserialização é o processo de converter um fluxo de bytes em um objeto
     LocalDateTime dataHoraInclusao;
     LocalDateTime dataHoraUltimaAlteracao;
     String usuarioInclusao;
@@ -31,7 +33,8 @@ public abstract class Entidade implements java.io.Serializable {
     }
 
 
-    public abstract int getIdUnico();
+    public abstract String getIdUnico();
+    //método abstrato que deve ser implementado pelas subclasses
 
     public LocalDateTime getDataHoraInclusao() {
         return dataHoraInclusao;

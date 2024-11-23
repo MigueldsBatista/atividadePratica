@@ -1,4 +1,4 @@
-package br.com.cesarschool.poo.titulos.relatorios;
+package br.com.cesarschool.poo.titulos.utils;
 
 public class RelatorioTransacaoBroker {
 /*Tem os dois métodos mencionados acima, que devem ler

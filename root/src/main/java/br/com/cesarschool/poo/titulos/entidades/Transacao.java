@@ -2,6 +2,8 @@ package br.com.cesarschool.poo.titulos.entidades;
 
 import java.time.LocalDateTime;
 
+import br.com.cesarschool.poo.daogenerico.Entidade;
+
 /*
  * Esta classe deve ter os seguintes atributos:
  * entidadeCredito, do tipo EntidadeOperadora
@@ -15,9 +17,14 @@ import java.time.LocalDateTime;
  * Deve ter métodos get/set públicos para todos os atributos, que 
  * são read-only fora da classe.
  * 
+ * 
+ * Transacao é a concatenação de:  
+Id único da entidade de crédito + “_” + 
+Id único da entidade de débito + “_” + 
+Id único da ação OU id único de título da dívida + “_” + Data e hora da operação formatada como yyyymmddhhmmss 
  */ 
 
-public class Transacao {
+public class Transacao extends Entidade{
     private EntidadeOperadora entidadeCredito;
     private EntidadeOperadora entidadeDebito;
     private Acao acao;
@@ -34,6 +41,21 @@ public class Transacao {
         this.dataHoraOperacao = dataHoraOperacao;
     }
 
+
+    @Override
+    public String getIdUnico() {
+    //lembra da data e hora da operação formatada como yyyymmddhhmmss
+    return entidadeCredito.getIdUnico()+"_"+
+    entidadeDebito.getIdUnico()+"_"+
+    (acao!=null?acao.getIdUnico():tituloDivida.getIdUnico())+"_"+
+    dataHoraOperacao.toString()
+    .replace("T", "")
+    .replace(":", "")
+    .replace("-", "")
+    .substring(0, 14);
+    //Exemplo: 1_2_3_20210101120000
+    }
+    
     public EntidadeOperadora getEntidadeDebito(){
         return entidadeDebito;
     }

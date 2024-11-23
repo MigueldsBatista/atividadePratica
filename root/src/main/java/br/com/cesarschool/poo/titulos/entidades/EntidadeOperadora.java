@@ -1,5 +1,7 @@
 package br.com.cesarschool.poo.titulos.entidades;
 
+import br.com.cesarschool.poo.daogenerico.Entidade;
+
 /*
  * Esta classe deve ter os seguintes atributos:
  * identificador, do tipo int
@@ -20,15 +22,23 @@ package br.com.cesarschool.poo.titulos.entidades;
  *  void debitarSaldoAcao(double valor): deve diminuir valor de saldoAcao
  *  void creditarSaldoTituloDivida(double valor): deve adicionar valor ao saldoTituloDivida
  *  void debitarSaldoTituloDivida(double valor): deve diminuir valor de saldoTituloDivida  
+ 
+ O id único de Ativo 
+e de EntidadeOperadora é o identificador.
  */
 
-public class EntidadeOperadora {
+public class EntidadeOperadora extends Entidade{
     private int identificador;
     public String nome;
     private boolean autorizadoAcao;
     private double saldoAcao=0.0;
     private double saldoTituloDivida=0.0;
 
+
+    @Override
+    public String getIdUnico() {
+        return ""+this.identificador;//converte para string
+    }
     public EntidadeOperadora(int identificador,String nome, boolean autorizadoAcao, double saldoTituloDivida, double saldoAcao){
         this.identificador=identificador;
         this.nome=nome;

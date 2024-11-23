@@ -21,6 +21,7 @@ import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
 import br.com.cesarschool.poo.titulos.mediators.MediatorOperacao;
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioAcao; // Supondo que tenha esse repositório
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioEntidadeOperadora; // Supondo que tenha esse repositório
+import br.com.cesarschool.poo.titulos.repositorios.RepositorioTituloDivida;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -218,7 +219,7 @@ public class TelaOperacao {
     // Método para carregar ações
     private Acao[] carregarAcoes() {
         RepositorioAcao repositorioAcao = new RepositorioAcao();
-        List<Acao> acoes = repositorioAcao.listar(); 
+        List<Acao> acoes = repositorioAcao.();//TODO: Implementar método de listar ações
         return acoes.toArray(new Acao[0]); // Retorna um array de Ação
     }
 
