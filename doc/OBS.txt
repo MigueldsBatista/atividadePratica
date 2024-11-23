@@ -1,0 +1,29 @@
+Nov 21
+Caros, bom dia!
+
+Foi levantada uma questão de compatibilidade dos testes da AC UNIDADE II com a classe EntidadeOperadora. Esta classe teve o atributo autorizadoAcao inicialmente definido como double, mas conceitualmente ele seria boolean. Na 1a unidade, algumas entregas consideraram a 1a premissa, outras a 2a. Na correção, eu não considerei nenhuma das duas erradas, já que estava escrito na especificação que tal atributo era double, e só depois eu falei para algumas duplas que perguntaram sobre a possibilidade de mudança para boolean. 
+
+Nos testes automatizados da AC UNIDADE II, quem definiu o referido atributo como boolean lá na 1a unidade vai experimentar erro de compilação nos testes. A solução para zerar os erros de compilação é simplesmente acrescentar o construtor dado abaixo na classe EntidadeOperadora. Quem definiu o atributo como double na 1a unidade não precisa fazer nada. 
+
+    public EntidadeOperadora(long identificador, String nome, double autorizadoAcao) {
+        super();
+        this.identificador = identificador;
+        this.nome = nome;
+    }
+--------------------------------------------------------------------------------------------------------------------
+
+Nov 21
+Caros boa tarde! 
+
+Vocês devem ter percebido que as classes de streaming do JAVA lançam exceções, que obrigatoriamente (sob pena do código não compilar) devem ser tratadas ou repassadas. O repasse implica em mudança na assinatura dos métodos do DAO genérico, que não é permitido pelos testes. Ou seja, a ideia é  vocês tratarem estas exceções com try...catch mesmo, e lançarem, em caso de capturarem uma das exceções da API de streaming, repassarem uma outra exceção que não precisa ser declarada nos métodos do dao genérico. Segue abaixo um modelo que vocês podem usar nos métodos do dao genérico. 
+
+try {
+      // código acessando a API de streaming que exige tratamento de exceção
+} catch (Exception e) {
+      throw new RuntimeException(e.getMessage());
+}
+--------------------------------------------------------------------------------------------------------------------
+Nov 21
+Caros, 
+
+Uma outra coisa que vocês devem ter percebido na API de streaming é a necessidade de sempre, independente de qualquer situação, fechar streamings que são abertas. Embora as implementações mais modernas desta API tenham salvaguardas para streamings abertas, é sempre bom garantir o fechamento de streamings que eventualmente tenham sido usadas, tanto para leitura quanto para escrita.

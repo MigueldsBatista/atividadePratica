@@ -1,0 +1,9 @@
+Entidade e DAO genérico
+EDUARDO GONÇALVES CALABRIA
+•
+Nov 5 (Edited Nov 8)
+Implementar o DAO genérico. Vocês devem inferir o funcionamento desta classe com base na leitura dos casos de testes automatizados, que frequentemente servem como "especificações" do que e como uma classe deve fazer.
+
+Para rodar os testes, vocês vão precisar colocar as libs do JUNIT 5 no projeto de vocês.
+
+Vão se divertindo com o DAO genérico. O próximo passo, quando ele estiver pronto, é colocá-lo no contexto do projeto que vocês já fizeram. Para isso, aguardem a próxima especificação!
