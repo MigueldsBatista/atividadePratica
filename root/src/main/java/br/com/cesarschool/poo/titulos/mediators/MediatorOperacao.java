@@ -4,6 +4,7 @@ import br.com.cesarschool.poo.titulos.entidades.Transacao;
 import br.com.cesarschool.poo.titulos.entidades.EntidadeOperadora;
 import br.com.cesarschool.poo.titulos.entidades.Acao;
 import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
+import br.com.cesarschool.poo.titulos.repositorios.RepositorioLinhaObjeto;
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioTransacao;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -67,6 +68,8 @@ public class MediatorOperacao {
     private final MediatorTituloDivida mediatorTituloDivida = MediatorTituloDivida.getInstancia();
     private final MediatorEntidadeOperadora mediatorEntidadeOperadora = MediatorEntidadeOperadora.getInstancia();
     private final RepositorioTransacao repositorioTransacao = new RepositorioTransacao();
+    private RepositorioLinhaObjeto<Transacao> repositorioLinhaObjeto = new RepositorioLinhaObjeto<>("Transacao.txt");
+
 
     private MediatorOperacao() {}
 
@@ -132,8 +135,7 @@ public class MediatorOperacao {
                 valor,
                 LocalDateTime.now()
         );
-        
-        repositorioTransacao.incluir(transacao);
+        repositorioLinhaObjeto.incluir(transacao);
         return null; // Se tudo ocorrer sem erros, retorna null
     }
 

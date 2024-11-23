@@ -125,15 +125,20 @@ public class TelaBuscarEntidadeOperadora {
             navegacaoEntidadeOperadora.setVisible(true);
             frame.dispose(); // Fecha a Tela Buscar
         });
-
         frame.getContentPane().add(btnVoltar);
+
+        //BOTÃO DE LIMPAR
         JButton btnLimpar = new JButton("Limpar");
         btnLimpar.setBounds(xLabel + 220, yPos, 100, 30);
         btnLimpar.addActionListener(e -> {
             textoId.setText("");
             textoNome.setText("");
+            textoAutorizacaoAcao.setText("");   
+            textoSaldoTituloDivida.setText("");
+            textoSaldoAcao.setText("");
         });
         frame.getContentPane().add(btnLimpar);
+        
         // Ação do botão Buscar
         btnBuscar.addActionListener(e -> {
             try {
@@ -146,6 +151,7 @@ public class TelaBuscarEntidadeOperadora {
                 } else {
                     textoNome.setText(entidadeOperadora.getNome());
                     textoSaldoAcao.setText(String.valueOf(entidadeOperadora.getSaldoAcao()));
+                    textoAutorizacaoAcao.setText(String.valueOf(entidadeOperadora.getAutorizacao()));
                     textoSaldoTituloDivida.setText(String.valueOf(entidadeOperadora.getSaldoTituloDivida()));
                     JOptionPane.showMessageDialog(null, "Entidade Operadora encontrada com sucesso!");
                 }

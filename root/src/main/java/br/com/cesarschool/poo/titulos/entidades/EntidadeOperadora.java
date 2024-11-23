@@ -32,7 +32,7 @@ public class EntidadeOperadora {
     public EntidadeOperadora(int identificador,String nome, boolean autorizadoAcao, double saldoTituloDivida, double saldoAcao){
         this.identificador=identificador;
         this.nome=nome;
-        this.autorizadoAcao=true;
+        this.autorizadoAcao=autorizadoAcao;
         this.saldoAcao=saldoAcao;
         this.saldoTituloDivida=saldoTituloDivida;
 

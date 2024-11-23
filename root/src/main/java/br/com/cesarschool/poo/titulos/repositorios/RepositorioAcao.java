@@ -33,66 +33,43 @@ public class RepositorioAcao {
             return false;
         } catch (IOException e) {
             e.printStackTrace();
-            return false;
-        }
-    }
-	//transforma a ação em uma string para ser salva no arquivo
-    private String serialize(Acao acao) {
-        return acao.getIdentificador() + ";" + acao.getNome() + ";" + acao.getDataValidade() + ";" + acao.getValorUnitario();
-    }
-
-	//transforma a string do arquivo em uma ação
-    private Acao deserialize(String line) {
-        String[] parts = line.split(";");
-        int id = Integer.parseInt(parts[0]);
-        String nome = parts[1];
-        LocalDate dataValidade = LocalDate.parse(parts[2]);
-        double valorUnitario = Double.parseDouble(parts[3]);
-        return new Acao(id, nome, dataValidade, valorUnitario);
-    }
-
-    private List<String> lerArquivo() throws IOException {
-        List<String> lines = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                lines.add(line);
-            }
-        }
-        return lines;
-    }
-
-    private void escreverArquivo(List<String> lines) throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.toFile()))) {
-            for (String line : lines) {
-                writer.write(line);
-                writer.newLine();
-            }
+            return false; // Retorna false em caso de erro
         }
     }
 
-    public boolean incluir(Acao acao) {
-        try {
-            List<String> lines = lerArquivo();
-            for (String line : lines) {
-                if (line.split(";")[0].equals(String.valueOf(acao.getIdentificador()))) {
-                    return false; // Ação já existe
-                }
-            }
+	/*public boolean incluir(Acao acao) {
+			// Verifica se a ação já existe
+			try (BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))) {
+				String line;
+				while ((line = reader.readLine()) != null) {
+					String[] parts = line.split(";");
+					int id = Integer.parseInt(parts[0]);
+					if (id == acao.getIdentificador()) {
+						return false; // Ação já existe, não incluir
+					}
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+				return false;
+			}
 
-            lines.add(serialize(acao)); // Adiciona a nova ação
-            escreverArquivo(lines); // Escreve de volta para o arquivo
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
+		try(BufferedWriter writer = new BufferedWriter(new FileWriter(path.toFile(), true))){
+			writer.write(acao.getIdentificador() + ";" + acao.getNome() + ";" + acao.getDataValidade() + ";" + acao.getValorUnitario());
+			writer.newLine();
 
-    public boolean alterar(Acao acao) {
-        try {
-            List<String> lines = lerArquivo();
-            boolean found = false;
+		} catch(IOException e){
+			e.printStackTrace();
+			return false;
+		}
+
+		return true;
+		
+	}
+	*/
+
+	/*public boolean alterar(Acao acao) {
+		List<String> lines = new ArrayList<>();
+		boolean found = false;
 
             for (int i = 0; i < lines.size(); i++) {
                 if (lines.get(i).split(";")[0].equals(String.valueOf(acao.getIdentificador()))) {
@@ -150,19 +127,48 @@ public class RepositorioAcao {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null; // Não encontrado
-    }
 
-    public List<Acao> listar() {
-        List<Acao> acoes = new ArrayList<>();
-        try {
-            List<String> lines = lerArquivo();
-            for (String line : lines) {
-                acoes.add(deserialize(line)); // Adiciona cada ação desserializada
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return acoes;
-    }
+        return true;
+
+	}
+	public Acao buscar(int identificador) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+		try(BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))){
+			String line;
+			while((line = reader.readLine()) != null){
+				String[] parts = line.split(";");
+				int id = Integer.parseInt(parts[0]);
+				if(id == identificador){
+					String nome = parts[1];
+					LocalDate dataValidade = LocalDate.parse(parts[2], formatter);
+					double valorUnitario = Double.parseDouble(parts[3]);
+					return new Acao(id, nome, dataValidade, valorUnitario);
+				}
+			}
+		}catch (IOException e){
+			e.printStackTrace();
+		}
+		return null;
+	}
+	*/
+	public List<Acao> listar() {
+		List<Acao> acoes = new ArrayList<>();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+		try(BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))){
+			String line;
+			while((line = reader.readLine()) != null){
+				String[] parts = line.split(";");
+				int id = Integer.parseInt(parts[0]);
+				String nome = parts[1];
+				LocalDate dataValidade = LocalDate.parse(parts[2], formatter);
+				double valorUnitario = Double.parseDouble(parts[3]);
+				acoes.add(new Acao(id, nome, dataValidade, valorUnitario));
+			}
+		} catch(IOException e){
+			e.printStackTrace();
+		}
+		return acoes;
+	}
 }

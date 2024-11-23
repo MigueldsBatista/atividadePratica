@@ -41,13 +41,13 @@ public class NavegacaoEntidadeOperadora {
 
         // Botão para incluir
         JButton btnIncluir = new JButton("Incluir");
-        btnIncluir.setBounds(100, 80, LARGURA_BOTAO, ALTURA_BOTAO);
+        btnIncluir.setBounds(100, 30, LARGURA_BOTAO, ALTURA_BOTAO);
         btnIncluir.addActionListener(e -> abrirTelaIncluirEntidadeOperadora());
         frame.getContentPane().add(btnIncluir);
 
         // Botão para alterar
         JButton btnAlterar = new JButton("Alterar");
-        btnAlterar.setBounds(100, 30, LARGURA_BOTAO, ALTURA_BOTAO);
+        btnAlterar.setBounds(100, 80, LARGURA_BOTAO, ALTURA_BOTAO);
         btnAlterar.addActionListener(e -> abrirTelaAlterarEntidadeOperadora());
         frame.getContentPane().add(btnAlterar);
 
@@ -75,27 +75,23 @@ public class NavegacaoEntidadeOperadora {
     }
 
     private void abrirTelaIncluirEntidadeOperadora() {
-        frame = new JFrame("Incluir Entidade Operadora");
         TelaIncluirEntidadeOperadora tela = new TelaIncluirEntidadeOperadora();
         tela.setVisible(true);
         frame.setVisible(false);
     }
 
     private void abrirTelaAlterarEntidadeOperadora() {
-        frame = new JFrame("Alterar Entidade Operadora");
         TelaAlterarEntidadeOperadora tela = new TelaAlterarEntidadeOperadora();
         tela.setVisible(true);
         frame.setVisible(false);
     }
 
     private void abrirTelaBuscarEntidadeOperadora() {
-        frame = new JFrame("Buscar Entidade Operadora");
         TelaBuscarEntidadeOperadora tela = new TelaBuscarEntidadeOperadora();
         tela.setVisible(true);
         frame.setVisible(false);
     }
     private void abrirTelaExcluirEntidadeOperadora() {
-        frame = new JFrame("Excluir Entidade Operadora");
         TelaExcluirEntidadeOperadora tela = new TelaExcluirEntidadeOperadora();
         tela.setVisible(true);
         frame.setVisible(false);

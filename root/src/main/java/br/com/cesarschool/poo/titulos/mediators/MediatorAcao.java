@@ -2,6 +2,8 @@ package br.com.cesarschool.poo.titulos.mediators;
 
 import br.com.cesarschool.poo.titulos.entidades.Acao;
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioAcao;
+import br.com.cesarschool.poo.titulos.repositorios.RepositorioLinhaObjeto;
+
 import java.time.LocalDate;
 
 /*
@@ -59,6 +61,7 @@ public class MediatorAcao {
 
     private static MediatorAcao instance;
     private RepositorioAcao repositorioAcao = new RepositorioAcao();
+    private RepositorioLinhaObjeto<Acao> repositorioLinhaObjeto = new RepositorioLinhaObjeto<>("Acao.txt");
     private MediatorAcao(){
     }
     public static MediatorAcao getInstancia(){
@@ -87,7 +90,7 @@ public class MediatorAcao {
         if(mensagemValidacao!=null){
             return mensagemValidacao;
         }
-        boolean incluido = repositorioAcao.incluir(acao);
+        boolean incluido = repositorioLinhaObjeto.incluir(acao);
         if(incluido == true){
             return null;
         }else{
@@ -100,7 +103,7 @@ public class MediatorAcao {
         if(mensagemValidacao!=null){
             return mensagemValidacao;
         }
-        boolean alterado = repositorioAcao.alterar(acao);
+        boolean alterado = repositorioLinhaObjeto.alterar(acao);
         if(alterado == true){
             return null;
         }else{
@@ -112,7 +115,7 @@ public class MediatorAcao {
         if(identificador<=0||identificador>=100000){
             return "Identificador Inválido";
         }
-        boolean excluido = repositorioAcao.excluir(identificador);
+        boolean excluido = repositorioLinhaObjeto.excluir(identificador);
         if(excluido == true){
             return null;
         }else{
@@ -124,6 +127,6 @@ public class MediatorAcao {
         if(identificador<=0||identificador>=100000){
             return null;
         }
-        return repositorioAcao.buscar(identificador);
+        return repositorioLinhaObjeto.buscar(identificador);
     }
 }

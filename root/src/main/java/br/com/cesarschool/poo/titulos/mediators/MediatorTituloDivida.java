@@ -1,6 +1,7 @@
 package br.com.cesarschool.poo.titulos.mediators;
 
 import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
+import br.com.cesarschool.poo.titulos.repositorios.RepositorioLinhaObjeto;
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioTituloDivida;
 import java.time.LocalDate;
 
@@ -59,6 +60,8 @@ import java.time.LocalDate;
 public class MediatorTituloDivida {
     private static MediatorTituloDivida instancia;
     private final RepositorioTituloDivida repositorioTituloDivida = new RepositorioTituloDivida();
+    private RepositorioLinhaObjeto<TituloDivida> repositorioLinhaObjeto = new RepositorioLinhaObjeto<>("TituloDivida.txt");
+
     private MediatorTituloDivida() { }
     public static MediatorTituloDivida getInstancia() {
         if (instancia == null) {
@@ -90,7 +93,7 @@ public class MediatorTituloDivida {
         if (validacao != null) {
             return validacao;
         }
-        boolean sucesso = repositorioTituloDivida.incluir(titulo);
+        boolean sucesso = repositorioLinhaObjeto.incluir(titulo);
         if (sucesso) {
             return null;
         } else {
@@ -103,7 +106,7 @@ public class MediatorTituloDivida {
         if (validacao != null) {
             return validacao;
         }
-        boolean sucesso = repositorioTituloDivida.alterar(titulo);
+        boolean sucesso = repositorioLinhaObjeto.alterar(titulo);
         if (sucesso) {
             return null;
         } else {
@@ -115,7 +118,7 @@ public class MediatorTituloDivida {
         if (identificador <= 0 || identificador >= 100000) {
             return "Identificador deve estar entre 1 e 99999.";
         }
-        boolean sucesso = repositorioTituloDivida.excluir(identificador);
+        boolean sucesso = repositorioLinhaObjeto.excluir(identificador);
         if (sucesso) {
             return null;
         } else {
@@ -127,6 +130,6 @@ public class MediatorTituloDivida {
         if (identificador <= 0 || identificador >= 100000) {
             return null;
         }
-        return repositorioTituloDivida.buscar(identificador);
+        return repositorioLinhaObjeto.buscar(identificador);
     }
 }

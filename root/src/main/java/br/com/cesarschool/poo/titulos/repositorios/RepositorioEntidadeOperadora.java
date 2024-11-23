@@ -63,7 +63,8 @@ public class RepositorioEntidadeOperadora {
             e.printStackTrace();
             return false; // Retorna false em caso de erro
         }
-    }   public boolean incluir(EntidadeOperadora entidadeOperadora) {
+    }   
+    /*public boolean incluir(EntidadeOperadora entidadeOperadora) {
       try (BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))){
           String line;
           while ((line = reader.readLine()) != null){
@@ -133,7 +134,7 @@ public class RepositorioEntidadeOperadora {
 				return false;
 			}
 			return true;
-	}
+	} */
     /**
      * Excludes an entry from a file based on the given identifier.
      *
@@ -146,7 +147,6 @@ public class RepositorioEntidadeOperadora {
      * If the identifier is found, the method writes the remaining lines back to the file.
      *
      * @throws IOException if an I/O error occurs during reading or writing the file
-     */
 	public boolean excluir(int identificador) {
 		List<String> lines = new ArrayList<>();
 		boolean found = false;
@@ -208,7 +208,7 @@ public class RepositorioEntidadeOperadora {
         }
         return null; 
     }    
-
+    */
     public List<EntidadeOperadora> listar() {
         List<EntidadeOperadora> entidades = new ArrayList<>();
 
@@ -221,9 +221,7 @@ public class RepositorioEntidadeOperadora {
                 boolean autorizadoAcao = Boolean.parseBoolean(parts[2]);
                 double saldoAcao = Double.parseDouble(parts[3]);
                 double saldoTituloDivida = Double.parseDouble(parts[4]);
-                
                 EntidadeOperadora entidade = new EntidadeOperadora(id, nome, autorizadoAcao, saldoTituloDivida, saldoAcao);
-                
                 entidades.add(entidade);
             }
         } catch(IOException e) {

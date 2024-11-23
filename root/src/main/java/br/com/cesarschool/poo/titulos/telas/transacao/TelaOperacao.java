@@ -21,7 +21,11 @@ import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
 import br.com.cesarschool.poo.titulos.mediators.MediatorOperacao;
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioAcao; // Supondo que tenha esse repositório
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioEntidadeOperadora; // Supondo que tenha esse repositório
-import br.com.cesarschool.poo.titulos.repositorios.RepositorioTituloDivida; // Supondo que tenha esse repositório
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class TelaOperacao {
     private JFrame frame;
