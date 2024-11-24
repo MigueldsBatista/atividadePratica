@@ -3,12 +3,6 @@ package br.com.cesarschool.poo.titulos.repositorios;
 import br.com.cesarschool.poo.daogenerico.RepositorioGeral;
 import br.com.cesarschool.poo.titulos.entidades.EntidadeOperadora;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.List;
 
 /*
  * Deve gravar em e ler de um arquivo texto chamado entidadeOperadora.txt os dados dos objetos do tipo

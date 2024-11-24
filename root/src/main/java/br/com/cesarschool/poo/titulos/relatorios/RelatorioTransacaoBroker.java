@@ -2,7 +2,6 @@ package br.com.cesarschool.poo.titulos.relatorios;
 
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioTransacao;
 
-import java.util.List;
 
 import br.com.cesarschool.poo.titulos.entidades.Transacao;
 
@@ -15,16 +14,24 @@ do repositório de transações todas as transações e...
 2. METODO = ordenar por data hora da operação
 
 */
+
 public RelatorioTransacaoBroker(RepositorioTransacao rep){
     this.rep=rep;
 }
 
 //TODO  Implementar método que retorna um array de transações ordenado por nome da entidade credora
-public void ordenarPorNomeCredora(){
-    List<Transacao> transacoes = rep.buscarTodos();
+public Transacao[] relatorioTransacaoPorNomeEntidadeCredora(){
+    return null;
     //compara aq
 }
+
+//TODO  Implementar método que retorna um array de transações ordenado por data hora da operação
+
+public Transacao[] relatorioTransacaoPorDataHora(){
+
+    return null;
+    //compara aq
     
-}   //pronto detalhei ali em cima
-    
+    }
+}
     

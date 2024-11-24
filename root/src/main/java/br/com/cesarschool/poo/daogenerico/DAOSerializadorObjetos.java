@@ -200,7 +200,7 @@ public class DAOSerializadorObjetos<T extends Entidade> {
     }
 
     // Buscar todos os objetos
-    public List<T> buscarTodos() {
+    public T[] buscarTodos() {
         List<T> lista = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(nomeDiretorio))) {
             String line;
@@ -211,7 +211,7 @@ public class DAOSerializadorObjetos<T extends Entidade> {
         } catch (IOException | ReflectiveOperationException e) {
             e.printStackTrace();
         }
-        return lista;
+        return lista.toArray((T[]) java.lang.reflect.Array.newInstance(tipoEntidade, lista.size()));
     }
 
     public String getNomeDiretorio() {

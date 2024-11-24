@@ -48,6 +48,12 @@ public class EntidadeOperadora extends Entidade{
 
     }
 
+    public EntidadeOperadora(int identificador,String nome, double saldoAcao){
+        this.identificador=identificador;
+        this.nome=nome;
+        this.saldoAcao=saldoAcao;
+    }
+
     public int getIdentificador(){
         return identificador;
     }

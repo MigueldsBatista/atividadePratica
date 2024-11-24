@@ -1,6 +1,5 @@
 package br.com.cesarschool.poo.titulos.mediators;
 
-import br.com.cesarschool.poo.daogenerico.DAOSerializadorObjetos;
 import br.com.cesarschool.poo.titulos.entidades.Acao;
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioAcao;
 

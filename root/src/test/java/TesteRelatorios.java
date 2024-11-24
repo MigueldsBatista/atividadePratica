@@ -2,26 +2,30 @@
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
 import br.com.cesarschool.poo.titulos.entidades.Acao;
 import br.com.cesarschool.poo.titulos.entidades.EntidadeOperadora;
 import br.com.cesarschool.poo.titulos.entidades.Transacao;
 
-import br.com.cesarschool.poo.titulos.relatorios.RelatorioTransacaoBroker;//TODO
+import br.com.cesarschool.poo.titulos.relatorios.RelatorioTransacaoBroker;
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioTransacao;
 
-import br.com.cesarschool.poo.titulos.utils.Comparador;//TODO
-import br.com.cesarschool.poo.titulos.utils.ComparadorPadrao;//TODO
-import br.com.cesarschool.poo.titulos.utils.ComparadorTransacaoPorNomeCredora;//TODO
-import br.com.cesarschool.poo.titulos.utils.Comparavel;//TODO
-import br.com.cesarschool.poo.titulos.utils.Ordenador;//TODO
+import br.com.cesarschool.poo.titulos.utils.Comparador;
+import br.com.cesarschool.poo.titulos.utils.ComparadorPadrao;
+import br.com.cesarschool.poo.titulos.utils.ComparadorTransacaoPorNomeCredora;
+import br.com.cesarschool.poo.titulos.utils.Comparavel;
+import br.com.cesarschool.poo.titulos.utils.Ordenador;
 
-import br.com.cesarschool.poo.daogenerico.Entidade;//TODO
+import br.com.cesarschool.poo.daogenerico.Entidade;
 
 public class TesteRelatorios extends TesteGeral {
 	private static final String NOME_DIR_TRANSACAO = PONTO + SEP_ARQUIVO + Transacao.class.getSimpleName();
+
+	//@Mock
+	private static final RepositorioTransacao mock = new RepositorioTransacao();
+
 	@Test
 	public void t000() {
 		//Testa se ComparadorTransacaoPorNomeCredora implementa Comparador e ComparadorPadrao
@@ -40,8 +44,8 @@ public class TesteRelatorios extends TesteGeral {
 	}
 	@Test
 	public void t002() {
-		EntidadeOperadora e1 = new EntidadeOperadora(1, "ABC", 100);
-		EntidadeOperadora e2 = new EntidadeOperadora(2, "CDE", 100);
+		EntidadeOperadora e1 = new EntidadeOperadora(1, "ABC", 100);//TODO implementar esse construtor
+		EntidadeOperadora e2 = new EntidadeOperadora(2, "CDE", 100);//TODO implementar esse construtor
 		Transacao t1 = new Transacao(e1, null, null, null, 0, null);
 		Transacao t2 = new Transacao(e2, null, null, null, 0, null);
 		Comparador c = new ComparadorTransacaoPorNomeCredora();
@@ -86,11 +90,11 @@ public class TesteRelatorios extends TesteGeral {
 	public void t006() {
 		excluirArquivosDiretorio(NOME_DIR_TRANSACAO);
 		RepositorioTransacao rep = new RepositorioTransacao();		
-		RelatorioTransacaoBroker broker = new RelatorioTransacaoBroker();
+		RelatorioTransacaoBroker broker = new RelatorioTransacaoBroker(mock);
 		Acao a = new Acao(1, "PB01", LocalDate.now(), 100);
-		EntidadeOperadora e1 = new EntidadeOperadora(1, "XXX", 100);
-		EntidadeOperadora e2 = new EntidadeOperadora(2, "ZZZ", 100);
-		EntidadeOperadora e3 = new EntidadeOperadora(3, "AAA", 100);
+		EntidadeOperadora e1 = new EntidadeOperadora(1, "XXX", 100);//TODO implementar esse construtor
+		EntidadeOperadora e2 = new EntidadeOperadora(2, "ZZZ", 100);//TODO implementar esse construtor
+		EntidadeOperadora e3 = new EntidadeOperadora(3, "AAA", 100);//TODO implementar esse construtor
 		Transacao t1 = new Transacao(e1, e2, a, null, 0, LocalDateTime.now());
 		Transacao t2 = new Transacao(e2, e1, a, null, 0, LocalDateTime.now().plusDays(2));
 		Transacao t3 = new Transacao(e3, e1, a, null, 0, LocalDateTime.now().plusDays(1));
@@ -106,7 +110,7 @@ public class TesteRelatorios extends TesteGeral {
 	public void t007() {
 		excluirArquivosDiretorio(NOME_DIR_TRANSACAO);
 		RepositorioTransacao rep = new RepositorioTransacao();		
-		RelatorioTransacaoBroker broker = new RelatorioTransacaoBroker();
+		RelatorioTransacaoBroker broker = new RelatorioTransacaoBroker(mock);
 		Acao a = new Acao(1, "PB02", LocalDate.now(), 200);
 		EntidadeOperadora e1 = new EntidadeOperadora(1, "AAA", 100);
 		EntidadeOperadora e2 = new EntidadeOperadora(2, "BBB", 100);

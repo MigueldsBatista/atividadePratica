@@ -5,8 +5,9 @@ import java.io.Serializable;
 import org.junit.jupiter.api.Test;
 
 import br.com.cesarschool.poo.titulos.utils.ComparadoraObjetosSerial;
+import br.com.cesarschool.poo.daogenerico.DAOSerializadorObjetos;
+import br.com.cesarschool.poo.daogenerico.Entidade;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assertions;
 
 
@@ -36,7 +37,8 @@ public class TestesDAOSerializador {
 	private static final String SEP_ARQUIVO = System.getProperty("file.separator");
 	private static final String PONTO = ".";
 	private static final String NOME_DIR = PONTO + SEP_ARQUIVO + EntidadeTeste.class.getSimpleName();  
-	private static final DAOSerializadorObjetos DAO = new DAOSerializadorObjetos(EntidadeTeste.class);
+
+	private static final DAOSerializadorObjetos<EntidadeTeste> DAO = new DAOSerializadorObjetos<EntidadeTeste>(EntidadeTeste.class);
 	private void excluirArquivosDiretorio() {
 		//Exclui todos os arquivos do diretório
 		File dir = new File(NOME_DIR);

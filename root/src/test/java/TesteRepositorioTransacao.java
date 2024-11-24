@@ -3,16 +3,16 @@ import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
 import br.com.cesarschool.poo.titulos.entidades.Acao;
 import br.com.cesarschool.poo.titulos.entidades.EntidadeOperadora;
 import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
 import br.com.cesarschool.poo.titulos.entidades.Transacao;
-import br.com.cesarschool.poo.titulos.repositorios.RepositorioGeral;//TODO
+import br.com.cesarschool.poo.daogenerico.RepositorioGeral;
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioTransacao;
-import br.com.cesarschool.poo.daogenerico.DAOSerializadorObjetos;//TODO
+import br.com.cesarschool.poo.daogenerico.DAOSerializadorObjetos;
 
 public class TesteRepositorioTransacao extends TesteGeral {
 	private static final RepositorioTransacao DAO = new RepositorioTransacao();
@@ -21,7 +21,7 @@ public class TesteRepositorioTransacao extends TesteGeral {
 	@Test
 	public void testDAO00() {
 		Assertions.assertTrue(DAO instanceof RepositorioGeral);
-		DAOSerializadorObjetos dao = DAO.getDao();
+		DAOSerializadorObjetos<Transacao> dao = DAO.getDao();
 		Assertions.assertNotNull(dao);
 	}
 	@Test

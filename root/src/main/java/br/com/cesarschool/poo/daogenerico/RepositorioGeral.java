@@ -17,6 +17,7 @@ chamada dele deve passar o retorno do método
 getClasseEntidade().  
  * 
  */
+
 // Classe abstrata base para repositórios específicos
 public abstract class RepositorioGeral<T extends Entidade> {
 
@@ -30,7 +31,7 @@ public abstract class RepositorioGeral<T extends Entidade> {
     }
 
     // Método abstrato que será implementado pelos repositórios específicos
-    protected abstract Class<T> getClasseEntidade();
+    public abstract Class<T> getClasseEntidade();
 
     // Método para buscar um objeto pelo ID único
     public T buscar(String idUnico) {
@@ -38,7 +39,7 @@ public abstract class RepositorioGeral<T extends Entidade> {
     }
 
     // Método para buscar todos os objetos
-    public List<T> buscarTodos() {
+    public T[] buscarTodos() {
         return dao.buscarTodos();
     }
 
@@ -60,4 +61,7 @@ public abstract class RepositorioGeral<T extends Entidade> {
         return dao.excluir(entidade.getIdUnico());
     }
 
+    public DAOSerializadorObjetos<T> getDao() {
+        return dao;
+    }
 }

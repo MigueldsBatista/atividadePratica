@@ -2,14 +2,14 @@
 import java.io.File;
 import java.time.LocalDate;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
 import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
-import br.com.cesarschool.poo.titulos.repositorios.RepositorioGeral;//TODO
+import br.com.cesarschool.poo.daogenerico.RepositorioGeral;//TODO
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioTituloDivida;
 import br.com.cesarschool.poo.titulos.utils.ComparadoraObjetosSerial;//TODO
-import br.gov.cesarschool.poo.daogenerico.DAOSerializadorObjetos;//TODO
+import br.com.cesarschool.poo.daogenerico.DAOSerializadorObjetos;//TODO
 
 public class TesteRepositorioTituloDivida extends TesteGeral {
 	private static final RepositorioTituloDivida DAO = new RepositorioTituloDivida();
@@ -18,7 +18,7 @@ public class TesteRepositorioTituloDivida extends TesteGeral {
 	@Test
 	public void testDAO00() {
 		Assertions.assertTrue(DAO instanceof RepositorioGeral);
-		DAOSerializadorObjetos dao = DAO.getDao();
+		DAOSerializadorObjetos<TituloDivida> dao = DAO.getDao();
 		Assertions.assertNotNull(dao);
 	}
 	@Test
@@ -28,7 +28,7 @@ public class TesteRepositorioTituloDivida extends TesteGeral {
 		Assertions.assertTrue(DAO.incluir(acao));		
 		Assertions.assertEquals(obterQtdArquivosDir(NOME_DIR_TITULO), 1); 
 		Assertions.assertTrue(new File(obterNomeArquivo(NOME_DIR_TITULO, acao)).exists());
-		TituloDivida acao1 = DAO.buscar(acao.getIdentificador());
+		TituloDivida acao1 = DAO.buscar(""+acao.getIdentificador());
 		Assertions.assertNotNull(acao1);
 		Assertions.assertNotNull(acao1.getDataHoraInclusao()); 
 		Assertions.assertTrue(ComparadoraObjetosSerial.compareObjectsSerial(acao, acao1));								
@@ -49,7 +49,7 @@ public class TesteRepositorioTituloDivida extends TesteGeral {
 		TituloDivida acaoAlt = new TituloDivida(id, "A3Alt", LocalDate.now().minusDays(10), 103.0);
 		Assertions.assertTrue(DAO.incluir(acao));		
 		Assertions.assertTrue(DAO.alterar(acaoAlt));
-		TituloDivida acao1 = DAO.buscar(acao.getIdentificador());
+		TituloDivida acao1 = DAO.buscar(""+acao.getIdentificador());
 		Assertions.assertNotNull(acao1);
 		Assertions.assertNotNull(acao1.getDataHoraUltimaAlteracao()); 
 		Assertions.assertTrue(ComparadoraObjetosSerial.compareObjectsSerial(acaoAlt, acao1));								
@@ -69,9 +69,9 @@ public class TesteRepositorioTituloDivida extends TesteGeral {
 		int id = 6;
 		TituloDivida acao = new TituloDivida(id, "A6", LocalDate.now(), 106.0);		
 		Assertions.assertTrue(DAO.incluir(acao));
-		Assertions.assertTrue(DAO.excluir(id));
+		Assertions.assertTrue(DAO.excluir(""+id));
 		Assertions.assertEquals(obterQtdArquivosDir(NOME_DIR_TITULO), 0);
-		TituloDivida acaoBusc = DAO.buscar(id);
+		TituloDivida acaoBusc = DAO.buscar(""+id);
 		Assertions.assertNull(acaoBusc);
 	}
 	@Test
@@ -79,7 +79,7 @@ public class TesteRepositorioTituloDivida extends TesteGeral {
 		excluirArquivosDiretorio(NOME_DIR_TITULO);		
 		TituloDivida acao = new TituloDivida(7, "A7", LocalDate.now(), 107.0);		
 		Assertions.assertTrue(DAO.incluir(acao));
-		Assertions.assertFalse(DAO.excluir(8));
+		Assertions.assertFalse(DAO.excluir(""+8));
 		Assertions.assertEquals(obterQtdArquivosDir(NOME_DIR_TITULO), 1);
 	}
 }
