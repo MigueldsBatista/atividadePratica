@@ -8,13 +8,17 @@ import javax.swing.*;
 import br.com.cesarschool.poo.titulos.entidades.*;
 import br.com.cesarschool.poo.titulos.relatorios.*;
 import br.com.cesarschool.poo.titulos.repositorios.*;
-import br.com.cesarschool.poo.titulos.telas.*;
+import br.com.cesarschool.poo.titulos.telas.transacao.*;
+import br.com.cesarschool.poo.titulos.telas.acao.*;
+import br.com.cesarschool.poo.titulos.telas.tituloDivida.*;
+import br.com.cesarschool.poo.titulos.telas.entidadeOperadora.*;
+
 
 
 
 
 public class MainApplicationScreen {
-    /*
+    
     private JFrame frame;
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
@@ -91,28 +95,7 @@ public class MainApplicationScreen {
         frame.setVisible(false); // Esconde MainApplicationScreen
     }
 }
- */
+ 
 
- public static void main(String[] args) {
-
-    RepositorioTransacao rep = new RepositorioTransacao();		
-    RelatorioTransacaoBroker broker = new RelatorioTransacaoBroker(rep);
-    Acao a = new Acao(1, "PB01", LocalDate.now(), 100);
-    EntidadeOperadora e1 = new EntidadeOperadora(1, "XXX", 100);
-    EntidadeOperadora e2 = new EntidadeOperadora(2, "ZZZ", 100);
-    EntidadeOperadora e3 = new EntidadeOperadora(3, "AAA", 100);
-    Transacao t1 = new Transacao(e1, e2, a, null, 0, LocalDateTime.now());
-    Transacao t2 = new Transacao(e2, e1, a, null, 0, LocalDateTime.now().plusDays(2));
-    Transacao t3 = new Transacao(e3, e1, a, null, 0, LocalDateTime.now().plusDays(1));
-    rep.incluir(t1);
-    rep.incluir(t2);
-    rep.incluir(t3);	
-    Transacao[] trans = broker.relatorioTransacaoPorNomeEntidadeCredora();
-    for (Transacao transacao : trans) {
-        System.out.println(transacao);
-    }
-
-
- }
     
-}
+
