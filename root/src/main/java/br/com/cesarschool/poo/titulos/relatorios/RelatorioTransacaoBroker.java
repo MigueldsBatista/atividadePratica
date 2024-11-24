@@ -25,7 +25,8 @@ public Transacao[] relatorioTransacaoPorNomeEntidadeCredora(){
     ArrayList<Transacao> transacoes = new ArrayList<>();
     transacoes.addAll(Arrays.asList(rep.buscarTodos()));
     transacoes.sort((t1,t2)->t1.getEntidadeCredito().getNome().compareTo(t2.getEntidadeCredito().getNome()));
-    return transacoes.toArray(new Transacao[0]);
+
+    return transacoes.toArray(new Transacao[0]);//converte para array 
 }
 
 

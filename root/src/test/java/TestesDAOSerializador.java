@@ -16,7 +16,8 @@ public class TestesDAOSerializador {
 	private static final String ID_2 = "2";
 	private static final String NOME_1 = "ENT 1";
 	private static final String ID_1 = "1";
-	static class EntidadeTeste extends Entidade {
+	
+	public static class EntidadeTeste extends Entidade {
 		private static final long serialVersionUID = 1L;
 		private String id;
 		private String nome;

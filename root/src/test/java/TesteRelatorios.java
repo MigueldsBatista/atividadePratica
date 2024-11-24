@@ -102,6 +102,7 @@ public class TesteRelatorios extends TesteGeral {
 		rep.incluir(t2);
 		rep.incluir(t3);				
 		Transacao[] trans = broker.relatorioTransacaoPorNomeEntidadeCredora();
+
 		Assertions.assertEquals(trans[0].getEntidadeCredito().getNome(), "AAA");
 		Assertions.assertEquals(trans[1].getEntidadeCredito().getNome(), "XXX");
 		Assertions.assertEquals(trans[2].getEntidadeCredito().getNome(), "ZZZ");		
@@ -125,6 +126,7 @@ public class TesteRelatorios extends TesteGeral {
 		rep.incluir(t3);
 		rep.incluir(t4);						
 		Transacao[] trans = broker.relatorioTransacaoPorDataHora();
+		
 		Assertions.assertEquals(trans[0].getEntidadeCredito().getNome(), "DDD");
 		Assertions.assertEquals(trans[1].getEntidadeCredito().getNome(), "CCC");
 		Assertions.assertEquals(trans[2].getEntidadeCredito().getNome(), "BBB");		
