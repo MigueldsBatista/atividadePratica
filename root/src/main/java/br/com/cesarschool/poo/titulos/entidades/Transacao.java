@@ -3,6 +3,7 @@ package br.com.cesarschool.poo.titulos.entidades;
 import java.time.LocalDateTime;
 
 import br.com.cesarschool.poo.daogenerico.Entidade;
+import br.com.cesarschool.poo.titulos.utils.Comparavel;
 
 /*
  * Esta classe deve ter os seguintes atributos:
@@ -24,7 +25,9 @@ Id único da entidade de débito + “_” +
 Id único da ação OU id único de título da dívida + “_” + Data e hora da operação formatada como yyyymmddhhmmss 
  */ 
 
-public class Transacao extends Entidade{
+/*Deve implementar Comparavel, e o critério de comparação
+que ela deve usar é o de data e hora da operação. */
+public class Transacao extends Entidade implements Comparavel{
     private EntidadeOperadora entidadeCredito;
     private EntidadeOperadora entidadeDebito;
     private Acao acao;
@@ -41,6 +44,10 @@ public class Transacao extends Entidade{
         this.dataHoraOperacao = dataHoraOperacao;
     }
 
+
+    public int comparar(Comparavel t){
+            return this.dataHoraOperacao.compareTo(((Transacao)t).dataHoraOperacao);
+        }
 
     @Override
     public String getIdUnico() {

@@ -1,17 +1,14 @@
 package br.com.cesarschool.poo.titulos.utils;
 
-public class Comparador{
-/*É uma interface similar a Comparator do JAVA Core. Tem
-um único método que prevê a comparação de dois
-Comparavel recebidos como parâmetro. int
-comparar(Comparavel c1, Comparavel c2).
-
-Se o primeiro parâmetro for maior que o segundo
-parâmetro, o método deve retornar um valor maior que
-zero, se for menor, o método deve retornar um valor menor
-que zero, e se for igual, zero. */
-
-    public int compare(Comparavel c1, Comparavel c2){
-            return c1.comparar(c2);
-    }
+public interface Comparador {
+    /**
+     * Compara dois objetos Comparavel
+     * 
+     * @param c1 O primeiro objeto Comparavel
+     * @param c2 O segundo objeto Comparavel
+     * @return  Um valor maior que zero se c1 for maior que c2
+     *          Um valor menor que zero se c1 for menor que c2
+     *          Zero se os objetos forem iguais
+     */
+    int comparar(Comparavel c1, Comparavel c2);
 }

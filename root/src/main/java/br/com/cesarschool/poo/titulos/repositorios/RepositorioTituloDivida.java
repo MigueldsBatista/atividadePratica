@@ -36,10 +36,10 @@ import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
  * A busca deve localizar uma linha por identificador, materializar e retornar um 
  * objeto. Caso o identificador n�o seja encontrado no arquivo, retornar null.   
  */
-public class RepositorioTituloDivida extends RepositorioGeral{
+public class RepositorioTituloDivida extends RepositorioGeral<TituloDivida> {
 
 	@Override
-	public Class<?> getClasseEntidade() {
+	public Class<TituloDivida> getClasseEntidade() {
 		return TituloDivida.class;
 	}
 

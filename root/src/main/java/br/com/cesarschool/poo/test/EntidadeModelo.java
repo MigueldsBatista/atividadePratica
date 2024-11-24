@@ -3,6 +3,7 @@ package br.com.cesarschool.poo.test;
 import br.com.cesarschool.poo.titulos.utils.Comparavel;
 import br.com.cesarschool.poo.daogenerico.Entidade;
 
+//Vamos usar EntidadeModelo para testar o DAO genérico
 class EntidadeModelo extends Entidade implements Comparavel {
 	private int id; 
 	private String nome;

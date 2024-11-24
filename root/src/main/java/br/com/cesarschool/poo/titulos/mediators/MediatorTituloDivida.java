@@ -2,6 +2,8 @@ package br.com.cesarschool.poo.titulos.mediators;
 
 import br.com.cesarschool.poo.titulos.entidades.TituloDivida;
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioLinhaObjeto;
+import br.com.cesarschool.poo.titulos.repositorios.RepositorioTituloDivida;
+
 import java.time.LocalDate;
 
 /*
@@ -58,7 +60,7 @@ import java.time.LocalDate;
 
 public class MediatorTituloDivida {
     private static MediatorTituloDivida instancia;
-    private RepositorioLinhaObjeto<TituloDivida> repositorioLinhaObjeto = new RepositorioLinhaObjeto<>("TituloDivida.txt");
+    RepositorioTituloDivida rep = new RepositorioTituloDivida();
 
     private MediatorTituloDivida() { }
     public static MediatorTituloDivida getInstancia() {
@@ -91,7 +93,7 @@ public class MediatorTituloDivida {
         if (validacao != null) {
             return validacao;
         }
-        boolean sucesso = repositorioLinhaObjeto.incluir(titulo);
+        boolean sucesso = rep.incluir(titulo);
         if (sucesso) {
             return null;
         } else {
@@ -104,7 +106,7 @@ public class MediatorTituloDivida {
         if (validacao != null) {
             return validacao;
         }
-        boolean sucesso = repositorioLinhaObjeto.alterar(titulo);
+        boolean sucesso = rep.alterar(titulo);
         if (sucesso) {
             return null;
         } else {
@@ -116,7 +118,7 @@ public class MediatorTituloDivida {
         if (identificador <= 0 || identificador >= 100000) {
             return "Identificador deve estar entre 1 e 99999.";
         }
-        boolean sucesso = repositorioLinhaObjeto.excluir(identificador);
+        boolean sucesso = rep.excluir(""+identificador);
         if (sucesso) {
             return null;
         } else {
@@ -128,6 +130,6 @@ public class MediatorTituloDivida {
         if (identificador <= 0 || identificador >= 100000) {
             return null;
         }
-        return repositorioLinhaObjeto.buscar(identificador);
+        return rep.buscar(""+identificador);
     }
 }

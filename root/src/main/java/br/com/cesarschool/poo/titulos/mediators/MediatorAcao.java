@@ -1,15 +1,15 @@
 package br.com.cesarschool.poo.titulos.mediators;
 
+import br.com.cesarschool.poo.daogenerico.DAOSerializadorObjetos;
 import br.com.cesarschool.poo.titulos.entidades.Acao;
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioAcao;
-import br.com.cesarschool.poo.titulos.repositorios.RepositorioLinhaObjeto;
 
 import java.time.LocalDate;
 
 /*
  * Deve ser um singleton.
  * 
- * Deve ter um atributo repositorioAcao, do tipo RepositorioAcao, que deve 
+ * Deve ter um atributo rep, do tipo RepositorioAcao, que deve 
  * ser inicializado na sua declaração. Este atributo será usado exclusivamente
  * pela classe, não tendo, portanto, métodos set e get.
  * 
@@ -60,8 +60,10 @@ import java.time.LocalDate;
 public class MediatorAcao {
 
     private static MediatorAcao instance;
-    private RepositorioAcao repositorioAcao = new RepositorioAcao();
-    private RepositorioLinhaObjeto<Acao> repositorioLinhaObjeto = new RepositorioLinhaObjeto<>("Acao.txt");
+    private RepositorioAcao rep = new RepositorioAcao();
+
+
+    
     private MediatorAcao(){
     }
     public static MediatorAcao getInstancia(){
@@ -90,7 +92,7 @@ public class MediatorAcao {
         if(mensagemValidacao!=null){
             return mensagemValidacao;
         }
-        boolean incluido = repositorioLinhaObjeto.incluir(acao);
+        boolean incluido = rep.incluir(acao);
         if(incluido == true){
             return null;
         }else{
@@ -103,7 +105,7 @@ public class MediatorAcao {
         if(mensagemValidacao!=null){
             return mensagemValidacao;
         }
-        boolean alterado = repositorioLinhaObjeto.alterar(acao);
+        boolean alterado = rep.alterar(acao);
         if(alterado == true){
             return null;
         }else{
@@ -115,7 +117,7 @@ public class MediatorAcao {
         if(identificador<=0||identificador>=100000){
             return "Identificador Inválido";
         }
-        boolean excluido = repositorioLinhaObjeto.excluir(identificador);
+        boolean excluido = rep.excluir(identificador+"");
         if(excluido == true){
             return null;
         }else{
@@ -127,6 +129,6 @@ public class MediatorAcao {
         if(identificador<=0||identificador>=100000){
             return null;
         }
-        return repositorioLinhaObjeto.buscar(identificador);
+        return rep.buscar(identificador+"");
     }
 }

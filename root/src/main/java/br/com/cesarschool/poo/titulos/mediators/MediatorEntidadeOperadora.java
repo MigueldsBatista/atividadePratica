@@ -2,7 +2,6 @@ package br.com.cesarschool.poo.titulos.mediators;
 
 import br.com.cesarschool.poo.titulos.entidades.EntidadeOperadora;
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioEntidadeOperadora;
-import br.com.cesarschool.poo.titulos.repositorios.RepositorioLinhaObjeto;
 
 /*
  * Deve ser um singleton.
@@ -54,10 +53,14 @@ import br.com.cesarschool.poo.titulos.repositorios.RepositorioLinhaObjeto;
  * que ele retornar. Se o identificadoar for inválido, retornar null. 
  */
 
+
+ //singleton é um padrão de projeto de software que restringe a instanciação de uma classe para um único objeto
+    //singleton é uma classe que só pode ter uma instancia
 public class MediatorEntidadeOperadora  {
     private static MediatorEntidadeOperadora  instance;//tava pesquisando e issa aqui é o "Singleton"
-    private RepositorioEntidadeOperadora repositorioEntidadeOperadora  = new RepositorioEntidadeOperadora();
-    private RepositorioLinhaObjeto<EntidadeOperadora> repositorioLinhaObjeto = new RepositorioLinhaObjeto<>("EntidadeOperadora.txt");
+
+    private RepositorioEntidadeOperadora rep  = new RepositorioEntidadeOperadora();
+
     private MediatorEntidadeOperadora (){}//esse coisa aqui foi pra iniciar o singleton como privado
     public static MediatorEntidadeOperadora getInstancia(){
         if(instance==null){
@@ -84,7 +87,7 @@ public class MediatorEntidadeOperadora  {
         if(validacao!=null){
             return validacao;
         }
-        boolean incluido = repositorioLinhaObjeto.incluir(entidade);
+        boolean incluido = rep.incluir(entidade);
         if(incluido){
             return null;
         }else{
@@ -97,7 +100,7 @@ public class MediatorEntidadeOperadora  {
         if(validacao!=null){
             return validacao;
         }
-        boolean alterado = repositorioLinhaObjeto.alterar(entidade);
+        boolean alterado = rep.alterar(entidade);
         if (alterado) {
             return null;
         } else {
@@ -109,7 +112,7 @@ public class MediatorEntidadeOperadora  {
         if (identificador <= 0 || identificador >= 1000000) {
             return "Identificador inválido";
         }
-        boolean excluido = repositorioLinhaObjeto.excluir(identificador);
+        boolean excluido = rep.excluir(""+identificador);
         if (excluido) {
             return null;
         } else {
@@ -121,6 +124,6 @@ public class MediatorEntidadeOperadora  {
         if (identificador <= 0 || identificador >= 1000000) {
             return null;
         }
-        return repositorioLinhaObjeto.buscar(identificador);
+        return rep.buscar(""+identificador);
     }
 }

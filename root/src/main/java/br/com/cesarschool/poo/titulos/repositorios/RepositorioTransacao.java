@@ -3,9 +3,6 @@ package br.com.cesarschool.poo.titulos.repositorios;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -16,10 +13,12 @@ import br.com.cesarschool.poo.titulos.entidades.EntidadeOperadora;
 import br.com.cesarschool.poo.daogenerico.RepositorioGeral;
 import br.com.cesarschool.poo.titulos.entidades.Acao;
 
-public class RepositorioTransacao extends RepositorioGeral {
+public class RepositorioTransacao extends RepositorioGeral<Transacao> {
+
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Override
-    public Class<?> getClasseEntidade() {
+    public Class<Transacao> getClasseEntidade() {
         return Transacao.class;
     }
     

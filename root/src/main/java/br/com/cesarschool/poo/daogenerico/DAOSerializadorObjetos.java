@@ -18,15 +18,16 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import java.lang.reflect.*;
-
+import java.lang.reflect.Field;
+// Classe que serializa e desserializa objetos
 
 public class DAOSerializadorObjetos<T extends Entidade> {
+    //estou impondo um contrato que o tipo T deve ser uma subclasse de Entidade
+
     private String nomeDiretorio;
     private Class<T> tipoEntidade;
 
@@ -41,7 +42,7 @@ public class DAOSerializadorObjetos<T extends Entidade> {
         StringBuilder stringBuilder = new StringBuilder();
 
         // Aqui chamamos o método getIdUnico() para gerar o identificador único
-        String idUnico = getIdUnico(objeto);
+        String idUnico = objeto.getIdUnico();
         if (idUnico == null) {
             throw new IllegalArgumentException("ID único não pode ser nulo!");
         }
@@ -83,22 +84,10 @@ public class DAOSerializadorObjetos<T extends Entidade> {
         return objeto;
     }
 
-    // Método para obter o idUnico chamando um método que concatena os campos necessários
-    private String getIdUnico(T objeto) {
-        try {
-            // Usamos reflexão para chamar o método getIdUnico() na classe do objeto
-            Method method = objeto.getClass().getMethod("getIdUnico");
-            return (String) method.invoke(objeto);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     // Incluir objeto no arquivo
-    public boolean incluir(T objeto) {
+    public boolean incluir(T entidade) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(nomeDiretorio, true))) {
-            writer.write(serialize(objeto));
+            writer.write(serialize(entidade));
             writer.newLine();
             return true;
         } catch (Exception e) {
@@ -118,7 +107,7 @@ public class DAOSerializadorObjetos<T extends Entidade> {
                 String[] parts = line.split(";");
                 String id = parts[0]; // O ID único fica na primeira posição
 
-                String idUnicoObjeto = getIdUnico(objeto); // Pega o id único do objeto
+                String idUnicoObjeto = objeto.getIdUnico(); // Pega o id único do objeto
 
                 if (idUnicoObjeto.equals(id)) {
                     line = serialize(objeto); // Substitui a linha pelo objeto atualizado

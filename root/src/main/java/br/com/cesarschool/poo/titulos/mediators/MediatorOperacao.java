@@ -68,7 +68,6 @@ public class MediatorOperacao {
     private final MediatorTituloDivida mediatorTituloDivida = MediatorTituloDivida.getInstancia();
     private final MediatorEntidadeOperadora mediatorEntidadeOperadora = MediatorEntidadeOperadora.getInstancia();
     private final RepositorioTransacao repositorioTransacao = new RepositorioTransacao();
-    private RepositorioLinhaObjeto<Transacao> repositorioLinhaObjeto = new RepositorioLinhaObjeto<>("Transacao.txt");
 
 
     private MediatorOperacao() {}
@@ -135,7 +134,7 @@ public class MediatorOperacao {
                 valor,
                 LocalDateTime.now()
         );
-        repositorioLinhaObjeto.incluir(transacao);
+        repositorioTransacao.incluir(transacao);
         return null; // Se tudo ocorrer sem erros, retorna null
     }
 

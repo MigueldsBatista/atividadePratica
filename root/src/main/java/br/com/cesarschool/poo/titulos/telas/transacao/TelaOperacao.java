@@ -229,4 +229,5 @@ public class TelaOperacao {
         List<TituloDivida> titulos = repositorioTituloDivida.listar(); 
         return titulos.toArray(new TituloDivida[0]); // Retorna um array de TituloDivida
     }
+    
 }

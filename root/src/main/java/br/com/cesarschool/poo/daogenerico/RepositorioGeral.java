@@ -1,7 +1,6 @@
 package br.com.cesarschool.poo.daogenerico;
 
 import java.util.List;
-
 /*
  * RepositorioGeral é a mãe dos repositórios específicos. É 
 abstrata, tem um método abstrato Class<?> getClasseEntidade() 
@@ -19,42 +18,46 @@ getClasseEntidade().
  * 
  */
 // Classe abstrata base para repositórios específicos
-public abstract class RepositorioGeral<Entidade> {
+public abstract class RepositorioGeral<T extends Entidade> {
 
     // Atributo dao do tipo DAOSerializadorObjetos
-    protected DAOSerializadorObjetos<Entidade> dao;
+    protected DAOSerializadorObjetos<T> dao;
 
     // Construtor vazio
     public RepositorioGeral() {
         // Inicializa o dao passando a classe da entidade
-        this.dao = new DAOSerializadorObjetos<>(getClasseEntidade());
+        this.dao = new DAOSerializadorObjetos<T>(getClasseEntidade());
     }
 
     // Método abstrato que será implementado pelos repositórios específicos
-    protected abstract Class<Entidade> getClasseEntidade();
+    protected abstract Class<T> getClasseEntidade();
 
     // Método para buscar um objeto pelo ID único
-    public Entidade buscar(String idUnico) {
-        return dao.buscar(idUnico);
+    public T buscar(String idUnico) {
+        return (T) dao.buscar(idUnico);
     }
 
     // Método para buscar todos os objetos
-    public List<Entidade> buscarTodos() {
+    public List<T> buscarTodos() {
         return dao.buscarTodos();
     }
 
     // Método para incluir uma entidade
-    public void incluir(Entidade entidade) {
-        dao.incluir(entidade);
+    public boolean incluir(T entidade) {
+        return dao.incluir(entidade);
     }
 
     // Método para alterar uma entidade
-    public void alterar(Entidade entidade) {
-        dao.alterar(entidade);
+    public boolean alterar(T entidade) {
+        return dao.alterar(entidade);
     }
 
     // Método para excluir uma entidade
-    public void excluir(String idUnico) {
-        dao.excluir(idUnico);
+    public boolean excluir(String idUnico) {
+        return dao.excluir(idUnico);
     }
+    public boolean excluir(T entidade) {
+        return dao.excluir(entidade.getIdUnico());
+    }
+
 }

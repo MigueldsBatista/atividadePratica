@@ -35,10 +35,10 @@ import java.util.List;
  */
 
 
-public class RepositorioEntidadeOperadora extends RepositorioGeral{
+public class RepositorioEntidadeOperadora extends RepositorioGeral<EntidadeOperadora> {
 
     @Override
-    public Class<?> getClasseEntidade() {
+    public Class<EntidadeOperadora> getClasseEntidade() {
         return EntidadeOperadora.class;
     }
 }
