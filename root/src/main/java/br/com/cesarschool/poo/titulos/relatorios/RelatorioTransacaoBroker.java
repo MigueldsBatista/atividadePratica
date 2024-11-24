@@ -1,4 +1,4 @@
-package br.com.cesarschool.poo.titulos.utils;
+package br.com.cesarschool.poo.titulos.relatorios;
 
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioTransacao;
 

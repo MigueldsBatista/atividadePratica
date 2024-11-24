@@ -1,4 +1,3 @@
-package br.com.cesarschool.poo.test;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

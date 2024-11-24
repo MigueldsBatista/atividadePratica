@@ -23,10 +23,7 @@ import br.com.cesarschool.poo.titulos.repositorios.RepositorioAcao; // Supondo q
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioEntidadeOperadora; // Supondo que tenha esse repositório
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioTituloDivida;
 
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 public class TelaOperacao {
     private JFrame frame;
@@ -212,22 +209,22 @@ public class TelaOperacao {
     // Método para carregar entidades operadoras
     private EntidadeOperadora[] carregarEntidadesOperadoras() {
         RepositorioEntidadeOperadora repositorioEntidadeOperadora = new RepositorioEntidadeOperadora();
-        List<EntidadeOperadora> entidades = repositorioEntidadeOperadora.listar(); 
+        List<EntidadeOperadora> entidades = repositorioEntidadeOperadora.buscarTodos(); 
         return entidades.toArray(new EntidadeOperadora[0]); // Retorna um array de EntidadeOperadora
     }
 
     // Método para carregar ações
     private Acao[] carregarAcoes() {
         RepositorioAcao repositorioAcao = new RepositorioAcao();
-        List<Acao> acoes = repositorioAcao.();//TODO: Implementar método de listar ações
+        List<Acao> acoes = repositorioAcao.buscarTodos();
         return acoes.toArray(new Acao[0]); // Retorna um array de Ação
     }
 
     // Método para carregar títulos de dívida
     private TituloDivida[] carregarTitulosDivida() {
         RepositorioTituloDivida repositorioTituloDivida = new RepositorioTituloDivida();
-        List<TituloDivida> titulos = repositorioTituloDivida.listar(); 
+        List<TituloDivida> titulos = repositorioTituloDivida.buscarTodos(); 
         return titulos.toArray(new TituloDivida[0]); // Retorna um array de TituloDivida
     }
-    
+
 }

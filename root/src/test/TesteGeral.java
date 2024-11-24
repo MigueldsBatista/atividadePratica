@@ -1,8 +1,7 @@
-package br.com.cesarschool.poo.test;
 
 import java.io.File;
-import br.com.cesarschool.poo.daogenerico.Entidade;//TODO
-import br.com.cesarschool.poo.test.TestesDAOSerializador.EntidadeTeste;//TODO
+import br.com.cesarschool.poo.daogenerico.Entidade;
+
 
 public class TesteGeral {
 	protected static final String SEP_ARQUIVO = System.getProperty("file.separator");

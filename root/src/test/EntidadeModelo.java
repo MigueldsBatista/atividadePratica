@@ -1,19 +1,20 @@
-package br.com.cesarschool.poo.test;
+
 
 import br.com.cesarschool.poo.titulos.utils.Comparavel;
 import br.com.cesarschool.poo.daogenerico.Entidade;
 
 //Vamos usar EntidadeModelo para testar o DAO genérico
 class EntidadeModelo extends Entidade implements Comparavel {
-	private int id; 
+	private int identificador; 
 	private String nome;
-	EntidadeModelo(int id, String nome) {
-		this.id = id;
+
+	EntidadeModelo(int identificador, String nome) {
+		this.identificador = identificador;
 		this.nome = nome; 
 	}
 
 	int getId() {
-		return id;
+		return identificador;
 	}
 	String getNome() {
 		return nome;
@@ -24,8 +25,8 @@ class EntidadeModelo extends Entidade implements Comparavel {
 	}
     
     @Override
-	public int getIdUnico() {
-		return this.id;
+	public String getIdUnico() {
+		return ""+this.identificador;
 	}
 
 	public String toString() {

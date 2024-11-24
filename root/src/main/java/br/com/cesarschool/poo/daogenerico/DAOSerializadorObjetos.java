@@ -217,7 +217,7 @@ public class DAOSerializadorObjetos<T extends Entidade> {
     public String getNomeDiretorio() {
         return nomeDiretorio;
     }
-
+    
     public void setNomeDiretorio(String nomeDiretorio) {
         this.nomeDiretorio = nomeDiretorio;
     }

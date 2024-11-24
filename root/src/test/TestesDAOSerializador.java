@@ -1,4 +1,3 @@
-package br.com.cesarschool.poo.test;
 
 import java.io.File;
 import java.io.Serializable;

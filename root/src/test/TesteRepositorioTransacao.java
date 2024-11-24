@@ -1,4 +1,3 @@
-package br.com.cesarschool.poo.test;
 
 import java.io.File;
 import java.time.LocalDate;
@@ -47,3 +46,4 @@ public class TesteRepositorioTransacao extends TesteGeral {
 		Assertions.assertEquals(obterQtdArquivosDir(NOME_DIR_TRANSACAO), 1); 
 		Assertions.assertTrue(new File(obterNomeArquivo(NOME_DIR_TRANSACAO, tr)).exists());
 	}
+}

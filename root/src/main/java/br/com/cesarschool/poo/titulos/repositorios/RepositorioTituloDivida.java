@@ -1,15 +1,5 @@
 package br.com.cesarschool.poo.titulos.repositorios;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 
 import br.com.cesarschool.poo.daogenerico.RepositorioGeral;
 import br.com.cesarschool.poo.titulos.entidades.TituloDivida;

@@ -1,16 +1,15 @@
-package br.com.cesarschool.poo.test;
 
 import java.io.File;
 import java.time.LocalDate;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
 import br.com.cesarschool.poo.titulos.entidades.Acao;
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioAcao;
-import br.com.cesarschool.poo.titulos.repositorios.RepositorioGeral;//TODO
-import br.com.cesarschool.poo.titulos.utils.ComparadoraObjetosSerial;//TODO
-import br.com.cesarschool.poo.daogenerico.DAOSerializadorObjetos;//TODO
+import br.com.cesarschool.poo.daogenerico.RepositorioGeral;
+import br.com.cesarschool.poo.titulos.utils.ComparadoraObjetosSerial;
+import br.com.cesarschool.poo.daogenerico.DAOSerializadorObjetos;
 
 
 public class TesteRepositorioAcao extends TesteGeral {
