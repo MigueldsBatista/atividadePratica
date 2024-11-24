@@ -33,7 +33,7 @@ public Transacao[] relatorioTransacaoPorNomeEntidadeCredora(){
 public Transacao[] relatorioTransacaoPorDataHora(){
     ArrayList<Transacao> transacoes = new ArrayList<>();
     transacoes.addAll(Arrays.asList(rep.buscarTodos()));
-    transacoes.sort((t1,t2)->t1.getDataHoraOperacao().compareTo(t2.getDataHoraOperacao()));
+    transacoes.sort((t1,t2)->t2.getDataHoraOperacao().compareTo(t1.getDataHoraOperacao()));
     return transacoes.toArray(new Transacao[0]);
 
     }

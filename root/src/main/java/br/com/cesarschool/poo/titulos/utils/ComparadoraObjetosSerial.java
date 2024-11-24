@@ -5,6 +5,9 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 public class ComparadoraObjetosSerial {
+
+	//retorna true se os objetos serializados s1 e s2 forem iguais
+	//iguais no sentido de que os arrays de bytes gerados pela serialização dos objetos são iguais
 	public static boolean compareObjectsSerial(Serializable s1, Serializable s2) {
 		ByteArrayOutputStream  bos1 = null;
 		ByteArrayOutputStream  bos2 = null;
@@ -12,6 +15,7 @@ public class ComparadoraObjetosSerial {
 		ObjectOutputStream oos2 = null;
 		boolean ret = true;
 		try {
+			//cria um array de bytes para cada objeto serializado
 			bos1 = new ByteArrayOutputStream();
 			bos2 = new ByteArrayOutputStream();
 			oos1 = new ObjectOutputStream(bos1);

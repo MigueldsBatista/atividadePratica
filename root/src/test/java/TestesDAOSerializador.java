@@ -169,7 +169,8 @@ public class TestesDAOSerializador {
 		EntidadeTeste e1 = new EntidadeTeste(id, nome);
 		Assertions.assertTrue(DAO.incluir(e1));
 		Assertions.assertEquals(obterQtdArquivosDir(NOME_DIR), 1);
-		Assertions.assertTrue(DAO.excluir(id));
+		boolean res = DAO.excluir(id);
+		Assertions.assertTrue(res);
 		Assertions.assertEquals(obterQtdArquivosDir(NOME_DIR), 0);
 		EntidadeTeste eb = (EntidadeTeste)DAO.buscar(id);
 		Assertions.assertNull(eb);						
@@ -202,10 +203,14 @@ public class TestesDAOSerializador {
 		Assertions.assertTrue(DAO.incluir(e2));
 		Entidade[] res = DAO.buscarTodos();
 		Assertions.assertNotNull(res);
+
 		Assertions.assertEquals(res.length, 2);
 		Assertions.assertTrue(ComparadoraObjetosSerial.compareObjectsSerial(e1, res[0]));
+		
 		Assertions.assertTrue(ComparadoraObjetosSerial.compareObjectsSerial(e2, res[1]));
+		
 	}
+
 	@Test
 	public void testDAO10() {
 		excluirArquivosDiretorio();

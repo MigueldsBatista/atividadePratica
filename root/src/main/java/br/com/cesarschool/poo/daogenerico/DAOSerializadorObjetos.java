@@ -80,17 +80,17 @@ public class DAOSerializadorObjetos<T extends Entidade> {
     }
 
     // Método alterar atualizado para usar ObjectInputStream e ObjectOutputStream
-    public boolean alterar(T objeto) {
+    public boolean alterar(T entidade) {
         boolean found = false;
         List<T> objectsList = new ArrayList<>();
 
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(obterNomeArquivo(objeto)))) {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(obterNomeArquivo(entidade)))) {
             T existingObject;
             while ((existingObject = (T) ois.readObject()) != null) {
-                if (existingObject.getIdUnico().equals(objeto.getIdUnico())) {
-                    objeto.setUsuarioUltimaAlteracao(System.getProperty("user.name"));
-                    objeto.setDataHoraUltimaAlteracao(LocalDateTime.now());
-                    objectsList.add(objeto);  // Substitui o objeto
+                if (existingObject.getIdUnico().equals(entidade.getIdUnico())) {
+                    entidade.setUsuarioUltimaAlteracao(System.getProperty("user.name"));
+                    entidade.setDataHoraUltimaAlteracao(LocalDateTime.now());
+                    objectsList.add(entidade);  // Substitui o entidade
                     found = true;
                 } else {
                     objectsList.add(existingObject);  // Mantém os outros objetos
@@ -106,11 +106,11 @@ public class DAOSerializadorObjetos<T extends Entidade> {
         if (!found) return false;
 
         // Reescreve o arquivo com a lista atualizada de objetos
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(obterNomeArquivo(objeto)))) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(obterNomeArquivo(entidade)))) {
             for (T entity : objectsList) {
                 oos.writeObject(entity); // Serializa os objetos novamente
             }
-            cache.put(objeto.getIdUnico(), objeto);  // Atualiza o cache
+            cache.put(entidade.getIdUnico(), entidade);  // Atualiza o cache
         } catch (IOException e) {
             e.printStackTrace();
             return false;
@@ -119,52 +119,24 @@ public class DAOSerializadorObjetos<T extends Entidade> {
         return true;
     }
 
-    // Método excluir atualizado para usar FileInputStream e ObjectInputStream
+    // Método excluir atualizado para remover o arquivo
     public boolean excluir(String idUnico) {
-        boolean found = false;
-        File arquivo = new File(NOME_DIR + SEP_ARQUIVO + idUnico );
+        File arquivo = new File(obterNomeArquivo(idUnico));
 
         if (!arquivo.exists()) {
             return false;  // Arquivo não encontrado
         }
 
-        try {
-            // Cria uma lista de objetos temporária
-            List<T> objetosTemp = new ArrayList<>();
-            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(arquivo))) {
-                T objeto;
-                while ((objeto = (T) ois.readObject()) != null) {
-                    if (!objeto.getIdUnico().equals(idUnico)) {
-                        objetosTemp.add(objeto);
-                    } else {
-                        found = true;
-                    }
-                }
-            } catch (EOFException e) {
-                // Fim do arquivo, pode ignorar essa exceção
-            }
-
-            if (!found) return false;
-
-            // Regrava todos os objetos restantes de volta para o arquivo
-            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(arquivo))) {
-                for (T objeto : objetosTemp) {
-                    oos.writeObject(objeto);
-                }
-            }
-
-            cache.remove(idUnico);  // Remove o objeto do cache
+        if (arquivo.delete()) {
+            cache.remove(idUnico);  // Remove o entidade do cache
             return true;
-
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-            return false;
         }
+
+        return false;
     }
-    
     // Método buscar atualizado para usar FileInputStream e ObjectInputStream
     public T buscar(String idUnico) {
-        // Primeiro verifica se o objeto está no cache
+        // Primeiro verifica se o entidade está no cache
         T objetoCache = cache.get(idUnico);
         if (objetoCache != null) {
             return objetoCache;
@@ -175,10 +147,10 @@ public class DAOSerializadorObjetos<T extends Entidade> {
             File arquivo = new File(NOME_DIR + SEP_ARQUIVO + idUnico);
             if (arquivo.exists()) {
                 try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(arquivo))) {
-                    T objeto = (T) ois.readObject();
+                    T entidade = (T) ois.readObject();
                     // Atualiza o cache antes de retornar
-                    cache.put(idUnico, objeto);
-                    return objeto;
+                    cache.put(idUnico, entidade);
+                    return entidade;
                 } catch (IOException | ClassNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -197,12 +169,13 @@ public class DAOSerializadorObjetos<T extends Entidade> {
 
         // Verifica se o diretório contém arquivos
         if (arquivos != null) {
+            Arrays.sort(arquivos, Comparator.comparing(File::getName));
             for (File arquivo : arquivos) {
                 if (arquivo.isFile()) {
                     try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(arquivo))) {
-                        T objeto;
-                        while ((objeto = (T) ois.readObject()) != null) {
-                            lista.add(objeto);
+                        T entidade;
+                        while ((entidade = (T) ois.readObject()) != null) {
+                            lista.add(entidade);
                         }
                     } catch (IOException | ClassNotFoundException e) {
                         e.printStackTrace();
