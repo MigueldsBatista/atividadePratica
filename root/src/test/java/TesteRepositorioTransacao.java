@@ -18,6 +18,8 @@ public class TesteRepositorioTransacao extends TesteGeral {
 	private static final RepositorioTransacao DAO = new RepositorioTransacao();
 	private static final String NOME_DIR_TRANSACAO = PONTO + SEP_ARQUIVO + Transacao.class.getSimpleName();
 	
+
+
 	@Test
 	public void testDAO00() {
 		Assertions.assertTrue(DAO instanceof RepositorioGeral);

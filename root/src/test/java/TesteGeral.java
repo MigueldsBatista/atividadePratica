@@ -25,6 +25,7 @@ public class TesteGeral {//file.separator é uma constante que retorna o separad
 				}
 			}
 		}
+		
 		return sucesso;
 	}
 	protected int obterQtdArquivosDir(String caminhoDir) {

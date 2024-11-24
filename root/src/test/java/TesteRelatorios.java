@@ -92,9 +92,9 @@ public class TesteRelatorios extends TesteGeral {
 		RepositorioTransacao rep = new RepositorioTransacao();		
 		RelatorioTransacaoBroker broker = new RelatorioTransacaoBroker(mock);
 		Acao a = new Acao(1, "PB01", LocalDate.now(), 100);
-		EntidadeOperadora e1 = new EntidadeOperadora(1, "XXX", 100);//TODO implementar esse construtor
-		EntidadeOperadora e2 = new EntidadeOperadora(2, "ZZZ", 100);//TODO implementar esse construtor
-		EntidadeOperadora e3 = new EntidadeOperadora(3, "AAA", 100);//TODO implementar esse construtor
+		EntidadeOperadora e1 = new EntidadeOperadora(1, "XXX", 100);
+		EntidadeOperadora e2 = new EntidadeOperadora(2, "ZZZ", 100);
+		EntidadeOperadora e3 = new EntidadeOperadora(3, "AAA", 100);
 		Transacao t1 = new Transacao(e1, e2, a, null, 0, LocalDateTime.now());
 		Transacao t2 = new Transacao(e2, e1, a, null, 0, LocalDateTime.now().plusDays(2));
 		Transacao t3 = new Transacao(e3, e1, a, null, 0, LocalDateTime.now().plusDays(1));

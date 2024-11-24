@@ -1,50 +1,33 @@
 package br.com.cesarschool.poo.titulos.repositorios;
-
-import java.lang.reflect.Field;
 import java.time.LocalDate;
 
-public class RepositorioLinhaObjeto {}
-    //professor em nossos commits passados a gente 
-    //chegou a implementar porém passamos todo o codigo
-    //para o DAOserializadorObjetos onde está lá todo o codigo
-    //que estava aqui e mais um pouco ;) 
-    // Método serialize atualizado para usar reflexão
-    /* 
-   package br.com.cesarschool.poo.daogenerico;
-import java.util.Arrays;
+import java.io.*;
+import java.util.*;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import br.com.cesarschool.poo.daogenerico.Entidade;
+/*
+ * Esta classe foi nossa classe extra, seu funcionamento é similar ao DAO serializador, mas
+ * diferentemente dele, ela usa reflexão para serializar e deserializar objetos por meio dos seus campos.
+ * Ela funciona com qualquer objeto que herde de Entidade.
+ * E armazena os objetos em forma de string
+ * Também implementamos o sistema de cache nela
+ */
 import java.lang.reflect.Field;
 
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
-
-public class DAOSerializadorObjetos<T extends Entidade> {
+    public class RepositorioLinhaObjeto <T extends Entidade> {
 	private static final String SEP_ARQUIVO = System.getProperty("file.separator");
 	private static final String PONTO = ".";
-	private static final String NOME_DIR = PONTO + SEP_ARQUIVO + Entidade.class.getSimpleName();  
+    private final String NOME_DIR;
     private Class<T> tipoEntidade;
 
     // Cache adicionado para armazenar objetos já lidos do arquivo
     private Map<String, T> cache;
 
-    public DAOSerializadorObjetos(Class<T> tipoEntidade) {
+    public RepositorioLinhaObjeto(Class<T> tipoEntidade) {
         this.tipoEntidade = tipoEntidade;
         this.cache = new HashMap<>();
+        this.NOME_DIR = PONTO + SEP_ARQUIVO + tipoEntidade.getSimpleName();  
         criarDiretorioSeNaoExistir();  // Garantir que o diretório exista
 
     }
@@ -55,7 +38,7 @@ public class DAOSerializadorObjetos<T extends Entidade> {
         }
     }
 	private String obterNomeArquivo(Entidade ent) {
-		return NOME_DIR + SEP_ARQUIVO + ent.getIdUnico();
+		return NOME_DIR + SEP_ARQUIVO + ent.getIdUnico()+".txt";
 	}
 
 	private String obterNomeArquivo(String idUnico) {
@@ -105,10 +88,8 @@ public class DAOSerializadorObjetos<T extends Entidade> {
     }
 
 
-
-
     // Método incluir atualizado para usar cache
-public boolean incluir(T entidade) {
+    public boolean incluir(T entidade) {
     try {
         // Verifica se já está no cache
         if (cache.containsKey(entidade.getIdUnico())) {
@@ -304,10 +285,10 @@ public boolean incluir(T entidade) {
         return NOME_DIR;
     }
     
-    
+
     // Método adicional para limpar o cache se necessário
     public void limparCache() {
         cache.clear();
     }
 }
-*/
+

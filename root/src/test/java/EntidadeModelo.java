@@ -21,6 +21,9 @@ public class EntidadeModelo extends Entidade implements Comparavel {
 		EntidadeModelo em = (EntidadeModelo)c1;			
 		return nome.compareTo(em.nome);
 	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
     
     @Override
 	public String getIdUnico() {
