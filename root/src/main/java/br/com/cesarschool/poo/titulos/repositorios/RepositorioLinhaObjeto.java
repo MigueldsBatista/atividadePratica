@@ -92,36 +92,22 @@ import java.lang.reflect.Field;
     public boolean incluir(T entidade) {
     try {
         // Verifica se já está no cache
-        if (cache.containsKey(entidade.getIdUnico())) {
+        if (cache.containsKey(entidade.getIdUnico())|| this.buscar(entidade.getIdUnico())!=null) {
             return false;  // Já existe no cache
         }
 
-        // Verifica se já existe no arquivo
-        if (this.buscar(entidade.getIdUnico()) != null) {
-            return false;  // Já existe no arquivo
-        }
-
         // Tenta escrever no arquivo
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(obterNomeArquivo(entidade), true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(obterNomeArquivo(entidade), false))) {
             writer.write(serialize(entidade));
             writer.newLine();
-            cache.put(entidade.getIdUnico(), entidade);  // Atualiza o cache
-            return true;
-        } catch (IOException e) {
-            // Trata a exceção se houver erro ao escrever o arquivo
-            System.out.println("Erro ao escrever o arquivo: " + e.getMessage());
+        } 
+        cache.put(entidade.getIdUnico(), entidade);  // Atualiza o cache
+        return true;
+        }
+        catch (IOException | IllegalAccessException e) {// Trata a exceção se houver erro ao escrever o arquivo
+            e.printStackTrace();
             return false;  // Retorna falso em caso de erro
         }
-
-    } catch (IllegalAccessException e) {
-        // Captura a exceção se não for possível acessar o campo/membro
-        System.out.println("Erro de acesso: " + e.getMessage());
-        return false;  // Retorna falso em caso de erro de acesso
-    } catch (Exception e) {
-        // Captura qualquer outra exceção genérica
-        System.out.println("Erro inesperado: " + e.getMessage());
-        return false;  // Retorna falso em caso de erro inesperado
-    }
 }
 
 
@@ -243,6 +229,7 @@ import java.lang.reflect.Field;
 	private File[] listarArquivosDir(String caminhoDir) {
 		return new File(caminhoDir).listFiles();
     }
+    
     public T[] buscarTodos() {
         List<T> lista = new ArrayList<>();
         

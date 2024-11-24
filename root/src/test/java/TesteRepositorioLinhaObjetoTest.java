@@ -26,7 +26,7 @@ public class TesteRepositorioLinhaObjetoTest extends TesteGeral{
 
         EntidadeModelo entidade = new EntidadeModelo(1, "Teste");
         Assertions.assertTrue(repositorio.incluir(entidade));
-        Assertions.assertEquals(1, obterQtdArquivosDir(NOME_DIR));
+         Assertions.assertEquals(1, obterQtdArquivosDir(NOME_DIR));
     }
 
     @Test
