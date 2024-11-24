@@ -46,7 +46,7 @@ public class Transacao extends Entidade implements Comparavel{
 
 
     public int comparar(Comparavel t){
-            return this.dataHoraOperacao.compareTo(((Transacao)t).dataHoraOperacao);
+            return ((Transacao)t).dataHoraOperacao.compareTo(this.dataHoraOperacao);
         }
 
     @Override

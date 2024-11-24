@@ -39,8 +39,8 @@ public class TesteRelatorios extends TesteGeral {
 		LocalDateTime dh2 = LocalDateTime.now().plusDays(2);
 		Comparavel c1 = new Transacao(null, null, null, null, 0, dh1);
 		Comparavel c2 = new Transacao(null, null, null, null, 0, dh2);
-		Assertions.assertTrue(c1.comparar(c2) > 0);
-		Assertions.assertTrue(c2.comparar(c1) < 0);
+		Assertions.assertTrue(c1.comparar(c2) > 0);//c1 is expected to be greater than c2
+		Assertions.assertTrue(c2.comparar(c1) < 0);//c2 is expected to be less than c1
 	}
 	@Test
 	public void t002() {

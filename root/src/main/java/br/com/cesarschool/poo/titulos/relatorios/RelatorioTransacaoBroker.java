@@ -2,6 +2,8 @@ package br.com.cesarschool.poo.titulos.relatorios;
 
 import br.com.cesarschool.poo.titulos.repositorios.RepositorioTransacao;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import br.com.cesarschool.poo.titulos.entidades.Transacao;
 
@@ -19,19 +21,20 @@ public RelatorioTransacaoBroker(RepositorioTransacao rep){
     this.rep=rep;
 }
 
-//TODO  Implementar método que retorna um array de transações ordenado por nome da entidade credora
 public Transacao[] relatorioTransacaoPorNomeEntidadeCredora(){
-    return null;
-    //compara aq
+    ArrayList<Transacao> transacoes = new ArrayList<>();
+    transacoes.addAll(Arrays.asList(rep.buscarTodos()));
+    transacoes.sort((t1,t2)->t1.getEntidadeCredito().getNome().compareTo(t2.getEntidadeCredito().getNome()));
+    return transacoes.toArray(new Transacao[0]);
 }
 
-//TODO  Implementar método que retorna um array de transações ordenado por data hora da operação
 
 public Transacao[] relatorioTransacaoPorDataHora(){
+    ArrayList<Transacao> transacoes = new ArrayList<>();
+    transacoes.addAll(Arrays.asList(rep.buscarTodos()));
+    transacoes.sort((t1,t2)->t1.getDataHoraOperacao().compareTo(t2.getDataHoraOperacao()));
+    return transacoes.toArray(new Transacao[0]);
 
-    return null;
-    //compara aq
-    
     }
 }
     

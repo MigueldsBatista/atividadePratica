@@ -20,8 +20,8 @@ import br.com.cesarschool.poo.daogenerico.DAOSerializadorObjetos;
 public class TesteRepositorioGeral extends TesteGeral {
 	@Test
 	public void testDAO00() {
-		RepositorioGeral dao = new RepositorioAcao();
-		DAOSerializadorObjetos dso = dao.getDao();
+		RepositorioGeral<?> dao = new RepositorioAcao();
+		DAOSerializadorObjetos<?> dso = dao.getDao();
 		Assertions.assertNotNull(dso);
 	}
 	@Test
@@ -38,24 +38,24 @@ public class TesteRepositorioGeral extends TesteGeral {
 	}
 	@Test
 	public void testDAO02() {
-		RepositorioGeral dao = new RepositorioAcao();
+		RepositorioGeral<?> dao = new RepositorioAcao();
 		Assertions.assertEquals(dao.getClasseEntidade(), Acao.class);		
 	}
 	@Test
 	public void testDAO03() {
-		RepositorioGeral dao = new RepositorioTituloDivida();
+		RepositorioGeral<?> dao = new RepositorioTituloDivida();
 		Assertions.assertEquals(dao.getClasseEntidade(), TituloDivida.class);
 		
 	}	
 	@Test
 	public void testDAO04() {
-		RepositorioGeral dao = new RepositorioEntidadeOperadora();
+		RepositorioGeral<?> dao = new RepositorioEntidadeOperadora();
 		Assertions.assertEquals(dao.getClasseEntidade(), EntidadeOperadora.class);
 		
 	}	
 	@Test
 	public void testDAO05() {
-		RepositorioGeral dao = new RepositorioTransacao();
+		RepositorioGeral<?> dao = new RepositorioTransacao();
 		Assertions.assertEquals(dao.getClasseEntidade(), Transacao.class);
 		
 	}	

@@ -8,9 +8,10 @@ reflection. A ideia é vocês terem uma classe a mais, chamada
 RepositorioLinhaObjeto, que seja capaz de gravar os atributos de
 qualquer tipo.
 
+^eu tinha feito antes n é bom a gente botar pelo menos meu codigo comentado pra falar pra ele que a gnete ja tinha feito?
 
 Complemento da 2a unidade: vocês vao implementar um
-esquema de cache para buscas no repositório serailizador de
+esquema de cache para buscas no repositório serializador de
 objetos que eu especifiquei. Como o cache funcionará:
 
 1- A 'memória" do cache será um objeto de um tipo que
