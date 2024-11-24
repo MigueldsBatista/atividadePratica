@@ -44,7 +44,8 @@
   </dependencies>
 
   <build>
-    <testSourceDirectory>${project.basedir}/src/test</testSourceDirectory>
+    <!--atualizar aq pra refletir nos testes-->
+    <testSourceDirectory>${project.basedir}/src/test/java</testSourceDirectory>
 
     <plugins>
       <plugin>

@@ -39,6 +39,10 @@ public class TestesDAOSerializador {
 	private static final String PONTO = ".";
 	private static final String NOME_DIR = PONTO + SEP_ARQUIVO + EntidadeTeste.class.getSimpleName();  
 
+	private String obterNomeArquivo(EntidadeTeste ent) {
+		return NOME_DIR + SEP_ARQUIVO + ent.getIdUnico();
+	}
+
 	private static final DAOSerializadorObjetos<EntidadeTeste> DAO = new DAOSerializadorObjetos<EntidadeTeste>(EntidadeTeste.class);
 	private void excluirArquivosDiretorio() {
 		//Exclui todos os arquivos do diretório
@@ -48,7 +52,11 @@ public class TestesDAOSerializador {
 			for (File file : arqs) {
 				file.delete();
 			}
-		}		
+			
+		}
+
+		//Adicionamos essa linha de código pra limpar o cache e garantir que os testes não falhem
+		DAO.limparCache();
 	}
 	private int obterQtdArquivosDir(String caminhoDir) {
 		File[] files = (new File(caminhoDir)).listFiles();
@@ -57,9 +65,6 @@ public class TestesDAOSerializador {
 		} else {
 			return files.length;
 		}
-	}
-	private String obterNomeArquivo(EntidadeTeste ent) {
-		return NOME_DIR + SEP_ARQUIVO + ent.getIdUnico();
 	}
 
 	@Test
@@ -79,24 +84,27 @@ public class TestesDAOSerializador {
 		String id = ID_1;
 		String nome = NOME_1;
 		EntidadeTeste e1 = new EntidadeTeste(id, nome);
-		Assertions.assertTrue(DAO.incluir(e1));		
-		Assertions.assertEquals(obterQtdArquivosDir(NOME_DIR), 1); 
+		Assertions.assertTrue(DAO.incluir(e1));//Incluido com sucesso
+		Assertions.assertEquals(obterQtdArquivosDir(NOME_DIR), 1); //verificou certo
 		Assertions.assertTrue(new File(obterNomeArquivo(e1)).exists());
 		EntidadeTeste eb = (EntidadeTeste)DAO.buscar(id);
 		Assertions.assertNotNull(eb);
 		Assertions.assertNotNull(eb.getDataHoraInclusao()); 
 		Assertions.assertTrue(ComparadoraObjetosSerial.compareObjectsSerial(e1, eb));								
 	}
+
 	@Test
 	public void testDAO02() {
 		excluirArquivosDiretorio();
 		String id = ID_1;
 		String nome = NOME_1;
 		EntidadeTeste e1 = new EntidadeTeste(id, nome);
-		Assertions.assertTrue(DAO.incluir(e1));
+		boolean res = DAO.incluir(e1);
+		Assertions.assertTrue(res);
 		Assertions.assertFalse(DAO.incluir(e1));
 		Assertions.assertEquals(obterQtdArquivosDir(NOME_DIR), 1); 
 	}
+
 	@Test
 	public void testDAO03() {
 		excluirArquivosDiretorio();

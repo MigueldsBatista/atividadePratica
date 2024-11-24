@@ -1,4 +1,3 @@
-
 //wtf?!
 
 import java.io.File;
@@ -6,7 +5,7 @@ import java.io.File;
 import br.com.cesarschool.poo.daogenerico.Entidade;
 
 
-public class TesteGeral {
+public class TesteGeral {//file.separator é uma constante que retorna o separador de arquivos do sistema operacional
 	protected static final String SEP_ARQUIVO = System.getProperty("file.separator");
 	protected static final String PONTO = ".";					   //tinha aq entidadeTeste mas mudei 
 																   //pra EntidaeModelo	
@@ -14,14 +13,19 @@ public class TesteGeral {
 	protected void excluirArquivosDiretorio() {
 		excluirArquivosDiretorio(NOME_DIR); 	
 	}
-	protected void excluirArquivosDiretorio(String diretorio) {
+
+	protected boolean excluirArquivosDiretorio(String diretorio) {
 		File dir = new File(diretorio);
 		File[] arqs = dir.listFiles();
+		boolean sucesso = true;
 		if (arqs != null && arqs.length > 0) {
 			for (File file : arqs) {
-				file.delete();
+				if (!file.delete()) {
+					sucesso = false;
+				}
 			}
-		}		
+		}
+		return sucesso;
 	}
 	protected int obterQtdArquivosDir(String caminhoDir) {
 		File[] files = (new File(caminhoDir)).listFiles();

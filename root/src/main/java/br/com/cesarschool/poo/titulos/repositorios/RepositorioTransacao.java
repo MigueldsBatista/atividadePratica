@@ -25,7 +25,7 @@ public class RepositorioTransacao extends RepositorioGeral<Transacao> {
     //FIXME: Corrigir método incluir
     public Transacao[] buscarPorEntidadeCredora(int identificadorEntidadeCredito) {
         List<Transacao> transacoes = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(this.dao.getNomeDiretorio()))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(this.dao.getNomeDir()))) {
             String linha;
             while ((linha = reader.readLine()) != null) {
                 String[] partes = linha.split(";");

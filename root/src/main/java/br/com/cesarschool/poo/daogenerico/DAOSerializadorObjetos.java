@@ -1,168 +1,168 @@
 package br.com.cesarschool.poo.daogenerico;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.lang.reflect.Field;
+
+import java.io.*;
+import java.time.LocalDateTime;
+import java.util.*;
+
 
 public class DAOSerializadorObjetos<T extends Entidade> {
-    private String nomeDiretorio;
-    private Class<T> tipoEntidade;
+    private static final String SEP_ARQUIVO = System.getProperty("file.separator");
+    private static final String PONTO = ".";
+    private String NOME_DIR;  // Alterado para ser variável
 
+    private Class<T> tipoEntidade;
     private Map<String, T> cache;
 
     public DAOSerializadorObjetos(Class<T> tipoEntidade) {
         this.tipoEntidade = tipoEntidade;
-        this.nomeDiretorio = tipoEntidade.getSimpleName() + ".txt";
         this.cache = new HashMap<>();
+        this.NOME_DIR = PONTO + SEP_ARQUIVO + tipoEntidade.getSimpleName();  // Usando o nome da classe específica
+        createIfNotExist();
     }
 
-    // Métodos de serialização e deserialização permanecem iguais
-    public String serialize(T objeto) throws IllegalAccessException {
-        StringBuilder stringBuilder = new StringBuilder();
-        String idUnico = objeto.getIdUnico();
-        if (idUnico == null) {
-            throw new IllegalArgumentException("ID único não pode ser nulo!");
+    private void createIfNotExist() {
+        File dir = new File(NOME_DIR);
+        if (!dir.exists()) {
+            dir.mkdirs();  // Cria o diretório, incluindo quaisquer diretórios pai
         }
-        stringBuilder.append(idUnico).append(";");
-
-        for (Field field : objeto.getClass().getDeclaredFields()) {
-            field.setAccessible(true);
-            Object value = field.get(objeto);
-            stringBuilder.append(value != null ? value.toString() : "null").append(";");
-        }
-        return stringBuilder.toString();
     }
 
-    public T deserialize(String serialized) throws ReflectiveOperationException {
-        String[] parts = serialized.split(";");
-        T objeto = tipoEntidade.getDeclaredConstructor().newInstance();
 
-        Field[] fields = tipoEntidade.getDeclaredFields();
-        for (int i = 0; i < fields.length && i < parts.length; i++) {
-            Field field = fields[i];
-            field.setAccessible(true);
-
-            String value = parts[i].trim();
-            if (!value.equals("null")) {
-                if (field.getType().equals(int.class) || field.getType().equals(Integer.class)) {
-                    field.set(objeto, Integer.parseInt(value));
-                } else if (field.getType().equals(double.class) || field.getType().equals(Double.class)) {
-                    field.set(objeto, Double.parseDouble(value));
-                } else if (field.getType().equals(LocalDate.class)) {
-                    field.set(objeto, LocalDate.parse(value));
-                } else {
-                    field.set(objeto, value);
-                }
+    // Verifica e garante que o arquivo existe
+    private File obterArquivo(T entidade) {
+        File arquivo = new File(NOME_DIR + SEP_ARQUIVO + entidade.getIdUnico());
+        try {
+            if (!arquivo.exists()) {
+                arquivo.createNewFile();  // Cria o arquivo se ele não existir
             }
+        } catch (IOException e) {
+            System.out.println("Erro ao garantir a criação do arquivo: " + e.getMessage());
         }
-        return objeto;
+        return arquivo;
     }
-
-    // Método incluir atualizado para usar cache
+    // Método incluir atualizado para usar FileInputStream e FileOutputStream com Object Streams
     public boolean incluir(T entidade) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(nomeDiretorio, true))) {
-            writer.write(serialize(entidade));
-            writer.newLine();
-            // Atualiza o cache com o novo objeto
-            cache.put(entidade.getIdUnico(), entidade);
-            return true;
+        try {
+            // Verifica se já está no cache
+            if (cache.containsKey(entidade.getIdUnico())) {
+                return false;  // Já existe no cache
+            }
+
+            // Verifica se já existe no arquivo
+            if (this.buscar(entidade.getIdUnico()) != null) {
+                return false;  // Já existe no arquivo
+            }
+
+            // Garante que o arquivo exista
+            File arquivo = obterArquivo(entidade);
+
+            // Usa ObjectOutputStream para escrever objetos no arquivo
+            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(arquivo, true))) {
+                entidade.setDataHoraInclusao(LocalDateTime.now());
+                entidade.setUsuarioInclusao(System.getProperty("user.name"));
+                entidade.setUsuarioUltimaAlteracao(System.getProperty("user.name"));
+                entidade.setDataHoraUltimaAlteracao(LocalDateTime.now());
+                oos.writeObject(entidade);
+                cache.put(entidade.getIdUnico(), entidade);  // Atualiza o cache
+                return true;
+            } catch (IOException e) {
+                // Trata a exceção se houver erro ao escrever o arquivo
+                System.out.println("Erro ao escrever o arquivo: " + e.getMessage());
+                return false;
+            }
+
         } catch (Exception e) {
-            e.printStackTrace();
+            // Captura qualquer exceção genérica
+            System.out.println("Erro inesperado: " + e.getMessage());
             return false;
         }
     }
 
-    // Método alterar atualizado para usar cache
+    // Método alterar atualizado para usar ObjectInputStream e ObjectOutputStream
     public boolean alterar(T objeto) {
         boolean found = false;
-        List<String> lines = new ArrayList<>();
+        List<T> objectsList = new ArrayList<>();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(nomeDiretorio))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(";");
-                String id = parts[0];
-                String idUnicoObjeto = objeto.getIdUnico();
-
-                if (idUnicoObjeto.equals(id)) {
-                    line = serialize(objeto);
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(obterNomeArquivo(objeto)))) {
+            T existingObject;
+            while ((existingObject = (T) ois.readObject()) != null) {
+                if (existingObject.getIdUnico().equals(objeto.getIdUnico())) {
+                    objeto.setUsuarioUltimaAlteracao(System.getProperty("user.name"));
+                    objeto.setDataHoraUltimaAlteracao(LocalDateTime.now());
+                    objectsList.add(objeto);  // Substitui o objeto
                     found = true;
-                }
-                lines.add(line);
-            }
-        } catch (IOException | IllegalAccessException e) {
-            e.printStackTrace();
-            return false;
-        }
-
-        if (!found) {
-            return false;
-        }
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(nomeDiretorio))) {
-            for (String line : lines) {
-                writer.write(line);
-                writer.newLine();
-            }
-            // Atualiza o cache após confirmação da alteração no arquivo
-            cache.put(objeto.getIdUnico(), objeto);
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    // Método excluir atualizado para usar cache
-    public boolean excluir(String idUnico) {
-        List<String> lines = new ArrayList<>();
-        boolean found = false;
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(nomeDiretorio))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(";");
-                if (parts.length == 0) continue;
-
-                String linhaIdUnico = parts[0].trim();
-                if (!linhaIdUnico.equals(idUnico)) {
-                    lines.add(line);
                 } else {
-                    found = true;
+                    objectsList.add(existingObject);  // Mantém os outros objetos
                 }
             }
+        } catch (EOFException e) {
+            // Fim do arquivo, podemos continuar
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        if (!found) return false;
+
+        // Reescreve o arquivo com a lista atualizada de objetos
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(obterNomeArquivo(objeto)))) {
+            for (T entity : objectsList) {
+                oos.writeObject(entity); // Serializa os objetos novamente
+            }
+            cache.put(objeto.getIdUnico(), objeto);  // Atualiza o cache
         } catch (IOException e) {
             e.printStackTrace();
             return false;
         }
 
-        if (!found) {
-            return false;
+        return true;
+    }
+
+    // Método excluir atualizado para usar FileInputStream e ObjectInputStream
+    public boolean excluir(String idUnico) {
+        boolean found = false;
+        File arquivo = new File(NOME_DIR + SEP_ARQUIVO + idUnico );
+
+        if (!arquivo.exists()) {
+            return false;  // Arquivo não encontrado
         }
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(nomeDiretorio))) {
-            for (String line : lines) {
-                writer.write(line);
-                writer.newLine();
+        try {
+            // Cria uma lista de objetos temporária
+            List<T> objetosTemp = new ArrayList<>();
+            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(arquivo))) {
+                T objeto;
+                while ((objeto = (T) ois.readObject()) != null) {
+                    if (!objeto.getIdUnico().equals(idUnico)) {
+                        objetosTemp.add(objeto);
+                    } else {
+                        found = true;
+                    }
+                }
+            } catch (EOFException e) {
+                // Fim do arquivo, pode ignorar essa exceção
             }
-            // Remove o objeto do cache após confirmação da exclusão no arquivo
-            cache.remove(idUnico);
+
+            if (!found) return false;
+
+            // Regrava todos os objetos restantes de volta para o arquivo
+            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(arquivo))) {
+                for (T objeto : objetosTemp) {
+                    oos.writeObject(objeto);
+                }
+            }
+
+            cache.remove(idUnico);  // Remove o objeto do cache
             return true;
-        } catch (IOException e) {
+
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
             return false;
         }
     }
-
-    // Método buscar atualizado para usar cache
+    
+    // Método buscar atualizado para usar FileInputStream e ObjectInputStream
     public T buscar(String idUnico) {
         // Primeiro verifica se o objeto está no cache
         T objetoCache = cache.get(idUnico);
@@ -171,64 +171,63 @@ public class DAOSerializadorObjetos<T extends Entidade> {
         }
 
         // Se não estiver no cache, busca no arquivo
-        try (BufferedReader reader = new BufferedReader(new FileReader(nomeDiretorio))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(";");
-                if (parts.length == 0) continue;
-
-                String linhaIdUnico = parts[0].trim();
-                if (linhaIdUnico.equals(idUnico)) {
-                    T objeto = deserialize(line);
+        try {
+            File arquivo = new File(NOME_DIR + SEP_ARQUIVO + idUnico);
+            if (arquivo.exists()) {
+                try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(arquivo))) {
+                    T objeto = (T) ois.readObject();
                     // Atualiza o cache antes de retornar
                     cache.put(idUnico, objeto);
                     return objeto;
+                } catch (IOException | ClassNotFoundException e) {
+                    e.printStackTrace();
                 }
             }
-        } catch (IOException | ReflectiveOperationException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return null;
     }
 
-    // Método buscarTodos atualizado para usar cache
+    // Método buscarTodos atualizado para usar ObjectInputStream
     public T[] buscarTodos() {
         List<T> lista = new ArrayList<>();
-        
-        try (BufferedReader reader = new BufferedReader(new FileReader(nomeDiretorio))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(";");
-                if (parts.length == 0) continue;
-                
-                String idUnico = parts[0].trim();
-                // Verifica se o objeto já está no cache
-                T objeto = cache.get(idUnico);
-                if (objeto == null) {
-                    // Se não estiver no cache, deserializa e adiciona
-                    objeto = deserialize(line);
-                    cache.put(idUnico, objeto);
+        File[] arquivos = listarArquivosDir(NOME_DIR);
+
+        // Verifica se o diretório contém arquivos
+        if (arquivos != null) {
+            for (File arquivo : arquivos) {
+                if (arquivo.isFile()) {
+                    try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(arquivo))) {
+                        T objeto;
+                        while ((objeto = (T) ois.readObject()) != null) {
+                            lista.add(objeto);
+                        }
+                    } catch (IOException | ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
                 }
-                lista.add(objeto);
             }
-        } catch (IOException | ReflectiveOperationException e) {
-            e.printStackTrace();
         }
-        
+
+        // Retorna todos os objetos encontrados
         return lista.toArray((T[]) java.lang.reflect.Array.newInstance(tipoEntidade, lista.size()));
     }
 
-    //Getters e Setters
-    public String getNomeDiretorio() {
-        return nomeDiretorio;
-    }
-    
-    public void setNomeDiretorio(String nomeDiretorio) {
-        this.nomeDiretorio = nomeDiretorio;
+    private File[] listarArquivosDir(String caminhoDir) {
+        return new File(caminhoDir).listFiles();
     }
 
-    // Método adicional para limpar o cache se necessário
+    private String obterNomeArquivo(T entidade) {
+        return NOME_DIR + SEP_ARQUIVO + entidade.getIdUnico();
+    }
+
+    private String obterNomeArquivo(String idUnico) {
+        return NOME_DIR + SEP_ARQUIVO + idUnico;
+    }
+
+
     public void limparCache() {
         cache.clear();
     }

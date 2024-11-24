@@ -1,5 +1,3 @@
-
-
 import br.com.cesarschool.poo.titulos.utils.Comparavel;
 import br.com.cesarschool.poo.daogenerico.Entidade;
 

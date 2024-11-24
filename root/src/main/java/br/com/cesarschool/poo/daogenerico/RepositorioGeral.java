@@ -44,7 +44,7 @@ public abstract class RepositorioGeral<T extends Entidade> {
     }
 
     // Método para incluir uma entidade
-    public boolean incluir(T entidade) {
+    public boolean incluir(T entidade){
         return dao.incluir(entidade);
     }
 
@@ -63,5 +63,9 @@ public abstract class RepositorioGeral<T extends Entidade> {
 
     public DAOSerializadorObjetos<T> getDao() {
         return dao;
+    }
+
+    public void limparCache() {
+        dao.limparCache();
     }
 }

@@ -29,7 +29,12 @@ public abstract class Entidade implements java.io.Serializable {
     String usuarioInclusao;
     String usuarioUltimaAlteracao;
 
+    
     public Entidade() {
+        this.dataHoraInclusao = LocalDateTime.now();
+        this.dataHoraUltimaAlteracao = LocalDateTime.now();
+        this.usuarioInclusao = System.getProperty("user.name");
+        this.usuarioUltimaAlteracao = System.getProperty("user.name");
     }
 
 
