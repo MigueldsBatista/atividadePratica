@@ -1,6 +1,5 @@
 package br.com.cesarschool.poo.daogenerico;
 
-import java.util.List;
 /*
  * RepositorioGeral é a mãe dos repositórios específicos. É 
 abstrata, tem um método abstrato Class<?> getClasseEntidade() 

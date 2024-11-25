@@ -265,7 +265,9 @@ import java.lang.reflect.Field;
         }
     
         // Retorna todos os objetos encontrados em todos os arquivos
-        return lista.toArray((T[]) java.lang.reflect.Array.newInstance(tipoEntidade, lista.size()));
+        @SuppressWarnings("unchecked")
+        T[] array = (T[]) java.lang.reflect.Array.newInstance(tipoEntidade, lista.size());
+        return lista.toArray(array);
     }
     //Getters e Setters
     public String getNomeDiretorio() {

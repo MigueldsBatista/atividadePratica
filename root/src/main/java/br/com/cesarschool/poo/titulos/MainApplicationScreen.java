@@ -1,13 +1,7 @@
 package br.com.cesarschool.poo.titulos;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 import javax.swing.*;
 
-import br.com.cesarschool.poo.titulos.entidades.*;
-import br.com.cesarschool.poo.titulos.relatorios.*;
-import br.com.cesarschool.poo.titulos.repositorios.*;
 import br.com.cesarschool.poo.titulos.telas.transacao.*;
 import br.com.cesarschool.poo.titulos.telas.acao.*;
 import br.com.cesarschool.poo.titulos.telas.tituloDivida.*;
