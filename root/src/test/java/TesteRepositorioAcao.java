@@ -3,8 +3,6 @@ import java.io.File;
 import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 
 import br.com.cesarschool.poo.titulos.entidades.Acao;

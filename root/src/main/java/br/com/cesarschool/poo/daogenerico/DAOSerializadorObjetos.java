@@ -86,7 +86,7 @@ public class DAOSerializadorObjetos<T extends Entidade> {
 
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(obterNomeArquivo(entidade)))) {
             T existingObject;
-            while ((existingObject = (T) ois.readObject()) != null) {
+            while ((existingObject = tipoEntidade.cast(ois.readObject())) != null) {
                 if (existingObject.getIdUnico().equals(entidade.getIdUnico())) {
                     entidade.setUsuarioUltimaAlteracao(System.getProperty("user.name"));
                     entidade.setDataHoraUltimaAlteracao(LocalDateTime.now());
@@ -147,7 +147,7 @@ public class DAOSerializadorObjetos<T extends Entidade> {
             File arquivo = new File(NOME_DIR + SEP_ARQUIVO + idUnico);
             if (arquivo.exists()) {
                 try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(arquivo))) {
-                    T entidade = (T) ois.readObject();
+                    T entidade = tipoEntidade.cast(ois.readObject());
                     // Atualiza o cache antes de retornar
                     cache.put(idUnico, entidade);
                     return entidade;
@@ -174,7 +174,9 @@ public class DAOSerializadorObjetos<T extends Entidade> {
                 if (arquivo.isFile()) {
                     try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(arquivo))) {
                         T entidade;
-                        while ((entidade = (T) ois.readObject()) != null) {
+                        Object obj;
+                        while ((obj = ois.readObject()) != null) {
+                            entidade = tipoEntidade.cast(obj);
                             lista.add(entidade);
                         }
                     } catch (IOException | ClassNotFoundException e) {
@@ -185,7 +187,9 @@ public class DAOSerializadorObjetos<T extends Entidade> {
         }
 
         // Retorna todos os objetos encontrados
-        return lista.toArray((T[]) java.lang.reflect.Array.newInstance(tipoEntidade, lista.size()));
+        @SuppressWarnings("unchecked")
+        T[] array = (T[]) java.lang.reflect.Array.newInstance(tipoEntidade, lista.size());
+        return lista.toArray(array);
     }
 
     private File[] listarArquivosDir(String caminhoDir) {

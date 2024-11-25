@@ -1,4 +1,3 @@
-//wtf?!
 
 import java.io.File;
 
@@ -14,19 +13,14 @@ public class TesteGeral {//file.separator é uma constante que retorna o separad
 		excluirArquivosDiretorio(NOME_DIR); 	
 	}
 
-	protected boolean excluirArquivosDiretorio(String diretorio) {
+	protected void excluirArquivosDiretorio(String diretorio) {
 		File dir = new File(diretorio);
 		File[] arqs = dir.listFiles();
-		boolean sucesso = true;
 		if (arqs != null && arqs.length > 0) {
 			for (File file : arqs) {
-				if (!file.delete()) {
-					sucesso = false;
-				}
+				file.delete();
 			}
-		}
-		
-		return sucesso;
+		}		
 	}
 	protected int obterQtdArquivosDir(String caminhoDir) {
 		File[] files = (new File(caminhoDir)).listFiles();

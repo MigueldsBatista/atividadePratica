@@ -44,8 +44,8 @@ public class TesteRelatorios extends TesteGeral {
 	}
 	@Test
 	public void t002() {
-		EntidadeOperadora e1 = new EntidadeOperadora(1, "ABC", 100);//TODO implementar esse construtor
-		EntidadeOperadora e2 = new EntidadeOperadora(2, "CDE", 100);//TODO implementar esse construtor
+		EntidadeOperadora e1 = new EntidadeOperadora(1, "ABC", 100);
+		EntidadeOperadora e2 = new EntidadeOperadora(2, "CDE", 100);
 		Transacao t1 = new Transacao(e1, null, null, null, 0, null);
 		Transacao t2 = new Transacao(e2, null, null, null, 0, null);
 		Comparador c = new ComparadorTransacaoPorNomeCredora();
