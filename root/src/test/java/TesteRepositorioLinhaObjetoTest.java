@@ -12,7 +12,6 @@ public class TesteRepositorioLinhaObjetoTest extends TesteGeral{
  * 
  */
 
-
     @Override
     protected void excluirArquivosDiretorio() {
         repositorio.limparCache();
