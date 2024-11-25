@@ -8,7 +8,8 @@ public class TesteGeral {//file.separator é uma constante que retorna o separad
 	protected static final String SEP_ARQUIVO = System.getProperty("file.separator");
 	protected static final String PONTO = ".";					   //tinha aq entidadeTeste mas mudei 
 																   //pra EntidaeModelo	
-	protected static final String NOME_DIR = PONTO + SEP_ARQUIVO + EntidadeModelo.class.getSimpleName();  	
+	protected static final String NOME_DIR = PONTO + SEP_ARQUIVO + EntidadeModelo.class.getSimpleName(); 
+	 	
 	protected void excluirArquivosDiretorio() {
 		excluirArquivosDiretorio(NOME_DIR); 	
 	}
@@ -20,8 +21,9 @@ public class TesteGeral {//file.separator é uma constante que retorna o separad
 			for (File file : arqs) {
 				file.delete();
 			}
-		}		
+		}
 	}
+
 	protected int obterQtdArquivosDir(String caminhoDir) {
 		File[] files = (new File(caminhoDir)).listFiles();
 		if (files == null) {

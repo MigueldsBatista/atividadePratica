@@ -4,7 +4,7 @@ import br.com.cesarschool.poo.titulos.repositorios.*;
 
 public class TesteRepositorioLinhaObjetoTest extends TesteGeral{
 
-    private static final String NOME_REP_LINHA = PONTO + SEP_ARQUIVO + RepositorioLinhaObjeto.class.getSimpleName() +".txt";
+    private static final String NOME_DIR = PONTO + SEP_ARQUIVO + EntidadeModelo.class.getSimpleName();
     private static final RepositorioLinhaObjeto<EntidadeModelo> repositorio = new RepositorioLinhaObjeto<>(EntidadeModelo.class);
 
 /*
@@ -13,24 +13,23 @@ public class TesteRepositorioLinhaObjetoTest extends TesteGeral{
  */
 
     @Override
-    protected void excluirArquivosDiretorio() {
+    protected void excluirArquivosDiretorio(String diretorio) {
         repositorio.limparCache();
-        super.excluirArquivosDiretorio();
+        super.excluirArquivosDiretorio(diretorio);
     }
-
 
     @Test
     public void DAO00() {
-        excluirArquivosDiretorio(NOME_REP_LINHA);
-
+        this.excluirArquivosDiretorio(NOME_DIR);
         EntidadeModelo entidade = new EntidadeModelo(1, "Teste");
-        Assertions.assertTrue(repositorio.incluir(entidade));
+        boolean res = repositorio.incluir(entidade);
+        Assertions.assertTrue(res);
         Assertions.assertEquals(1, obterQtdArquivosDir(NOME_DIR));
     }
 
     @Test
     public void DAO01() {
-        excluirArquivosDiretorio(NOME_REP_LINHA);
+        this.excluirArquivosDiretorio(NOME_DIR);
         EntidadeModelo entidade = new EntidadeModelo(1, "Teste");
         repositorio.incluir(entidade);
         EntidadeModelo entidadeBuscada = repositorio.buscar("1");
@@ -40,7 +39,7 @@ public class TesteRepositorioLinhaObjetoTest extends TesteGeral{
 
     @Test
     public void DAO02() {
-        excluirArquivosDiretorio(NOME_REP_LINHA);
+        this.excluirArquivosDiretorio(NOME_DIR);
 
         EntidadeModelo entidade = new EntidadeModelo(1, "Teste");
         repositorio.incluir(entidade);
@@ -52,7 +51,7 @@ public class TesteRepositorioLinhaObjetoTest extends TesteGeral{
 
     @Test
     public void DAO03() {
-        excluirArquivosDiretorio(NOME_REP_LINHA);
+        this.excluirArquivosDiretorio(NOME_DIR);
 
         EntidadeModelo entidade = new EntidadeModelo(1, "Teste");
         repositorio.incluir(entidade);
@@ -62,7 +61,7 @@ public class TesteRepositorioLinhaObjetoTest extends TesteGeral{
 
     @Test
     public void DAO04() {
-        excluirArquivosDiretorio(NOME_REP_LINHA);
+        this.excluirArquivosDiretorio(NOME_DIR);
 
         EntidadeModelo entidade1 = new EntidadeModelo(1, "Teste1");
         EntidadeModelo entidade2 = new EntidadeModelo(2, "Teste2");
@@ -71,6 +70,5 @@ public class TesteRepositorioLinhaObjetoTest extends TesteGeral{
         EntidadeModelo[] todasEntidades = repositorio.buscarTodos();
         Assertions.assertEquals(2, todasEntidades.length);
     }
-
 
 }
