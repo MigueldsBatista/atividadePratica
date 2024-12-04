@@ -1,0 +1,42 @@
+Classe Aquatico:
+
+Linha: public void flutuar();
+
+Erro: Métodos concretos em uma classe não abstrata precisam ter implementação. Como o método flutuar não possui corpo, ocorre erro de compilação.
+
+Correção: Tornar o método flutuar abstrato ou fornecer uma implementação.
+
+Linha: public abstract void afundar() { System.out.println("AFUNDANDO..."); }
+
+Erro: Métodos abstratos não podem ter corpo. O método afundar foi declarado como abstrato, mas possui uma implementação.
+
+Correção: Remover o modificador abstract ou mover a implementação para uma subclasse concreta.
+
+Classe Anfibio:
+
+Linha: public abstract final class Anfibio extends MeioTransporte { }
+Erro: Uma classe abstrata não pode ser final, pois o modificador final impede que a classe seja estendida, enquanto o modificador abstract implica que a classe precisa ser estendida para implementar métodos abstratos.
+Correção: Remover o modificador final ou abstract, dependendo do propósito da classe.
+Classe Aviao:
+
+Linha: super.voar(); no método voar.
+Erro: A classe Aviao tenta chamar super.voar(), mas o método voar na classe pai (Aereo) é abstrato e, portanto, não pode ser chamado diretamente.
+Correção: Remover a chamada a super.voar() ou implementá-la na classe Aereo.
+Classe Navio:
+
+Linha: public abstract void lastrear();
+Erro: Classes não abstratas não podem conter métodos abstratos. Como a classe Navio não é declarada como abstrata, o método abstrato lastrear causa erro de compilação.
+Correção: Declarar a classe como abstrata ou fornecer uma implementação para o método lastrear.
+Método main em ProgramaMeiosTransportes:
+
+Linha: MeioTransporte mt = new Terrestre();
+
+Erro: A classe Terrestre é abstrata e não pode ser instanciada diretamente.
+
+Correção: Substituir Terrestre por uma classe concreta que herde de Terrestre ou usar uma classe anônima.
+
+Linha: Aereo a1 = new Aereo();
+
+Erro: A classe Aereo é abstrata e não pode ser instanciada diretamente.
+
+Correção: Substituir Aereo por uma classe concreta que herde de Aereo.
